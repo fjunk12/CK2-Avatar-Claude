@@ -13,6 +13,15 @@ character_event = {
 	trigger = { NOT = { has_global_flag = avatar_cycle_broken } } #Set if someone actually kills the Avatar in the Avatar State ##TODO: Adjust when duelling updated, and write accompanying unique event
 	
 	immediate = {
+		# ATLA Fixes: killed in a duel while in the Avatar State (flag set within the last 10 days) -> the cycle ends
+		if = {
+			limit = {
+				has_character_flag = atlafix_in_avatar_state
+				NOT = { had_character_flag = { flag = atlafix_in_avatar_state days = 10 } }
+			}
+			set_global_flag = avatar_cycle_broken
+			any_player = { narrative_event = { id = atlafix.10 days = 7 } }
+		}
 		set_global_flag = avatar_interregnum
 		export_to_variable = {
 			which = global_avatar_death_year
@@ -30,6 +39,8 @@ character_event = {
 		}
 		any_close_relative = { character_event = { id = NAE.331 days = 10 } }
 		
+		if = { # ATLA Fixes: no reincarnation once the cycle is broken
+			limit = { NOT = { has_global_flag = avatar_cycle_broken } }
 		trigger_switch = {
 			on_trigger = has_global_flag
 			avatar_water = { clr_global_flag = avatar_water set_global_flag = avatar_earth }
@@ -58,6 +69,7 @@ character_event = {
 		}
 		
 		random_player = { character_event = { id = NAE.600 years = 18 } } #Ping event to set up reincarnation events
+		}
 	}
 }
 
@@ -71,6 +83,7 @@ character_event = { #Avatar nobility check
 
 	trigger = {
 		NOT = { persistent_event_target:the_avatar = { is_alive = yes } } # ATLA Fixes: no second Avatar next to a living (canon) one
+		NOT = { has_global_flag = avatar_cycle_broken } # ATLA Fixes
 		is_variable_equal = {
 			which = global_avatar_death_year
 			value = year_of_birth
@@ -209,7 +222,7 @@ character_event = { #Spawn peasant avatar - always prefer their own religion/cul
 	
 	is_triggered_only = yes
 	
-	trigger = { NOT = { persistent_event_target:the_avatar = { is_alive = yes } } } # ATLA Fixes
+	trigger = { NOT = { persistent_event_target:the_avatar = { is_alive = yes } } NOT = { has_global_flag = avatar_cycle_broken } } # ATLA Fixes
 	
 	immediate = {
 		clr_global_flag = avatar_interregnum

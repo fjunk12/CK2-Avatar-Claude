@@ -34,3 +34,18 @@ character_event = {
 		}
 	}
 }
+
+# ATLA Fixes: the Avatar was killed within 10 days of entering the Avatar State in a duel.
+# Fired from NAE.001 (on_death) for every player. The cycle is broken: no reincarnation from now on.
+narrative_event = {
+	id = atlafix.10
+	title = atlafix.10.t
+	desc = atlafix.10.d
+	picture = GFX_evt_avatar_defeat
+	border = GFX_event_narrative_frame_avatar
+	is_triggered_only = yes
+
+	option = {
+		name = atlafix.10.a
+	}
+}

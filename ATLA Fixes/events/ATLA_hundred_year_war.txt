@@ -378,8 +378,7 @@ character_event = { # Death of Roku
 	is_triggered_only = yes
 
 	trigger = {
-		has_global_flag = HYW_1
-		trait = firelord
+		trait = firelord # ATLA Fixes (GitHub #615): HYW_1 removed, it is usually not set by 818 so Roku never died
 	}
 
 	option = {
@@ -919,6 +918,7 @@ narrative_event = { # Sozin's Comet Arrives
 		hidden_tooltip = {
 			set_global_flag = HYW_13
 			set_global_flag = HYW_9
+			set_global_flag = HYW_4 # ATLA Fixes: "Airbender purge started" was never set
 			if = { # ATLA Fixes: only firebenders draw power from the comet
 				limit = { trait = firebender }
 				add_character_modifier = { name = power_of_the_comet duration = 4000 }
@@ -2598,10 +2598,12 @@ character_event = { # Air Nomads - Check Survival
 		year = 840
 		NOT = { year = 845 }
 		NOT = { has_global_flag = HYW_21 }
-		NOT = { has_global_flag = HYW_5 }
-		NOT = { has_global_flag = HYW_6 }
-		NOT = { has_global_flag = HYW_7 }
-		NOT = { has_global_flag = HYW_8 }
+		OR = { # ATLA Fixes: the "temple destroyed" flags HYW_5-8 are never set, so this fired even after a successful purge
+			c_northern_air_temple = { holder_scope = { religion_group = air_religions } }
+			c_southern_air_temple = { holder_scope = { religion_group = air_religions } }
+			c_eastern_air_temple = { holder_scope = { religion_group = air_religions } }
+			c_western_air_temple = { holder_scope = { religion_group = air_religions } }
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -4387,13 +4389,16 @@ character_event = { # SHDS - Prince's Ambition - Firelord hears
 			set_character_flag = usurper_son
 			break = yes
 		}
-		random_child = {
-			limit = {
-				is_adult = yes
-				NOT = { has_character_flag = chosen_son }
+		if = { # ATLA Fixes: fallback only when there is no adult Ozai (it used to overwrite him)
+			limit = { NOT = { any_child = { is_adult = yes has_character_flag = is_ozai } } }
+			random_child = {
+				limit = {
+					is_adult = yes
+					NOT = { has_character_flag = chosen_son }
+				}
+				save_event_target_as = usurper_son
+				set_character_flag = usurper_son
 			}
-			save_event_target_as = usurper_son
-			set_character_flag = usurper_son
 		}
 	}
 	
@@ -4686,13 +4691,16 @@ character_event = { # SHDS - Firelord hears of victory
 			set_character_flag = usurper_son
 			break = yes
 		}
-		random_child = {
-			limit = {
-				is_adult = yes
-				NOT = { has_character_flag = chosen_son }
+		if = { # ATLA Fixes: fallback only when there is no adult Ozai (it used to overwrite him)
+			limit = { NOT = { any_child = { is_adult = yes has_character_flag = is_ozai } } }
+			random_child = {
+				limit = {
+					is_adult = yes
+					NOT = { has_character_flag = chosen_son }
+				}
+				save_event_target_as = usurper_son
+				set_character_flag = usurper_son
 			}
-			save_event_target_as = usurper_son
-			set_character_flag = usurper_son
 		}
 	}
 
