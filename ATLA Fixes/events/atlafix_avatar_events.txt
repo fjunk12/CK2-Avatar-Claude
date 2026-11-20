@@ -1,0 +1,36 @@
+# ATLA Fixes: safety net for the Avatar cycle.
+# The next Avatar is spawned by a delayed event (NAE.004, 16 years) queued on a random player character.
+# Delayed events die with the character they are queued on, so if that ruler died within 16 years
+# (or nobody was a player, e.g. observe mode) the Avatar never reincarnated.
+# Once a year this checks for that case and spawns the Avatar if it is more than 18 years overdue.
+namespace = atlafix
+
+character_event = {
+	id = atlafix.1
+	hide_window = yes
+	is_triggered_only = yes # on_yearly_pulse
+
+	only_rulers = yes
+	has_global_flag = avatar_interregnum
+
+	trigger = {
+		NOT = { has_global_flag = avatar_cycle_broken }
+		NOT = { persistent_event_target:the_avatar = { is_alive = yes } }
+		OR = {
+			NOT = { has_global_flag = atlafix_tick }
+			had_global_flag = { flag = atlafix_tick days = 330 }
+		}
+	}
+
+	immediate = {
+		clr_global_flag = atlafix_tick
+		set_global_flag = atlafix_tick # only one character runs the check each year
+		export_to_variable = { which = global_atlafix_gap value = year }
+		subtract_variable = { which = global_atlafix_gap which = global_avatar_death_year }
+		if = {
+			limit = { check_variable = { which = global_atlafix_gap value >= 18 } }
+			log = "ATLA Fixes: the Avatar did not reincarnate in time - spawning the next Avatar"
+			character_event = { id = NAE.004 }
+		}
+	}
+}
