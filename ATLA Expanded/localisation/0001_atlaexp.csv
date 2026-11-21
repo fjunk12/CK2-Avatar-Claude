@@ -1,0 +1,20 @@
+#CODE;ENGLISH;FRENCH;GERMAN;;SPANISH;;;;;;;;;x
+atx_review_tribute;Ba Sing Se and Us;;;;;;;;;;;;;x
+atx_review_tribute_desc;Consider what Ba Sing Se expects of our realm this year.;;;;;;;;;;;;;x
+atx_withhold_tribute;Withhold Tribute from Ba Sing Se;;;;;;;;;;;;;x
+atx_withhold_tribute_desc;Ba Sing Se is far away and its demands are many. Stop sending tribute. Where the crown is strong enough to expect it, each year of defiance costs the Earth King authority and angers them, but our standing grows.;;;;;;;;;;;;;x
+atx_resume_tribute;Resume Tribute to Ba Sing Se;;;;;;;;;;;;;x
+atx_resume_tribute_desc;Make peace with the crown and send tribute again.;;;;;;;;;;;;;x
+atlaexp.2.d;A courier in the green and gold of Ba Sing Se has arrived with a sealed command from [From.GetTitledFirstName]. Foreign armies have marched on the Earth Kingdom, and the crown reminds us that realms which owe it obedience are expected to stand with it.;;;;;;;;;;;;;x
+atlaexp.2.a;We stand with Ba Sing Se.;;;;;;;;;;;;;x
+atlaexp.2.b;This is not our war.;;;;;;;;;;;;;x
+atlaexp.3.d_nominal;Ba Sing Se is a name we honour and little more. With the crown this weak, or this far away, our realm is answerable to no one but ourselves. We send nothing.;;;;;;;;;;;;;x
+atlaexp.3.d_recognised;We recognise the Earth King as the head of the Earth Kingdom. Our realm sends a modest gift each year if we are a duke or greater (2, 4 or 8 gold), and otherwise governs itself.;;;;;;;;;;;;;x
+atlaexp.3.d_tribute;The crown in Ba Sing Se is strong enough to expect tribute from us. Each year we send gold: 4 as a duke, 8 as a king and 16 as an emperor. Counts are spared unless the crown commands obedience. If our capital lies in the de jure kingdom of another independent Earth king, half of it goes to them. We may withhold it, but the crown will remember.;;;;;;;;;;;;;x
+atlaexp.3.d_obedience;Ba Sing Se commands obedience from realms this close to the capital. We pay full tribute (2 gold a year even as a count), and when foreign armies attack the Earth King we will be called to defend the crown. Refusing the call costs prestige and damages Ba Sing Se's authority.;;;;;;;;;;;;;x
+atlaexp.3.a;So it is.;;;;;;;;;;;;;x
+opinion_atx_withholds_tribute;Withholds Tribute;;;;;;;;;;;;;x
+opinion_atx_answered_call;Answered the Call of Ba Sing Se;;;;;;;;;;;;;x
+opinion_atx_refused_call;Refused the Call of Ba Sing Se;;;;;;;;;;;;;x
+atx_defying_ba_sing_se;Defying Ba Sing Se;;;;;;;;;;;;;x
+atx_defying_ba_sing_se_desc;This ruler refuses to send tribute to the Earth King.;;;;;;;;;;;;;x

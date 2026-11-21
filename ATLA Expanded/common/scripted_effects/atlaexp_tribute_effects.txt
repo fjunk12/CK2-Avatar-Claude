@@ -1,0 +1,101 @@
+# ATLA Expanded - Ba Sing Se tribute system: effects
+# Run in the payer's scope from atlaexp.1, with event targets atx_earth_king and atx_bss saved.
+# If the payer's capital lies in a de jure kingdom held by another independent Earth ruler of king
+# tier or higher, that regional ruler keeps half of the payment as middleman.
+
+atx_find_regional_lord_effect = {
+	clr_character_flag = atx_has_regional
+	save_event_target_as = atx_payer
+	capital_scope = {
+		kingdom = {
+			if = {
+				limit = {
+					has_holder = yes
+					holder_scope = {
+						NOT = { character = event_target:atx_payer }
+						NOT = { character = event_target:atx_earth_king }
+						independent = yes
+						higher_tier_than = DUKE
+						atx_valid_earth_king_trigger = yes
+					}
+				}
+				holder_scope = { save_event_target_as = atx_regional }
+				event_target:atx_payer = { set_character_flag = atx_has_regional }
+			}
+		}
+	}
+}
+
+# Pays N gold: half to the regional lord if there is one, the rest to Ba Sing Se. N must be even.
+atx_pay_2_effect = {
+	wealth = -2
+	if = {
+		limit = { has_character_flag = atx_has_regional }
+		event_target:atx_regional = { wealth = 1 }
+		event_target:atx_earth_king = { wealth = 1 }
+	}
+	else = { event_target:atx_earth_king = { wealth = 2 } }
+}
+atx_pay_4_effect = {
+	wealth = -4
+	if = {
+		limit = { has_character_flag = atx_has_regional }
+		event_target:atx_regional = { wealth = 2 }
+		event_target:atx_earth_king = { wealth = 2 }
+	}
+	else = { event_target:atx_earth_king = { wealth = 4 } }
+}
+atx_pay_8_effect = {
+	wealth = -8
+	if = {
+		limit = { has_character_flag = atx_has_regional }
+		event_target:atx_regional = { wealth = 4 }
+		event_target:atx_earth_king = { wealth = 4 }
+	}
+	else = { event_target:atx_earth_king = { wealth = 8 } }
+}
+atx_pay_16_effect = {
+	wealth = -16
+	if = {
+		limit = { has_character_flag = atx_has_regional }
+		event_target:atx_regional = { wealth = 8 }
+		event_target:atx_earth_king = { wealth = 8 }
+	}
+	else = { event_target:atx_earth_king = { wealth = 16 } }
+}
+
+# Recognised: dukes 2, kings 4, emperors 8 (counts only acknowledge)
+atx_pay_recognised_effect = {
+	if = {
+		limit = { tier = EMPEROR wealth = 8 }
+		atx_pay_8_effect = yes
+	}
+	else_if = {
+		limit = { tier = KING wealth = 4 }
+		atx_pay_4_effect = yes
+	}
+	else_if = {
+		limit = { tier = DUKE wealth = 2 }
+		atx_pay_2_effect = yes
+	}
+}
+
+# Tribute: dukes 4, kings 8, emperors 16. Counts pay 2 only under obedience.
+atx_pay_tribute_effect = {
+	if = {
+		limit = { tier = EMPEROR wealth = 16 }
+		atx_pay_16_effect = yes
+	}
+	else_if = {
+		limit = { tier = KING wealth = 8 }
+		atx_pay_8_effect = yes
+	}
+	else_if = {
+		limit = { tier = DUKE wealth = 4 }
+		atx_pay_4_effect = yes
+	}
+	else_if = {
+		limit = { tier = COUNT wealth = 2 atx_tier_obedience_trigger = yes }
+		atx_pay_2_effect = yes
+	}
+}

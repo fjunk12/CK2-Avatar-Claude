@@ -20,3 +20,29 @@ The Python builder in `tools/` regenerates the submod from a clean copy of the m
 The two hand-written files (`events/atlafix_avatar_events.txt`, `common/on_actions/zz_atlafix_on_actions.txt`) live only in this repo.
 
 See [CHANGES.md](CHANGES.md) for every fix and where it is.
+
+## ATLA Expanded (submod, separate from the fixes)
+
+New content for the Fire Nation and Earth Kingdom regions (including the Si Wong Desert and the Sun Warriors).
+Install like ATLA Fixes: copy `ATLA Expanded.mod` and the `ATLA Expanded` folder into the mod folder and enable it
+with the main mod. It does not need ATLA Fixes and does not override any file of the main mod. Not yet tested in game.
+
+### v0.1: Ba Sing Se's tribute
+- Independent Earth realms owe Ba Sing Se according to the Earth King's Royal Authority and their distance from the
+  Royal Palace (province 109): under 450 map pixels is near, 450-850 middle, over 850 far.
+
+| Royal Authority | Near | Middle | Far |
+|---|---|---|---|
+| Recognised (dukes 2, kings 4, emperors 8 gold a year) | 1+ | 21+ | 51+ |
+| Tribute (dukes 4, kings 8, emperors 16) | 21+ | 51+ | 81+ |
+| Obedience (tribute, counts 2, called to defend against foreign attackers) | 61+ | 81+ | never |
+
+- No obedience while Kyoshi's constitution is in force (the main mod's `kyoshi_parliamental_monarch` flag).
+- Exempt: Way of Chin realms, Si Wong tribes (sandbender culture or Si Wong faith, or a capital in the desert),
+  barbarians, tributaries and anyone at war with the Earth King. The collector must be an Earth Kingdom ruler of an
+  Earth faith holding the Earth Kingdom (a foreign or Chin conqueror of Ba Sing Se collects nothing).
+- Regional kings: if a payer's capital lies in the de jure kingdom of another independent Earth ruler of king tier or
+  higher, that ruler keeps half.
+- Decisions for payers: "Ba Sing Se and Us" (shows the current obligation), "Withhold Tribute" (each year where tribute
+  is expected: Royal Authority -1, the Earth King's opinion -20, some prestige for the defier), "Resume Tribute".
+- Refusing a call to arms: prestige -50, Royal Authority -3, the Earth King's opinion -40.

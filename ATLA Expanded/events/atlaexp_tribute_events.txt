@@ -1,0 +1,150 @@
+# ATLA Expanded - Ba Sing Se tribute system
+# atlaexp.1  yearly collection, runs once a year on the ruler of Ba Sing Se (on_yearly_pulse, hidden)
+# atlaexp.2  the Earth King calls an obedient realm to defend against a foreign attacker
+# atlaexp.3  "Ba Sing Se and us": shows a ruler their current obligation (from a decision)
+namespace = atlaexp
+
+character_event = {
+	id = atlaexp.1
+	hide_window = yes
+	is_triggered_only = yes # on_yearly_pulse
+
+	only_independent = yes
+
+	trigger = {
+		OR = {
+			has_landed_title = e_earth_kingdom
+			AND = {
+				has_landed_title = k_earth_kingdom
+				NOT = { e_earth_kingdom = { has_holder = yes } }
+			}
+		}
+		atx_valid_earth_king_trigger = yes
+	}
+
+	immediate = {
+		save_event_target_as = atx_earth_king
+		109 = { save_event_target_as = atx_bss } # Royal Earth Palace
+		clr_character_flag = atx_under_foreign_attack
+		if = {
+			limit = {
+				any_war = {
+					defender = { character = ROOT }
+					attacker = { NOT = { religion_group = earth_religions } }
+				}
+			}
+			set_character_flag = atx_under_foreign_attack
+		}
+		any_independent_ruler = {
+			limit = {
+				atx_tribute_payer_base_trigger = yes
+				NOT = { war_with = ROOT }
+				atx_tier_recognised_trigger = yes
+			}
+			atx_find_regional_lord_effect = yes
+			if = {
+				limit = { has_character_flag = atx_withholding }
+				# Defiance hurts the crown only where it actually expects tribute
+				if = {
+					limit = {
+						atx_tier_tribute_trigger = yes
+						higher_tier_than = COUNT
+					}
+					change_variable = { which = global_royalAuthority value = -1 }
+					prestige = 5
+					ROOT = { opinion = { who = PREV modifier = opinion_atx_withholds_tribute months = 13 } }
+				}
+			}
+			else_if = {
+				limit = { atx_tier_tribute_trigger = yes }
+				atx_pay_tribute_effect = yes
+				if = {
+					limit = {
+						ROOT = { has_character_flag = atx_under_foreign_attack }
+						atx_tier_obedience_trigger = yes
+						NOT = { war_with = ROOT }
+						OR = {
+							NOT = { has_character_flag = atx_called }
+							had_character_flag = { flag = atx_called days = 700 }
+						}
+					}
+					clr_character_flag = atx_called
+					set_character_flag = atx_called
+					letter_event = { id = atlaexp.2 days = 3 }
+				}
+			}
+			else = {
+				atx_pay_recognised_effect = yes
+			}
+			clr_character_flag = atx_has_regional
+		}
+	}
+}
+
+letter_event = {
+	id = atlaexp.2
+	desc = atlaexp.2.d
+	border = GFX_event_letter_frame_war
+	is_triggered_only = yes
+
+	trigger = {
+		FROM = { is_alive = yes }
+		NOT = { war_with = FROM }
+	}
+
+	option = { # Answer the call
+		name = atlaexp.2.a
+		join_defender_wars = FROM
+		FROM = { opinion = { who = ROOT modifier = opinion_atx_answered_call years = 10 } }
+		ai_chance = {
+			factor = 70
+			modifier = { factor = 2 opinion = { who = FROM value = 25 } }
+			modifier = { factor = 0.3 NOT = { opinion = { who = FROM value = 0 } } }
+			modifier = { factor = 0.5 trait = craven }
+			modifier = { factor = 1.5 trait = brave }
+		}
+	}
+	option = { # Refuse
+		name = atlaexp.2.b
+		prestige = -50
+		change_variable = { which = global_royalAuthority value = -3 }
+		FROM = { opinion = { who = ROOT modifier = opinion_atx_refused_call years = 10 } }
+		ai_chance = { factor = 30 }
+	}
+}
+
+character_event = {
+	id = atlaexp.3
+	desc = {
+		trigger = { NOT = { atx_tier_recognised_trigger = yes } }
+		text = atlaexp.3.d_nominal
+	}
+	desc = {
+		trigger = {
+			atx_tier_recognised_trigger = yes
+			NOT = { atx_tier_tribute_trigger = yes }
+		}
+		text = atlaexp.3.d_recognised
+	}
+	desc = {
+		trigger = {
+			atx_tier_tribute_trigger = yes
+			NOT = { atx_tier_obedience_trigger = yes }
+		}
+		text = atlaexp.3.d_tribute
+	}
+	desc = {
+		trigger = { atx_tier_obedience_trigger = yes }
+		text = atlaexp.3.d_obedience
+	}
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+
+	immediate = {
+		109 = { save_event_target_as = atx_bss }
+	}
+
+	option = {
+		name = atlaexp.3.a
+	}
+}

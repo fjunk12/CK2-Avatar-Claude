@@ -1,0 +1,5 @@
+# ATLA Expanded - Ba Sing Se tribute system
+atx_defying_ba_sing_se = {
+	icon = 19
+	monthly_character_prestige = 0.1
+}

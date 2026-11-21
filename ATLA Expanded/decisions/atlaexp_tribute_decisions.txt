@@ -1,0 +1,70 @@
+# ATLA Expanded - Ba Sing Se tribute system: decisions for the independent Earth realms
+decisions = {
+	atx_review_tribute = { # Shows the ruler where they stand
+		ai = no
+		potential = {
+			atx_tribute_payer_base_trigger = yes
+			OR = {
+				e_earth_kingdom = { has_holder = yes }
+				k_earth_kingdom = { has_holder = yes }
+			}
+		}
+		allow = { always = yes }
+		effect = {
+			character_event = { id = atlaexp.3 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	atx_withhold_tribute = {
+		ai_check_interval = 24
+		potential = {
+			atx_tribute_payer_base_trigger = yes
+			NOT = { has_character_flag = atx_withholding }
+			OR = {
+				e_earth_kingdom = { has_holder = yes }
+				k_earth_kingdom = { has_holder = yes }
+			}
+		}
+		allow = {
+			prisoner = no
+		}
+		effect = {
+			set_character_flag = atx_withholding
+			add_character_modifier = { name = atx_defying_ba_sing_se duration = -1 }
+		}
+		ai_will_do = {
+			factor = 0.05
+			modifier = { factor = 3 trait = ambitious }
+			modifier = { factor = 2 trait = proud }
+			modifier = { factor = 2 trait = greedy }
+			modifier = { factor = 2 higher_tier_than = DUKE }
+			modifier = { factor = 0.2 trait = content }
+			modifier = { factor = 0.3 trait = humble }
+			modifier = { factor = 0.5 trait = craven }
+		}
+	}
+
+	atx_resume_tribute = {
+		ai_check_interval = 24
+		potential = {
+			has_character_flag = atx_withholding
+		}
+		allow = {
+			prisoner = no
+		}
+		effect = {
+			clr_character_flag = atx_withholding
+			remove_character_modifier = atx_defying_ba_sing_se
+		}
+		ai_will_do = {
+			factor = 0.1
+			modifier = { factor = 4 NOT = { atx_tribute_payer_base_trigger = yes } } # no longer relevant
+			modifier = { factor = 3 trait = content }
+			modifier = { factor = 2 trait = humble }
+			modifier = { factor = 2 trait = craven }
+			modifier = { factor = 0.3 trait = ambitious }
+			modifier = { factor = 0.5 trait = proud }
+		}
+	}
+}

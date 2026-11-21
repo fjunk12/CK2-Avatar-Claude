@@ -1,0 +1,10 @@
+# ATLA Expanded - Ba Sing Se tribute system
+opinion_atx_withholds_tribute = {
+	opinion = -20
+}
+opinion_atx_answered_call = {
+	opinion = 30
+}
+opinion_atx_refused_call = {
+	opinion = -40
+}
