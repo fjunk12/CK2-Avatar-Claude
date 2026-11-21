@@ -2,6 +2,8 @@
 # atlaexp.1  yearly collection, runs once a year on the ruler of Ba Sing Se (on_yearly_pulse, hidden)
 # atlaexp.2  the Earth King calls an obedient realm to defend against a foreign attacker
 # atlaexp.3  "Ba Sing Se and us": shows a ruler their current obligation (from a decision)
+# atlaexp.4  a foreign or Way of Chin holder of Ba Sing Se loots the treasury (on_yearly_pulse, hidden)
+# atlaexp.5  the Royal Treasury: balance and projects (from a decision)
 namespace = atlaexp
 
 character_event = {
@@ -25,6 +27,15 @@ character_event = {
 	immediate = {
 		save_event_target_as = atx_earth_king
 		109 = { save_event_target_as = atx_bss } # Royal Earth Palace
+		# Graft: an unreformed bureaucracy loses 10% of the treasury a year, a reformed one 3%
+		if = {
+			limit = { has_character_modifier = atx_crown_bureaucracy }
+			multiply_variable = { which = global_atx_treasury value = 0.97 }
+		}
+		else = {
+			multiply_variable = { which = global_atx_treasury value = 0.9 }
+		}
+		atx_refresh_projects_effect = yes
 		clr_character_flag = atx_under_foreign_attack
 		if = {
 			limit = {
@@ -146,5 +157,34 @@ character_event = {
 
 	option = {
 		name = atlaexp.3.a
+	}
+}
+
+character_event = {
+	id = atlaexp.4
+	hide_window = yes
+	is_triggered_only = yes # on_yearly_pulse
+
+	only_independent = yes
+
+	trigger = {
+		has_landed_title = k_earth_kingdom
+		NOT = { atx_valid_earth_king_trigger = yes }
+		check_variable = { which = global_atx_treasury value = 1 }
+	}
+
+	immediate = {
+		atx_loot_treasury_effect = yes
+	}
+}
+
+character_event = {
+	id = atlaexp.5
+	desc = atlaexp.5.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.5.a
 	}
 }

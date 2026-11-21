@@ -2,5 +2,6 @@
 on_yearly_pulse = {
 	events = {
 		atlaexp.1 # Ba Sing Se tribute (runs only for the ruler of Ba Sing Se)
+		atlaexp.4 # a foreign holder of Ba Sing Se loots the treasury
 	}
 }

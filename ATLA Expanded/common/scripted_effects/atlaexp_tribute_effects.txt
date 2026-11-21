@@ -1,7 +1,7 @@
 # ATLA Expanded - Ba Sing Se tribute system: effects
 # Run in the payer's scope from atlaexp.1, with event targets atx_earth_king and atx_bss saved.
 # If the payer's capital lies in a de jure kingdom held by another independent Earth ruler of king
-# tier or higher, that regional ruler keeps half of the payment as middleman.
+# tier or higher, that regional ruler collects it for the crown and gains prestige.
 
 atx_find_regional_lord_effect = {
 	clr_character_flag = atx_has_regional
@@ -26,42 +26,39 @@ atx_find_regional_lord_effect = {
 	}
 }
 
-# Pays N gold: half to the regional lord if there is one, the rest to Ba Sing Se. N must be even.
+# Pays N gold into the Ba Sing Se treasury (global_atx_treasury), never to the Earth King personally.
+# A regional king collecting it on the crown's behalf earns prestige, not gold.
 atx_pay_2_effect = {
 	wealth = -2
+	change_variable = { which = global_atx_treasury value = 2 }
 	if = {
 		limit = { has_character_flag = atx_has_regional }
-		event_target:atx_regional = { wealth = 1 }
-		event_target:atx_earth_king = { wealth = 1 }
+		event_target:atx_regional = { prestige = 2 }
 	}
-	else = { event_target:atx_earth_king = { wealth = 2 } }
 }
 atx_pay_4_effect = {
 	wealth = -4
+	change_variable = { which = global_atx_treasury value = 4 }
 	if = {
 		limit = { has_character_flag = atx_has_regional }
-		event_target:atx_regional = { wealth = 2 }
-		event_target:atx_earth_king = { wealth = 2 }
+		event_target:atx_regional = { prestige = 4 }
 	}
-	else = { event_target:atx_earth_king = { wealth = 4 } }
 }
 atx_pay_8_effect = {
 	wealth = -8
+	change_variable = { which = global_atx_treasury value = 8 }
 	if = {
 		limit = { has_character_flag = atx_has_regional }
-		event_target:atx_regional = { wealth = 4 }
-		event_target:atx_earth_king = { wealth = 4 }
+		event_target:atx_regional = { prestige = 8 }
 	}
-	else = { event_target:atx_earth_king = { wealth = 8 } }
 }
 atx_pay_16_effect = {
 	wealth = -16
+	change_variable = { which = global_atx_treasury value = 16 }
 	if = {
 		limit = { has_character_flag = atx_has_regional }
-		event_target:atx_regional = { wealth = 8 }
-		event_target:atx_earth_king = { wealth = 8 }
+		event_target:atx_regional = { prestige = 16 }
 	}
-	else = { event_target:atx_earth_king = { wealth = 16 } }
 }
 
 # Recognised: dukes 2, kings 4, emperors 8 (counts only acknowledge)
@@ -97,5 +94,45 @@ atx_pay_tribute_effect = {
 	else_if = {
 		limit = { tier = COUNT wealth = 2 atx_tier_obedience_trigger = yes }
 		atx_pay_2_effect = yes
+	}
+}
+
+# Moves the whole treasury into the current scope's personal wealth (used when a foreign or Chin ruler
+# takes Ba Sing Se and loots it). CK2 cannot add a variable to wealth, so it is paid out in chunks.
+atx_loot_treasury_effect = {
+	while = {
+		limit = { check_variable = { which = global_atx_treasury value = 50 } }
+		wealth = 50
+		change_variable = { which = global_atx_treasury value = -50 }
+	}
+	while = {
+		limit = { check_variable = { which = global_atx_treasury value = 10 } }
+		wealth = 10
+		change_variable = { which = global_atx_treasury value = -10 }
+	}
+	while = {
+		limit = { check_variable = { which = global_atx_treasury value = 1 } }
+		wealth = 1
+		change_variable = { which = global_atx_treasury value = -1 }
+	}
+	set_variable = { which = global_atx_treasury value = 0 }
+}
+
+# Keeps a 10-year crown project's modifier on whoever holds Ba Sing Se, so projects survive a change of ruler
+atx_refresh_projects_effect = {
+	if = {
+		limit = { has_global_flag = atx_proj_bureaucracy NOT = { had_global_flag = { flag = atx_proj_bureaucracy days = 3650 } } }
+		remove_character_modifier = atx_crown_bureaucracy
+		add_character_modifier = { name = atx_crown_bureaucracy days = 380 }
+	}
+	if = {
+		limit = { has_global_flag = atx_proj_army NOT = { had_global_flag = { flag = atx_proj_army days = 3650 } } }
+		remove_character_modifier = atx_crown_army
+		add_character_modifier = { name = atx_crown_army days = 380 }
+	}
+	if = {
+		limit = { has_global_flag = atx_proj_dai_li NOT = { had_global_flag = { flag = atx_proj_dai_li days = 3650 } } }
+		remove_character_modifier = atx_crown_dai_li
+		add_character_modifier = { name = atx_crown_dai_li days = 380 }
 	}
 }

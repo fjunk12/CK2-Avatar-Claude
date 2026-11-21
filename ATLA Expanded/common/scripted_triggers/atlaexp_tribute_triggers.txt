@@ -93,3 +93,16 @@ atx_tier_obedience_trigger = {
 		}
 	}
 }
+
+# The ruler who collects tribute and spends the Ba Sing Se treasury
+atx_ruler_of_ba_sing_se_trigger = {
+	independent = yes
+	OR = {
+		has_landed_title = e_earth_kingdom
+		AND = {
+			has_landed_title = k_earth_kingdom
+			NOT = { e_earth_kingdom = { has_holder = yes } }
+		}
+	}
+	atx_valid_earth_king_trigger = yes
+}

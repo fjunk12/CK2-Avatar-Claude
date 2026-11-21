@@ -8,3 +8,6 @@ opinion_atx_answered_call = {
 opinion_atx_refused_call = {
 	opinion = -40
 }
+opinion_atx_crown_relief = {
+	opinion = 15
+}

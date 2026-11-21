@@ -10,7 +10,7 @@ atlaexp.2.a;We stand with Ba Sing Se.;;;;;;;;;;;;;x
 atlaexp.2.b;This is not our war.;;;;;;;;;;;;;x
 atlaexp.3.d_nominal;Ba Sing Se is a name we honour and little more. With the crown this weak, or this far away, our realm is answerable to no one but ourselves. We send nothing.;;;;;;;;;;;;;x
 atlaexp.3.d_recognised;We recognise the Earth King as the head of the Earth Kingdom. Our realm sends a modest gift each year if we are a duke or greater (2, 4 or 8 gold), and otherwise governs itself.;;;;;;;;;;;;;x
-atlaexp.3.d_tribute;The crown in Ba Sing Se is strong enough to expect tribute from us. Each year we send gold: 4 as a duke, 8 as a king and 16 as an emperor. Counts are spared unless the crown commands obedience. If our capital lies in the de jure kingdom of another independent Earth king, half of it goes to them. We may withhold it, but the crown will remember.;;;;;;;;;;;;;x
+atlaexp.3.d_tribute;The crown in Ba Sing Se is strong enough to expect tribute from us. Each year we send gold: 4 as a duke, 8 as a king and 16 as an emperor. Counts are spared unless the crown commands obedience. It goes into the treasury of Ba Sing Se, not to the Earth King personally. If our capital lies in the de jure kingdom of another independent Earth king, they collect it on the crown's behalf and gain prestige for it. We may withhold it, but the crown will remember.;;;;;;;;;;;;;x
 atlaexp.3.d_obedience;Ba Sing Se commands obedience from realms this close to the capital. We pay full tribute (2 gold a year even as a count), and when foreign armies attack the Earth King we will be called to defend the crown. Refusing the call costs prestige and damages Ba Sing Se's authority.;;;;;;;;;;;;;x
 atlaexp.3.a;So it is.;;;;;;;;;;;;;x
 opinion_atx_withholds_tribute;Withholds Tribute;;;;;;;;;;;;;x
@@ -18,3 +18,45 @@ opinion_atx_answered_call;Answered the Call of Ba Sing Se;;;;;;;;;;;;;x
 opinion_atx_refused_call;Refused the Call of Ba Sing Se;;;;;;;;;;;;;x
 atx_defying_ba_sing_se;Defying Ba Sing Se;;;;;;;;;;;;;x
 atx_defying_ba_sing_se_desc;This ruler refuses to send tribute to the Earth King.;;;;;;;;;;;;;x
+atx_view_treasury;The Treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_view_treasury_desc;Review the crown's treasury and the projects it is paying for.;;;;;;;;;;;;;x
+atx_fund_borders;Strengthen the Borders;;;;;;;;;;;;;x
+atx_fund_borders_desc;Pay to garrison and fortify every province on the edge of our realm for ten years: larger garrisons, stronger forts and faster levy reinforcement.;;;;;;;;;;;;;x
+atx_fund_bureaucracy;Reform the Bureaucracy;;;;;;;;;;;;;x
+atx_fund_bureaucracy_desc;Pay the clerks of the Grand Secretariat properly for ten years. Taxes are collected more efficiently, building is cheaper, and the treasury loses far less to graft.;;;;;;;;;;;;;x
+atx_fund_army;Fund the Council of Five;;;;;;;;;;;;;x
+atx_fund_army_desc;Give the generals of the Council of Five the means to keep a standing force for ten years.;;;;;;;;;;;;;x
+atx_fund_dai_li;Fund the Dai Li;;;;;;;;;;;;;x
+atx_fund_dai_li_desc;Give the Dai Li the means to watch the court and the city for ten years.;;;;;;;;;;;;;x
+atx_send_relief;Send Relief to the Provinces;;;;;;;;;;;;;x
+atx_send_relief_desc;Send grain, builders and coin to the realms that owe Ba Sing Se. In Kyoshi's day such policies kept the peace between the states. Their rulers will think better of the crown, and the crown's authority grows.;;;;;;;;;;;;;x
+atx_proclaim_mandate;Proclaim the Mandate of Ba Sing Se;;;;;;;;;;;;;x
+atx_proclaim_mandate_desc;Spend lavishly on ceremony, envoys and gifts to remind the states who wears the crown. Royal Authority increases greatly.;;;;;;;;;;;;;x
+atx_draw_on_treasury;Draw on the Treasury;;;;;;;;;;;;;x
+atx_draw_on_treasury_desc;The treasury belongs to the crown, and we are the crown. Take 100 gold from it. Half of it reaches our purse, the rest disappears along the way, and word of it weakens the crown's authority.;;;;;;;;;;;;;x
+atx_treasury_60_tt;The treasury holds at least §Y60§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_80_tt;The treasury holds at least §Y80§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_100_tt;The treasury holds at least §Y100§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_120_tt;The treasury holds at least §Y120§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_150_tt;The treasury holds at least §Y150§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_60_tt;§R60§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_80_tt;§R80§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_100_tt;§R100§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_120_tt;§R120§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_150_tt;§R150§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_project_running_tt;This project is not already running (projects last ten years);;;;;;;;;;;;;x
+atx_project_ten_years_tt;The project runs for ten years, and continues under the next ruler of Ba Sing Se.;;;;;;;;;;;;;x
+atx_relief_recent_tt;No relief has been sent in the last five years;;;;;;;;;;;;;x
+atx_mandate_recent_tt;The Mandate has not been proclaimed in the last ten years;;;;;;;;;;;;;x
+atx_drew_recent_tt;We have not drawn on the treasury in the last two years;;;;;;;;;;;;;x
+atlaexp.5.d;The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold.\n\nIt is filled by the tribute of the states and belongs to the crown, not to us. Each year a tenth of it disappears into the pockets of clerks and officials, or only a little if the bureaucracy has been reformed. If a foreign power or a Chin pretender ever takes Ba Sing Se, they will help themselves to all of it.\n\nThe crown can pay to strengthen its borders, reform the bureaucracy, fund the Council of Five or the Dai Li, send relief to the provinces, or proclaim the Mandate of Ba Sing Se.;;;;;;;;;;;;;x
+atlaexp.5.a;Very well.;;;;;;;;;;;;;x
+atx_crown_bureaucracy;Reformed Bureaucracy;;;;;;;;;;;;;x
+atx_crown_bureaucracy_desc;The crown pays its clerks properly. Paid from the treasury of Ba Sing Se.;;;;;;;;;;;;;x
+atx_crown_army;Council of Five Funded;;;;;;;;;;;;;x
+atx_crown_army_desc;The generals of the Council of Five keep a standing force. Paid from the treasury of Ba Sing Se.;;;;;;;;;;;;;x
+atx_crown_dai_li;Dai Li Funded;;;;;;;;;;;;;x
+atx_crown_dai_li_desc;The Dai Li watch the court and the city. Paid from the treasury of Ba Sing Se.;;;;;;;;;;;;;x
+atx_strengthened_border;Strengthened Border;;;;;;;;;;;;;x
+atx_strengthened_border_desc;The crown has paid for a larger garrison and stronger walls here.;;;;;;;;;;;;;x
+opinion_atx_crown_relief;Relief from Ba Sing Se;;;;;;;;;;;;;x

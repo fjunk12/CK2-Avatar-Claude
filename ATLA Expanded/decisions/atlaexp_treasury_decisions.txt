@@ -1,0 +1,245 @@
+# ATLA Expanded - the Ba Sing Se treasury: decisions for the ruler of Ba Sing Se
+# All tribute goes into global_atx_treasury; the ruler spends it here. Projects last 10 years and pass to the next ruler.
+decisions = {
+	atx_view_treasury = { # Balance and running projects
+		ai = no
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = { always = yes }
+		effect = { character_event = { id = atlaexp.5 } }
+		ai_will_do = { factor = 0 }
+	}
+	atx_fund_borders = { # Border provinces: garrison, fort level, levy reinforcement for 10 years
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_100_tt
+				check_variable = { which = global_atx_treasury value = 100 }
+			}
+			custom_tooltip = {
+				text = atx_project_running_tt
+				OR = {
+					NOT = { has_global_flag = atx_proj_walls }
+					had_global_flag = { flag = atx_proj_walls days = 3650 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_100_tt
+				change_variable = { which = global_atx_treasury value = -100 }
+			}
+			clr_global_flag = atx_proj_walls
+			set_global_flag = atx_proj_walls
+			any_realm_province = {
+				limit = {
+					any_neighbor_province = {
+						has_owner = yes
+						owner = { NOT = { same_realm = ROOT } }
+					}
+				}
+				add_province_modifier = { name = atx_strengthened_border years = 10 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 war = yes }
+		}
+	}
+	atx_fund_bureaucracy = {
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_100_tt
+				check_variable = { which = global_atx_treasury value = 100 }
+			}
+			custom_tooltip = {
+				text = atx_project_running_tt
+				OR = {
+					NOT = { has_global_flag = atx_proj_bureaucracy }
+					had_global_flag = { flag = atx_proj_bureaucracy days = 3650 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_100_tt
+				change_variable = { which = global_atx_treasury value = -100 }
+			}
+			clr_global_flag = atx_proj_bureaucracy
+			set_global_flag = atx_proj_bureaucracy
+			remove_character_modifier = atx_crown_bureaucracy
+			add_character_modifier = { name = atx_crown_bureaucracy days = 380 }
+			custom_tooltip = { text = atx_project_ten_years_tt }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 2 check_variable = { which = global_atx_treasury value = 250 } }
+		}
+	}
+	atx_fund_army = {
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_120_tt
+				check_variable = { which = global_atx_treasury value = 120 }
+			}
+			custom_tooltip = {
+				text = atx_project_running_tt
+				OR = {
+					NOT = { has_global_flag = atx_proj_army }
+					had_global_flag = { flag = atx_proj_army days = 3650 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_120_tt
+				change_variable = { which = global_atx_treasury value = -120 }
+			}
+			clr_global_flag = atx_proj_army
+			set_global_flag = atx_proj_army
+			remove_character_modifier = atx_crown_army
+			add_character_modifier = { name = atx_crown_army days = 380 }
+			custom_tooltip = { text = atx_project_ten_years_tt }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 war = yes }
+		}
+	}
+	atx_fund_dai_li = {
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_80_tt
+				check_variable = { which = global_atx_treasury value = 80 }
+			}
+			custom_tooltip = {
+				text = atx_project_running_tt
+				OR = {
+					NOT = { has_global_flag = atx_proj_dai_li }
+					had_global_flag = { flag = atx_proj_dai_li days = 3650 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_80_tt
+				change_variable = { which = global_atx_treasury value = -80 }
+			}
+			clr_global_flag = atx_proj_dai_li
+			set_global_flag = atx_proj_dai_li
+			remove_character_modifier = atx_crown_dai_li
+			add_character_modifier = { name = atx_crown_dai_li days = 380 }
+			custom_tooltip = { text = atx_project_ten_years_tt }
+		}
+		ai_will_do = {
+			factor = 0.5
+			modifier = { factor = 2 trait = paranoid }
+		}
+	}
+	atx_send_relief = { # Kyoshi-style relief for the provinces: the realms that owe tribute like the crown more
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_60_tt
+				check_variable = { which = global_atx_treasury value = 60 }
+			}
+			custom_tooltip = {
+				text = atx_relief_recent_tt
+				OR = {
+					NOT = { has_global_flag = atx_relief_sent }
+					had_global_flag = { flag = atx_relief_sent days = 1825 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_60_tt
+				change_variable = { which = global_atx_treasury value = -60 }
+			}
+			clr_global_flag = atx_relief_sent
+			set_global_flag = atx_relief_sent
+			any_independent_ruler = {
+				limit = { atx_tribute_payer_base_trigger = yes }
+				opinion = { who = ROOT modifier = opinion_atx_crown_relief years = 5 }
+			}
+			change_variable = { which = global_royalAuthority value = 3 }
+		}
+		ai_will_do = { factor = 0.5 }
+	}
+	atx_proclaim_mandate = { # Spend heavily to reassert the crown
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_150_tt
+				check_variable = { which = global_atx_treasury value = 150 }
+			}
+			custom_tooltip = {
+				text = atx_mandate_recent_tt
+				OR = {
+					NOT = { has_global_flag = atx_mandate_proclaimed }
+					had_global_flag = { flag = atx_mandate_proclaimed days = 3650 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_150_tt
+				change_variable = { which = global_atx_treasury value = -150 }
+			}
+			clr_global_flag = atx_mandate_proclaimed
+			set_global_flag = atx_mandate_proclaimed
+			change_variable = { which = global_royalAuthority value = 10 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 NOT = { check_variable = { which = global_royalAuthority value = 50 } } }
+		}
+	}
+	atx_draw_on_treasury = { # Corruption: half of what you take reaches your own purse
+		ai_check_interval = 24
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_100_tt
+				check_variable = { which = global_atx_treasury value = 100 }
+			}
+			custom_tooltip = {
+				text = atx_drew_recent_tt
+				OR = {
+					NOT = { has_global_flag = atx_drew_on_treasury }
+					had_global_flag = { flag = atx_drew_on_treasury days = 730 }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_100_tt
+				change_variable = { which = global_atx_treasury value = -100 }
+			}
+			clr_global_flag = atx_drew_on_treasury
+			set_global_flag = atx_drew_on_treasury
+			wealth = 50
+			change_variable = { which = global_royalAuthority value = -5 }
+		}
+		ai_will_do = {
+			factor = 0.05
+			modifier = { factor = 10 trait = greedy }
+			modifier = { factor = 0 trait = charitable }
+			modifier = { factor = 0 trait = just }
+		}
+	}
+}

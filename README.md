@@ -41,8 +41,26 @@ with the main mod. It does not need ATLA Fixes and does not override any file of
 - Exempt: Way of Chin realms, Si Wong tribes (sandbender culture or Si Wong faith, or a capital in the desert),
   barbarians, tributaries and anyone at war with the Earth King. The collector must be an Earth Kingdom ruler of an
   Earth faith holding the Earth Kingdom (a foreign or Chin conqueror of Ba Sing Se collects nothing).
+- All tribute goes into the **treasury of Ba Sing Se** (a global variable), never to the Earth King personally.
 - Regional kings: if a payer's capital lies in the de jure kingdom of another independent Earth ruler of king tier or
-  higher, that ruler keeps half.
+  higher, that ruler collects it for the crown and gains prestige.
 - Decisions for payers: "Ba Sing Se and Us" (shows the current obligation), "Withhold Tribute" (each year where tribute
   is expected: Royal Authority -1, the Earth King's opinion -20, some prestige for the defier), "Resume Tribute".
 - Refusing a call to arms: prestige -50, Royal Authority -3, the Earth King's opinion -40.
+
+### v0.2: the treasury of Ba Sing Se
+The ruler of Ba Sing Se spends the treasury through decisions. Projects last ten years and carry over to the next ruler.
+
+| Decision | Cost | Effect |
+|---|---|---|
+| Strengthen the Borders | 100 | Every border province of the realm: garrison +30%, fort level +1, levy reinforcement +20%, for 10 years |
+| Reform the Bureaucracy | 100 | Tax +10%, building cost -10%, and graft on the treasury drops from 10% to 3% a year |
+| Fund the Council of Five | 120 | Retinue +300, levies +10%, morale +5% |
+| Fund the Dai Li | 80 | Plot power +15%, plot defence +30%, plot discovery +20% |
+| Send Relief to the Provinces | 60 | Every tribute-owing ruler +15 opinion of the crown for 5 years, Royal Authority +3 (every 5 years) |
+| Proclaim the Mandate | 150 | Royal Authority +10 (every 10 years) |
+| Draw on the Treasury | 100 | 50 gold to your own purse, Royal Authority -5 (every 2 years) |
+| The Treasury of Ba Sing Se | - | Shows the balance |
+
+- Graft: the treasury loses 10% a year (3% with a reformed bureaucracy).
+- If a foreign power or a Way of Chin ruler holds Ba Sing Se, they loot the whole treasury into their own purse.
