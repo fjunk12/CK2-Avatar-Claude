@@ -157,3 +157,11 @@ atx_potential_saboteur_trigger = {
 		}
 	}
 }
+
+# The "Check Possible Works" menu is open (the AI always sees the decisions)
+atx_works_menu_open_trigger = {
+	OR = {
+		ai = yes
+		has_character_flag = atx_menu_works
+	}
+}

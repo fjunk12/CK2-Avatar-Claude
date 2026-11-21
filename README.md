@@ -27,7 +27,7 @@ New content for the Fire Nation and Earth Kingdom regions (including the Si Wong
 Install like ATLA Fixes: copy `ATLA Expanded.mod` and the `ATLA Expanded` folder into the mod folder and enable it
 with the main mod. It does not need ATLA Fixes and does not override any file of the main mod. Not yet tested in game.
 
-### Ba Sing Se (v0.4)
+### Ba Sing Se (v0.5)
 
 **Tribute.** Independent Earth realms owe Ba Sing Se according to the crown's *effective authority* and their distance
 from the Royal Palace (province 109): under 450 map pixels is near, 450-850 middle, over 850 far.
@@ -39,7 +39,7 @@ from the Royal Palace (province 109): under 450 map pixels is near, 450-850 midd
 | Obedience (tribute, counts 2, called to defend against foreign attackers) | 61+ | 81+ | never |
 
 - Effective authority = Royal Authority shifted by the main mod's Earth Kingdom unity law (Earth imperialism):
-  Disunion = nobody owes anything; Territories (the default) = no change, no obedience; States = +15, obedience possible;
+  Disunion (the 560 start, until 602 or the Earth King's story chain) = -30, no obedience; Territories = no change, no obedience; States = +15, obedience possible;
   Monarchism = +30, but resentment fades more slowly. (The main mod requires 100 Royal Authority to change that law,
   so it shifts the tiers instead of capping them.) No obedience under Kyoshi's constitution either.
 - All tribute goes into the **treasury of Ba Sing Se**, never to the Earth King personally. Regional kings collect it for
@@ -47,7 +47,10 @@ from the Royal Palace (province 109): under 450 map pixels is near, 450-850 midd
   "pledge to the Earth King" tributaries), and anyone at war with the Earth King.
 - Payers can review, withhold or resume tribute. Withholding costs the crown authority where tribute is expected.
 
-**The treasury.** Graft takes 10% a year (3% while the bureaucracy is paid, 5% more while the Dai Li are strong).
+**The treasury.** Ba Sing Se itself pays in 10 gold a year (+10 at Royal Authority 30, +10 at 60), on top of tribute.
+For players, all treasury decisions sit behind **Check Possible Works** in the Intrigue tab (press **Return to
+Decisions** to hide them again); the AI always sees them. Each yearly run writes a line starting `ATLA Expanded:` to
+game.log (crown revenue, tribute, paying and owing realms, treasury, authority). Graft takes 10% a year (3% while the bureaucracy is paid, 5% more while the Dai Li are strong).
 A foreign or Way of Chin holder of Ba Sing Se loots it.
 
 | Budget programme (on/off) | Yearly cost | While funded |

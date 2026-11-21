@@ -42,3 +42,9 @@ All edits are marked `# ATLA Fixes` in the files.
 - GitHub #49 (Ozai having children while his wife is imprisoned): no script forces it; pregnancy is handled by the engine.
 - GitHub #493 (Royal Earth Palace usurped): the missing titles named in the issue are no longer referenced.
 - GitHub #501 (childhood events giving the wrong sub-bending): every sub-bending grant found is checked against the right element.
+
+## Round 3
+
+| # | Problem | File | Fix |
+|---|---|---|---|
+| 25 | Winning the Avatar's Crisis War never destroyed the defeated realm's kingdom and empire titles: the effect used `any_realm_title`, which does not exist in CK2 (error.log: "Unknown effect-type" at line 1120) | `common/cb_types/03_cb_types_ATLA.txt` (`cb_shatter_realm`) | The ruler's own titles, then every vassal's, the way the same CB's reverse-demand branch already does it |

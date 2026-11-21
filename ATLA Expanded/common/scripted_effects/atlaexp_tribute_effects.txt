@@ -31,10 +31,13 @@ atx_find_regional_lord_effect = {
 atx_pay_2_effect = {
 	wealth = -2
 	change_variable = { which = global_atx_treasury value = 2 }
+	change_variable = { which = global_atx_last_income value = 2 }
+	change_variable = { which = global_atx_last_payers value = 1 }
 	if = { # A Single Law for the Kingdom: half as much again
 		limit = { has_global_flag = atx_work_law wealth = 1 }
 		wealth = -1
 		change_variable = { which = global_atx_treasury value = 1 }
+		change_variable = { which = global_atx_last_income value = 1 }
 	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
@@ -44,10 +47,13 @@ atx_pay_2_effect = {
 atx_pay_4_effect = {
 	wealth = -4
 	change_variable = { which = global_atx_treasury value = 4 }
+	change_variable = { which = global_atx_last_income value = 4 }
+	change_variable = { which = global_atx_last_payers value = 1 }
 	if = { # A Single Law for the Kingdom: half as much again
 		limit = { has_global_flag = atx_work_law wealth = 2 }
 		wealth = -2
 		change_variable = { which = global_atx_treasury value = 2 }
+		change_variable = { which = global_atx_last_income value = 2 }
 	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
@@ -57,10 +63,13 @@ atx_pay_4_effect = {
 atx_pay_8_effect = {
 	wealth = -8
 	change_variable = { which = global_atx_treasury value = 8 }
+	change_variable = { which = global_atx_last_income value = 8 }
+	change_variable = { which = global_atx_last_payers value = 1 }
 	if = { # A Single Law for the Kingdom: half as much again
 		limit = { has_global_flag = atx_work_law wealth = 4 }
 		wealth = -4
 		change_variable = { which = global_atx_treasury value = 4 }
+		change_variable = { which = global_atx_last_income value = 4 }
 	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
@@ -70,10 +79,13 @@ atx_pay_8_effect = {
 atx_pay_16_effect = {
 	wealth = -16
 	change_variable = { which = global_atx_treasury value = 16 }
+	change_variable = { which = global_atx_last_income value = 16 }
+	change_variable = { which = global_atx_last_payers value = 1 }
 	if = { # A Single Law for the Kingdom: half as much again
 		limit = { has_global_flag = atx_work_law wealth = 8 }
 		wealth = -8
 		change_variable = { which = global_atx_treasury value = 8 }
+		change_variable = { which = global_atx_last_income value = 8 }
 	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
@@ -206,16 +218,18 @@ atx_save_earth_king_effect = {
 
 # Earth imperialism: the main mod's Earth Kingdom unity law shifts what the states owe (run on the ruler of Ba Sing Se).
 # Changing that law needs 100 Royal Authority in the main mod, so it shifts the tiers instead of capping them.
-#   Disunion: nobody owes anything.  Territories (default): no obedience.
-#   States: as if authority were 15 higher, obedience possible.  Monarchism: 30 higher, but resentment grows every year.
+#   Disunion (the 560 start): as if authority were 30 lower, no obedience.  Territories: no obedience.
+#   States: as if authority were 15 higher, obedience possible.  Monarchism: 30 higher, but resentment fades slower.
 atx_compute_effective_authority_effect = {
 	set_variable = { which = global_atx_eff_ra which = global_royalAuthority }
 	clr_global_flag = atx_law_allows_obedience
 	clr_global_flag = atx_law_states_plus
 	clr_global_flag = atx_law_monarchism
+	clr_global_flag = atx_law_disunion
 	if = {
 		limit = { has_law = ek_unity_0 }
-		set_variable = { which = global_atx_eff_ra value = -1000 }
+		change_variable = { which = global_atx_eff_ra value = -30 }
+		set_global_flag = atx_law_disunion
 	}
 	else_if = {
 		limit = { has_law = ek_unity_3 }
@@ -722,4 +736,18 @@ atx_clear_request_flags_effect = {
 	clr_character_flag = atx_req_helped
 	clr_character_flag = atx_req_denied
 	clr_character_flag = atx_req_intercepted
+}
+
+# Ba Sing Se's own share: the crown's revenue goes into the treasury every year, more when authority is high
+atx_crown_revenue_effect = {
+	set_variable = { which = global_atx_last_crown value = 10 }
+	if = {
+		limit = { check_variable = { which = global_royalAuthority value = 30 } }
+		change_variable = { which = global_atx_last_crown value = 10 }
+	}
+	if = {
+		limit = { check_variable = { which = global_royalAuthority value = 60 } }
+		change_variable = { which = global_atx_last_crown value = 10 }
+	}
+	change_variable = { which = global_atx_treasury which = global_atx_last_crown }
 }

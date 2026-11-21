@@ -32,9 +32,14 @@ character_event = {
 	}
 
 	immediate = {
+		log = "ATLA Expanded: yearly Ba Sing Se run for [Root.GetFullName]"
 		save_event_target_as = atx_earth_king
 		109 = { save_event_target_as = atx_bss } # Royal Earth Palace
 		atx_compute_effective_authority_effect = yes
+		set_variable = { which = global_atx_last_income value = 0 }
+		set_variable = { which = global_atx_last_payers value = 0 }
+		set_variable = { which = global_atx_last_owing value = 0 }
+		atx_crown_revenue_effect = yes
 
 		# Graft: 10% a year, 3% with the bureaucracy programme, 5% more when the Dai Li skim the treasury
 		if = {
@@ -83,6 +88,7 @@ character_event = {
 				NOT = { war_with = ROOT }
 				atx_tier_recognised_trigger = yes
 			}
+			change_variable = { which = global_atx_last_owing value = 1 }
 			atx_find_regional_lord_effect = yes
 			if = {
 				limit = { has_character_flag = atx_withholding }
@@ -156,6 +162,7 @@ character_event = {
 			}
 			clr_character_flag = atx_has_regional
 		}
+		log = "ATLA Expanded: crown revenue [global_atx_last_crown.GetValue], tribute [global_atx_last_income.GetValue] gold from [global_atx_last_payers.GetValue] of [global_atx_last_owing.GetValue] owing realms. Treasury [global_atx_treasury.GetValue], Royal Authority [global_royalAuthority.GetValue], effective [global_atx_eff_ra.GetValue]"
 	}
 }
 
@@ -249,9 +256,16 @@ character_event = {
 
 character_event = {
 	id = atlaexp.5
-	desc = atlaexp.5.d
+	desc = { trigger = { has_global_flag = atx_law_disunion } text = atlaexp.5.d_disunion }
+	desc = { trigger = { has_global_flag = atx_law_monarchism } text = atlaexp.5.d_monarchism }
+	desc = { trigger = { has_global_flag = atx_law_states_plus NOT = { has_global_flag = atx_law_monarchism } } text = atlaexp.5.d_states }
+	desc = { trigger = { NOR = { has_global_flag = atx_law_disunion has_global_flag = atx_law_states_plus } } text = atlaexp.5.d_territories }
 	picture = GFX_evt_ba_sing_se
 	is_triggered_only = yes
+
+	immediate = {
+		atx_compute_effective_authority_effect = yes
+	}
 
 	option = {
 		name = atlaexp.5.a

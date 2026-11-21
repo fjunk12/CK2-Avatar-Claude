@@ -1117,12 +1117,22 @@ cb_shatter_realm = { #Used by the Avatar for Crisis Wars
 						modifier = lost_crusade
 						years = 30
 					}
-					any_realm_title = { #Targets vassals AND ruler!
+					# ATLA Fixes: any_realm_title does not exist in CK2, so nothing was destroyed. Ruler, then every vassal.
+					any_demesne_title = {
 						limit = {
 							higher_tier_than = DUKE
 							controls_religion = no
 						}
 						unsafe_destroy_landed_title = THIS
+					}
+					any_realm_character = {
+						any_demesne_title = {
+							limit = {
+								higher_tier_than = DUKE
+								controls_religion = no
+							}
+							unsafe_destroy_landed_title = THIS
+						}
 					}
 					any_player = {
 						narrative_event = { id = NAE.707 }

@@ -2,9 +2,34 @@
 # Programmes cost a yearly amount while switched on. Works are built in stages, one a year, each paid from the treasury.
 # One-off actions have cooldowns. All tribute goes into global_atx_treasury.
 decisions = {
+	# Collapsible menu (players only): one entry in the Intrigue tab opens the list of works, another closes it
+	atx_menu_works_open = {
+		ai = no
+		potential = {
+			atx_ruler_of_ba_sing_se_trigger = yes
+			NOT = { has_character_flag = atx_menu_works }
+		}
+		allow = { always = yes }
+		effect = {
+			set_character_flag = atx_menu_works
+		}
+		ai_will_do = { factor = 0 }
+	}
+	atx_menu_works_close = {
+		ai = no
+		potential = {
+			atx_ruler_of_ba_sing_se_trigger = yes
+			has_character_flag = atx_menu_works
+		}
+		allow = { always = yes }
+		effect = {
+			clr_character_flag = atx_menu_works
+		}
+		ai_will_do = { factor = 0 }
+	}
 	atx_view_treasury = {
 		ai = no
-		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes }
 		allow = { always = yes }
 		effect = { character_event = { id = atlaexp.5 } }
 		ai_will_do = { factor = 0 }
@@ -13,7 +38,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { has_global_flag = atx_prog_bureaucracy }
 		}
 		allow = {
@@ -41,7 +66,7 @@ decisions = {
 	atx_prog_bureaucracy_stop = {
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			has_global_flag = atx_prog_bureaucracy
 		}
 		allow = { always = yes }
@@ -58,7 +83,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { has_global_flag = atx_prog_army }
 		}
 		allow = {
@@ -86,7 +111,7 @@ decisions = {
 	atx_prog_army_stop = {
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			has_global_flag = atx_prog_army
 		}
 		allow = { always = yes }
@@ -103,7 +128,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { has_global_flag = atx_prog_daili }
 		}
 		allow = {
@@ -132,7 +157,7 @@ decisions = {
 	atx_prog_daili_stop = {
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			has_global_flag = atx_prog_daili
 		}
 		allow = { always = yes }
@@ -149,7 +174,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { has_global_flag = atx_prog_borders }
 		}
 		allow = {
@@ -176,7 +201,7 @@ decisions = {
 	atx_prog_borders_stop = {
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			has_global_flag = atx_prog_borders
 		}
 		allow = { always = yes }
@@ -196,7 +221,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_messengers_stage value = 1 } }
 			NOT = { has_global_flag = atx_work_messengers }
 		}
@@ -227,7 +252,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_roads_stage value = 1 } }
 			NOT = { has_global_flag = atx_work_roads }
 		}
@@ -256,7 +281,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_law_stage value = 1 } }
 			NOT = { has_global_flag = atx_work_law }
 		}
@@ -302,7 +327,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_wall_stage value = 1 } }
 			NOT = { has_global_flag = atx_work_wall }
 		}
@@ -332,7 +357,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_granaries_stage value = 1 } }
 			NOT = { has_global_flag = atx_work_granaries }
 		}
@@ -361,7 +386,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			NOT = { check_variable = { which = global_atx_w_daili_stage value = 1 } }
 		}
 		allow = {
@@ -393,7 +418,7 @@ decisions = {
 	atx_send_relief = {
 		is_high_prio = yes
 		ai_check_interval = 12
-		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes }
 		allow = {
 			custom_tooltip = {
 				text = atx_treasury_60_tt
@@ -430,7 +455,7 @@ decisions = {
 	atx_proclaim_mandate = {
 		is_high_prio = yes
 		ai_check_interval = 12
-		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes }
 		allow = {
 			custom_tooltip = {
 				text = atx_treasury_150_tt
@@ -462,7 +487,7 @@ decisions = {
 	}
 	atx_draw_on_treasury = {
 		ai_check_interval = 24
-		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes }
 		allow = {
 			custom_tooltip = {
 				text = atx_treasury_100_tt
@@ -497,7 +522,7 @@ decisions = {
 		is_high_prio = yes
 		ai_check_interval = 12
 		potential = {
-			atx_ruler_of_ba_sing_se_trigger = yes
+			atx_ruler_of_ba_sing_se_trigger = yes atx_works_menu_open_trigger = yes
 			check_variable = { which = global_atx_daili value = 50 }
 		}
 		allow = {

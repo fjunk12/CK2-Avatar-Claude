@@ -78,3 +78,36 @@ in_event(f, 'NAE.002', lambda b: subre1(b, r'(\n\t\tNOT = \{ persistent_event_ta
     r'\1\t\tNOT = { has_global_flag = avatar_cycle_broken } # ATLA Fixes\n', 'NAE.002: never after the cycle is broken'))
 in_event(f, 'NAE.004', lambda b: sub1(b, 'trigger = { NOT = { persistent_event_target:the_avatar = { is_alive = yes } } } # ATLA Fixes',
     'trigger = { NOT = { persistent_event_target:the_avatar = { is_alive = yes } } NOT = { has_global_flag = avatar_cycle_broken } } # ATLA Fixes', 'NAE.004: never after the cycle is broken'))
+
+# R3-1 Crisis War (cb_shatter_realm): on success it iterated any_realm_title, which does not exist in CK2
+# (error.log: "Unknown effect-type" at line 1120), so the defeated realm's kingdom and empire titles were never destroyed.
+f = 'common/cb_types/03_cb_types_ATLA.txt'; t = rd(f)
+s = t.index('cb_shatter_realm = {'); e = block_end(t, t.index('{', s)); b = t[s:e]
+old = '''					any_realm_title = { #Targets vassals AND ruler!
+						limit = {
+							higher_tier_than = DUKE
+							controls_religion = no
+						}
+						unsafe_destroy_landed_title = THIS
+					}
+'''
+new = '''					# ATLA Fixes: any_realm_title does not exist in CK2, so nothing was destroyed. Ruler, then every vassal.
+					any_demesne_title = {
+						limit = {
+							higher_tier_than = DUKE
+							controls_religion = no
+						}
+						unsafe_destroy_landed_title = THIS
+					}
+					any_realm_character = {
+						any_demesne_title = {
+							limit = {
+								higher_tier_than = DUKE
+								controls_religion = no
+							}
+							unsafe_destroy_landed_title = THIS
+						}
+					}
+'''
+b = sub1(b, old, new, 'Crisis War: destroys the kingdom and empire titles of the defeated realm (any_realm_title does not exist)')
+t = t[:s] + b + t[e:]; wr(f, t)
