@@ -14,3 +14,12 @@ opinion_atx_crown_relief = {
 opinion_atx_crown_laws = {
 	opinion = -10
 }
+opinion_atx_crown_aid = {
+	opinion = 25
+}
+opinion_atx_crown_refused_aid = {
+	opinion = -25
+}
+opinion_atx_saboteur = {
+	opinion = -50
+}

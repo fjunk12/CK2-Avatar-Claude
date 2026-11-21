@@ -1,13 +1,23 @@
-# ATLA Expanded - Ba Sing Se tribute system
-# atlaexp.1  yearly collection, runs once a year on the ruler of Ba Sing Se (on_yearly_pulse, hidden)
-# atlaexp.2  the Earth King calls an obedient realm to defend against a foreign attacker
-# atlaexp.3  "Ba Sing Se and us": shows a ruler their current obligation (from a decision)
-# atlaexp.4  a foreign or Way of Chin holder of Ba Sing Se loots the treasury (on_yearly_pulse, hidden)
-# atlaexp.5  the Royal Treasury: balance and projects (from a decision)
-# atlaexp.6  a great work is finished: every tribute-owing ruler reacts (AI and players)
-# atlaexp.7  resentment: a player ruler is invited to stop paying
-# atlaexp.8  the Royal Messenger Network collapses (upkeep not paid)
-# atlaexp.9  the Royal Roads fall into disrepair (upkeep not paid)
+# ATLA Expanded - Ba Sing Se: tribute, treasury, works, help requests, sabotage, Dai Li
+# atlaexp.1   yearly run on the ruler of Ba Sing Se (on_yearly_pulse, hidden)
+# atlaexp.2   the Earth King calls an obedient realm to defend against a foreign attacker
+# atlaexp.3   "Ba Sing Se and Us": a ruler's current obligation (decision)
+# atlaexp.4   a foreign or Way of Chin holder of Ba Sing Se loots the treasury (on_yearly_pulse, hidden)
+# atlaexp.5   the Royal Treasury overview (decision)
+# atlaexp.6   a great work is finished: every tribute-owing ruler accepts or resists
+# atlaexp.7   resentment: a player ruler is invited to stop paying
+# atlaexp.8   the Royal Messenger Network collapses (upkeep unpaid)
+# atlaexp.9   the Royal Roads fall into disrepair (upkeep unpaid)
+# atlaexp.10  a work completes a stage
+# atlaexp.11  a work stalls or is abandoned
+# atlaexp.12  a far realm asks Ba Sing Se for help (Earth King decides)
+# atlaexp.13  hidden hop on the requesting realm (sets the request type, forwards it)
+# atlaexp.14  the requesting realm hears the answer
+# atlaexp.15  a work is completed
+# atlaexp.16  a budget programme lapses (unpaid)
+# atlaexp.17  the Dai Li overreach
+# atlaexp.18  sabotage at the works (culprit unknown)
+# atlaexp.19  sabotage foiled (FROM = the saboteur)
 namespace = atlaexp
 
 character_event = {
@@ -18,32 +28,42 @@ character_event = {
 	only_independent = yes
 
 	trigger = {
-		OR = {
-			has_landed_title = e_earth_kingdom
-			AND = {
-				has_landed_title = k_earth_kingdom
-				NOT = { e_earth_kingdom = { has_holder = yes } }
-			}
-		}
-		atx_valid_earth_king_trigger = yes
+		atx_ruler_of_ba_sing_se_trigger = yes
 	}
 
 	immediate = {
 		save_event_target_as = atx_earth_king
 		109 = { save_event_target_as = atx_bss } # Royal Earth Palace
-		# Graft: an unreformed bureaucracy loses 10% of the treasury a year, a reformed one 3%
+		atx_compute_effective_authority_effect = yes
+
+		# Graft: 10% a year, 3% with the bureaucracy programme, 5% more when the Dai Li skim the treasury
 		if = {
-			limit = { has_character_modifier = atx_crown_bureaucracy }
+			limit = { has_global_flag = atx_prog_bureaucracy }
 			multiply_variable = { which = global_atx_treasury value = 0.97 }
 		}
 		else = {
 			multiply_variable = { which = global_atx_treasury value = 0.9 }
 		}
-		atx_refresh_projects_effect = yes
+		if = {
+			limit = { check_variable = { which = global_atx_daili value = 50 } }
+			multiply_variable = { which = global_atx_treasury value = 0.95 }
+		}
+
+		atx_programmes_effect = yes
 		atx_great_works_upkeep_effect = yes
-		# The states slowly forget their grievances
-		change_variable = { which = global_atx_resentment value = -5 }
+		atx_progress_all_works_effect = yes
+		atx_daili_influence_effect = yes
+
+		# Resentment fades, except under Monarchism ("worshipped above any Spirit")
+		if = {
+			limit = { has_global_flag = atx_law_monarchism }
+			change_variable = { which = global_atx_resentment value = -3 }
+		}
+		else = {
+			change_variable = { which = global_atx_resentment value = -5 }
+		}
 		atx_clamp_resentment_effect = yes
+
 		clr_character_flag = atx_under_foreign_attack
 		if = {
 			limit = {
@@ -54,6 +74,9 @@ character_event = {
 			}
 			set_character_flag = atx_under_foreign_attack
 		}
+
+		set_variable = { which = global_atx_requests value = 0 }
+
 		any_independent_ruler = {
 			limit = {
 				atx_tribute_payer_base_trigger = yes
@@ -111,6 +134,25 @@ character_event = {
 			}
 			else = {
 				atx_pay_recognised_effect = yes
+			}
+			# Far realms that recognise the crown sometimes ask it for help (at most two requests a year)
+			if = {
+				limit = {
+					atx_near_trigger = no
+					NOT = { has_character_flag = atx_withholding }
+					NOT = { check_variable = { which = global_atx_requests value = 2 } }
+					OR = {
+						NOT = { has_character_flag = atx_requested }
+						had_character_flag = { flag = atx_requested days = 1800 }
+					}
+				}
+				random = {
+					chance = 3
+					change_variable = { which = global_atx_requests value = 1 }
+					clr_character_flag = atx_requested
+					set_character_flag = atx_requested
+					character_event = { id = atlaexp.13 }
+				}
 			}
 			clr_character_flag = atx_has_regional
 		}
@@ -178,6 +220,8 @@ character_event = {
 
 	immediate = {
 		109 = { save_event_target_as = atx_bss }
+		atx_save_earth_king_effect = yes
+		event_target:atx_earth_king = { atx_compute_effective_authority_effect = yes }
 	}
 
 	option = {
@@ -214,7 +258,7 @@ character_event = {
 	}
 }
 
-# A great work is finished. FROM = the ruler of Ba Sing Se. Each tribute-owing ruler chooses to accept or resist.
+# A great work is finished. FROM = the ruler of Ba Sing Se.
 character_event = {
 	id = atlaexp.6
 	desc = {
@@ -300,4 +344,298 @@ character_event = {
 	picture = GFX_evt_ba_sing_se
 	is_triggered_only = yes
 	option = { name = atlaexp.9.a }
+}
+
+# A work completes a stage (flag atx_report_<work> on the ruler)
+character_event = {
+	id = atlaexp.10
+	desc = { trigger = { has_character_flag = atx_report_messengers } text = atlaexp.10.d_messengers }
+	desc = { trigger = { has_character_flag = atx_report_roads } text = atlaexp.10.d_roads }
+	desc = { trigger = { has_character_flag = atx_report_law } text = atlaexp.10.d_law }
+	desc = { trigger = { has_character_flag = atx_report_wall } text = atlaexp.10.d_wall }
+	desc = { trigger = { has_character_flag = atx_report_granaries } text = atlaexp.10.d_granaries }
+	desc = { trigger = { has_character_flag = atx_report_daili } text = atlaexp.10.d_daili }
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.10.a
+		clr_character_flag = atx_report_messengers
+		clr_character_flag = atx_report_roads
+		clr_character_flag = atx_report_law
+		clr_character_flag = atx_report_wall
+		clr_character_flag = atx_report_granaries
+		clr_character_flag = atx_report_daili
+	}
+}
+
+# A work stalls (treasury too low for this year's stage) or is abandoned after three stalls
+character_event = {
+	id = atlaexp.11
+	desc = {
+		trigger = {
+			OR = {
+				has_character_flag = atx_stall_messengers
+				has_character_flag = atx_stall_roads
+				has_character_flag = atx_stall_law
+				has_character_flag = atx_stall_wall
+				has_character_flag = atx_stall_granaries
+				has_character_flag = atx_stall_daili
+			}
+		}
+		text = atlaexp.11.d_stall
+	}
+	desc = {
+		trigger = {
+			OR = {
+				has_character_flag = atx_abandon_messengers
+				has_character_flag = atx_abandon_roads
+				has_character_flag = atx_abandon_law
+				has_character_flag = atx_abandon_wall
+				has_character_flag = atx_abandon_granaries
+				has_character_flag = atx_abandon_daili
+			}
+		}
+		text = atlaexp.11.d_abandon
+	}
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.11.a
+		clr_character_flag = atx_stall_messengers
+		clr_character_flag = atx_stall_roads
+		clr_character_flag = atx_stall_law
+		clr_character_flag = atx_stall_wall
+		clr_character_flag = atx_stall_granaries
+		clr_character_flag = atx_stall_daili
+		clr_character_flag = atx_abandon_messengers
+		clr_character_flag = atx_abandon_roads
+		clr_character_flag = atx_abandon_law
+		clr_character_flag = atx_abandon_wall
+		clr_character_flag = atx_abandon_granaries
+		clr_character_flag = atx_abandon_daili
+	}
+}
+
+# A far realm asks for help. ROOT = the ruler of Ba Sing Se, FROM = the realm asking.
+letter_event = {
+	id = atlaexp.12
+	desc = { trigger = { FROM = { has_character_flag = atx_req_famine } } text = atlaexp.12.d_famine }
+	desc = { trigger = { FROM = { has_character_flag = atx_req_bandits } } text = atlaexp.12.d_bandits }
+	desc = { trigger = { FROM = { has_character_flag = atx_req_raiders } } text = atlaexp.12.d_raiders }
+	border = GFX_event_letter_frame_diplomacy
+	is_triggered_only = yes
+
+	trigger = { FROM = { is_alive = yes } }
+
+	option = { # Send grain (60, or 30 with the Royal Granaries)
+		name = atlaexp.12.a
+		trigger = {
+			FROM = { has_character_flag = atx_req_famine }
+			NOT = { has_global_flag = atx_work_granaries }
+			check_variable = { which = global_atx_treasury value = 60 }
+		}
+		custom_tooltip = {
+			text = atx_treasury_spend_60_tt
+			change_variable = { which = global_atx_treasury value = -60 }
+		}
+		FROM = { wealth = 30 }
+		atx_help_given_effect = yes
+		ai_chance = { factor = 60 modifier = { factor = 0.5 trait = greedy } modifier = { factor = 2 NOT = { check_variable = { which = global_royalAuthority value = 30 } } } }
+	}
+	option = { # Send grain from the Royal Granaries (30)
+		name = atlaexp.12.a
+		trigger = {
+			FROM = { has_character_flag = atx_req_famine }
+			has_global_flag = atx_work_granaries
+			check_variable = { which = global_atx_treasury value = 30 }
+		}
+		custom_tooltip = {
+			text = atx_treasury_spend_30_tt
+			change_variable = { which = global_atx_treasury value = -30 }
+		}
+		FROM = { wealth = 30 }
+		atx_help_given_effect = yes
+		ai_chance = { factor = 80 }
+	}
+	option = { # Send soldiers against bandits (50) or raiders (70)
+		name = atlaexp.12.b
+		trigger = {
+			FROM = { has_character_flag = atx_req_bandits }
+			check_variable = { which = global_atx_treasury value = 50 }
+		}
+		custom_tooltip = {
+			text = atx_treasury_spend_50_tt
+			change_variable = { which = global_atx_treasury value = -50 }
+		}
+		FROM = { capital_scope = { add_province_modifier = { name = atx_crown_soldiers years = 5 } } }
+		atx_help_given_effect = yes
+		ai_chance = { factor = 60 modifier = { factor = 0.5 trait = greedy } modifier = { factor = 2 NOT = { check_variable = { which = global_royalAuthority value = 30 } } } }
+	}
+	option = {
+		name = atlaexp.12.b
+		trigger = {
+			FROM = { has_character_flag = atx_req_raiders }
+			check_variable = { which = global_atx_treasury value = 70 }
+		}
+		custom_tooltip = {
+			text = atx_treasury_spend_70_tt
+			change_variable = { which = global_atx_treasury value = -70 }
+		}
+		FROM = { capital_scope = { add_province_modifier = { name = atx_crown_soldiers years = 5 } } }
+		atx_help_given_effect = yes
+		ai_chance = { factor = 60 modifier = { factor = 0.5 trait = greedy } modifier = { factor = 2 NOT = { check_variable = { which = global_royalAuthority value = 30 } } } }
+	}
+	option = { # Refuse
+		name = atlaexp.12.c
+		change_variable = { which = global_royalAuthority value = -2 }
+		change_variable = { which = global_atx_resentment value = 3 }
+		atx_clamp_resentment_effect = yes
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_atx_crown_refused_aid years = 10 }
+			set_character_flag = atx_req_denied
+			letter_event = { id = atlaexp.14 days = 10 }
+		}
+		ai_chance = { factor = 40 modifier = { factor = 2 trait = greedy } }
+	}
+}
+
+# Hidden hop on the realm asking (ROOT), FROM = the ruler of Ba Sing Se
+character_event = {
+	id = atlaexp.13
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		clr_character_flag = atx_req_famine
+		clr_character_flag = atx_req_bandits
+		clr_character_flag = atx_req_raiders
+		random_list = {
+			40 = { set_character_flag = atx_req_famine }
+			35 = { set_character_flag = atx_req_bandits }
+			25 = { set_character_flag = atx_req_raiders }
+		}
+		if = {
+			limit = { check_variable = { which = global_atx_daili value = 75 } }
+			# The Dai Li keep bad news from the king: the request never arrives
+			set_character_flag = atx_req_intercepted
+			change_variable = { which = global_atx_resentment value = 2 }
+			atx_clamp_resentment_effect = yes
+			letter_event = { id = atlaexp.14 days = 30 }
+		}
+		else = {
+			FROM = { letter_event = { id = atlaexp.12 days = 2 } }
+		}
+	}
+}
+
+# The realm that asked hears the answer. ROOT = that realm.
+letter_event = {
+	id = atlaexp.14
+	desc = { trigger = { has_character_flag = atx_req_helped } text = atlaexp.14.d_helped }
+	desc = { trigger = { has_character_flag = atx_req_denied } text = atlaexp.14.d_denied }
+	desc = { trigger = { has_character_flag = atx_req_intercepted } text = atlaexp.14.d_intercepted }
+	border = GFX_event_letter_frame_diplomacy
+	is_triggered_only = yes
+
+	option = { # Thank the crown
+		name = atlaexp.14.a
+		trigger = { has_character_flag = atx_req_helped }
+		atx_clear_request_flags_effect = yes
+	}
+	option = { # We will remember this: stop paying
+		name = atlaexp.14.b
+		trigger = {
+			NOT = { has_character_flag = atx_req_helped }
+			NOT = { has_character_flag = atx_withholding }
+		}
+		atx_clear_request_flags_effect = yes
+		set_character_flag = atx_withholding
+		add_character_modifier = { name = atx_defying_ba_sing_se duration = -1 }
+		ai_chance = {
+			factor = 30
+			modifier = { factor = 2 trait = proud }
+			modifier = { factor = 2 trait = wroth }
+		}
+	}
+	option = { # So be it
+		name = atlaexp.14.c
+		trigger = { NOT = { has_character_flag = atx_req_helped } }
+		atx_clear_request_flags_effect = yes
+		ai_chance = { factor = 70 }
+	}
+}
+
+# A work is completed (flag atx_done_<work> on the ruler)
+character_event = {
+	id = atlaexp.15
+	desc = { trigger = { has_character_flag = atx_done_messengers } text = atlaexp.15.d_messengers }
+	desc = { trigger = { has_character_flag = atx_done_roads } text = atlaexp.15.d_roads }
+	desc = { trigger = { has_character_flag = atx_done_law } text = atlaexp.15.d_law }
+	desc = { trigger = { has_character_flag = atx_done_wall } text = atlaexp.15.d_wall }
+	desc = { trigger = { has_character_flag = atx_done_granaries } text = atlaexp.15.d_granaries }
+	desc = { trigger = { has_character_flag = atx_done_daili } text = atlaexp.15.d_daili }
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.15.a
+		clr_character_flag = atx_done_messengers
+		clr_character_flag = atx_done_roads
+		clr_character_flag = atx_done_law
+		clr_character_flag = atx_done_wall
+		clr_character_flag = atx_done_granaries
+		clr_character_flag = atx_done_daili
+	}
+}
+
+# A budget programme lapses because the treasury could not pay for it
+character_event = {
+	id = atlaexp.16
+	desc = { trigger = { has_character_flag = atx_lapse_bureaucracy } text = atlaexp.16.d_bureaucracy }
+	desc = { trigger = { has_character_flag = atx_lapse_army } text = atlaexp.16.d_army }
+	desc = { trigger = { has_character_flag = atx_lapse_daili } text = atlaexp.16.d_daili }
+	desc = { trigger = { has_character_flag = atx_lapse_borders } text = atlaexp.16.d_borders }
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.16.a
+		clr_character_flag = atx_lapse_bureaucracy
+		clr_character_flag = atx_lapse_army
+		clr_character_flag = atx_lapse_daili
+		clr_character_flag = atx_lapse_borders
+	}
+}
+
+# The Dai Li overreach
+character_event = {
+	id = atlaexp.17
+	desc = atlaexp.17.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.17.a
+		add_character_modifier = { name = atx_daili_ascendant years = 5 }
+		change_variable = { which = global_royalAuthority value = -5 }
+	}
+}
+
+# Sabotage at the works, culprit unknown (ROOT = the ruler of Ba Sing Se)
+character_event = {
+	id = atlaexp.18
+	desc = atlaexp.18.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = { name = atlaexp.18.a }
+}
+
+# Sabotage foiled. ROOT = the ruler of Ba Sing Se, FROM = the saboteur
+character_event = {
+	id = atlaexp.19
+	desc = atlaexp.19.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = {
+		name = atlaexp.19.a
+		opinion = { who = FROM modifier = opinion_atx_saboteur years = 10 }
+		change_variable = { which = global_royalAuthority value = 2 }
+	}
 }

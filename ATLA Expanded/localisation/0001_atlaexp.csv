@@ -20,14 +20,6 @@ atx_defying_ba_sing_se;Defying Ba Sing Se;;;;;;;;;;;;;x
 atx_defying_ba_sing_se_desc;This ruler refuses to send tribute to the Earth King.;;;;;;;;;;;;;x
 atx_view_treasury;The Treasury of Ba Sing Se;;;;;;;;;;;;;x
 atx_view_treasury_desc;Review the crown's treasury and the projects it is paying for.;;;;;;;;;;;;;x
-atx_fund_borders;Strengthen the Borders;;;;;;;;;;;;;x
-atx_fund_borders_desc;Pay to garrison and fortify every province on the edge of our realm for ten years: larger garrisons, stronger forts and faster levy reinforcement.;;;;;;;;;;;;;x
-atx_fund_bureaucracy;Reform the Bureaucracy;;;;;;;;;;;;;x
-atx_fund_bureaucracy_desc;Pay the clerks of the Grand Secretariat properly for ten years. Taxes are collected more efficiently, building is cheaper, and the treasury loses far less to graft.;;;;;;;;;;;;;x
-atx_fund_army;Fund the Council of Five;;;;;;;;;;;;;x
-atx_fund_army_desc;Give the generals of the Council of Five the means to keep a standing force for ten years.;;;;;;;;;;;;;x
-atx_fund_dai_li;Fund the Dai Li;;;;;;;;;;;;;x
-atx_fund_dai_li_desc;Give the Dai Li the means to watch the court and the city for ten years.;;;;;;;;;;;;;x
 atx_send_relief;Send Relief to the Provinces;;;;;;;;;;;;;x
 atx_send_relief_desc;Send grain, builders and coin to the realms that owe Ba Sing Se. In Kyoshi's day such policies kept the peace between the states. Their rulers will think better of the crown, and the crown's authority grows.;;;;;;;;;;;;;x
 atx_proclaim_mandate;Proclaim the Mandate of Ba Sing Se;;;;;;;;;;;;;x
@@ -35,21 +27,15 @@ atx_proclaim_mandate_desc;Spend lavishly on ceremony, envoys and gifts to remind
 atx_draw_on_treasury;Draw on the Treasury;;;;;;;;;;;;;x
 atx_draw_on_treasury_desc;The treasury belongs to the crown, and we are the crown. Take 100 gold from it. Half of it reaches our purse, the rest disappears along the way, and word of it weakens the crown's authority.;;;;;;;;;;;;;x
 atx_treasury_60_tt;The treasury holds at least §Y60§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_80_tt;The treasury holds at least §Y80§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
 atx_treasury_100_tt;The treasury holds at least §Y100§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_120_tt;The treasury holds at least §Y120§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
 atx_treasury_150_tt;The treasury holds at least §Y150§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
 atx_treasury_spend_60_tt;§R60§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_treasury_spend_80_tt;§R80§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
 atx_treasury_spend_100_tt;§R100§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_treasury_spend_120_tt;§R120§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
 atx_treasury_spend_150_tt;§R150§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_project_running_tt;This project is not already running (projects last ten years);;;;;;;;;;;;;x
-atx_project_ten_years_tt;The project runs for ten years, and continues under the next ruler of Ba Sing Se.;;;;;;;;;;;;;x
 atx_relief_recent_tt;No relief has been sent in the last five years;;;;;;;;;;;;;x
 atx_mandate_recent_tt;The Mandate has not been proclaimed in the last ten years;;;;;;;;;;;;;x
 atx_drew_recent_tt;We have not drawn on the treasury in the last two years;;;;;;;;;;;;;x
-atlaexp.5.d;The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. The resentment of the states towards the crown stands at §Y[global_atx_resentment.GetValue]§! out of 100.\n\nThe treasury is filled by the tribute of the states and belongs to the crown, not to us. Each year a tenth of it disappears into the pockets of clerks and officials, or only a little if the bureaucracy has been reformed. If a foreign power or a Chin pretender ever takes Ba Sing Se, they will help themselves to all of it.\n\nSmall projects last ten years. Great works change the whole Earth Kingdom for good, but the states remember every reach of the crown: resentment rises, and above 25 some states start refusing tribute. Relief to the provinces calms them. Resentment fades by 5 a year.;;;;;;;;;;;;;x
+atlaexp.5.d;The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. The resentment of the states stands at §Y[global_atx_resentment.GetValue]§! of 100, and the influence of the Dai Li at §Y[global_atx_daili.GetValue]§! of 100.\n\nTribute fills the treasury. It belongs to the crown, not to us. Each year graft takes a tenth of it (3% if the bureaucracy is paid, 5% more if the Dai Li are strong), and budget programmes, works in progress and the upkeep of finished great works are paid out of it. Far realms will ask for help, and every answer costs either gold or authority.\n\nWorks are built in yearly stages and stall when the treasury runs dry. Earth rulers who resent the crown may sabotage them. Above 25 resentment some states stop paying. Relief calms them. Great works and the Mandate anger them.;;;;;;;;;;;;;x
 atlaexp.5.a;Very well.;;;;;;;;;;;;;x
 atx_crown_bureaucracy;Reformed Bureaucracy;;;;;;;;;;;;;x
 atx_crown_bureaucracy_desc;The crown pays its clerks properly. Paid from the treasury of Ba Sing Se.;;;;;;;;;;;;;x
@@ -60,31 +46,18 @@ atx_crown_dai_li_desc;The Dai Li watch the court and the city. Paid from the tre
 atx_strengthened_border;Strengthened Border;;;;;;;;;;;;;x
 atx_strengthened_border_desc;The crown has paid for a larger garrison and stronger walls here.;;;;;;;;;;;;;x
 opinion_atx_crown_relief;Relief from Ba Sing Se;;;;;;;;;;;;;x
-atx_work_messengers;Great Work: The Royal Messenger Network;;;;;;;;;;;;;x
-atx_work_messengers_desc;Post stations, relays of riders and messenger hawks along every road, day and night. Ba Sing Se's word reaches the far states in days instead of months, and the crown's reach grows with it. Costs 20 gold a year to keep running, and the states resent it.;;;;;;;;;;;;;x
-atx_work_roads;Great Work: The Royal Roads;;;;;;;;;;;;;x
-atx_work_roads_desc;Paved roads and granaries across the Earth Kingdom. Every province of the Earth Kingdom outside the desert can feed larger armies and trades a little more, whoever owns it, and that includes invaders. Costs 15 gold a year to maintain.;;;;;;;;;;;;;x
-atx_work_law;Great Work: A Single Law for the Kingdom;;;;;;;;;;;;;x
-atx_work_law_desc;Every state and town of the Earth Kingdom keeps its own laws. Replace them with one code written in Ba Sing Se. Tribute rises by half and the crown gains authority, but every state that pays it will hate the crown's laws for as long as they stand.;;;;;;;;;;;;;x
-atx_work_wall;Great Work: Raise the Outer Wall;;;;;;;;;;;;;x
-atx_work_wall_desc;Raise a great outer wall around Ba Sing Se with conscripted labour from the provinces. The capital becomes nearly impregnable, but the conscription costs the crown authority and goodwill.;;;;;;;;;;;;;x
-atx_treasury_500_tt;The treasury holds at least §Y500§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_600_tt;The treasury holds at least §Y600§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_800_tt;The treasury holds at least §Y800§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_1000_tt;The treasury holds at least §Y1000§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
-atx_treasury_spend_500_tt;§R500§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_treasury_spend_600_tt;§R600§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_treasury_spend_800_tt;§R800§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_treasury_spend_1000_tt;§R1000§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
-atx_work_built_tt;This great work has not been built yet;;;;;;;;;;;;;x
-atx_needs_bureaucracy_tt;The bureaucracy has been reformed in the last ten years;;;;;;;;;;;;;x
-atx_work_messengers_tt;Realms count as §Gcloser§! to Ba Sing Se: near up to 650 instead of 450, far only beyond 1100 instead of 850. More realms owe more. Upkeep: §R20§! gold a year, or the network collapses.;;;;;;;;;;;;;x
-atx_work_roads_tt;Every province of the Earth Kingdom outside the Si Wong Desert gains supply limit +2 and tax +5%, whoever owns it. Upkeep: §R15§! gold a year, or the roads fall into disrepair.;;;;;;;;;;;;;x
-atx_work_law_tt;Tribute payments rise by half. Every ruler paying tribute has §R-10§! opinion of the crown while the law stands.;;;;;;;;;;;;;x
-atx_resentment_10_tt;The resentment of the states rises by §R10§!;;;;;;;;;;;;;x
-atx_resentment_15_tt;The resentment of the states rises by §R15§!;;;;;;;;;;;;;x
-atx_resentment_20_tt;The resentment of the states rises by §R20§!;;;;;;;;;;;;;x
-atx_resentment_25_tt;The resentment of the states rises by §R25§!;;;;;;;;;;;;;x
+atx_work_messengers;Work: The Royal Messenger Network;;;;;;;;;;;;;x
+atx_work_messengers_desc;Post stations, relays of riders and messenger hawks along every road, day and night. Once finished, Ba Sing Se's word reaches the far states in days instead of months, and the crown's reach grows with it. Costs 20 gold a year to keep running afterwards.;;;;;;;;;;;;;x
+atx_work_roads;Work: The Royal Roads;;;;;;;;;;;;;x
+atx_work_roads_desc;Paved roads and granaries across the Earth Kingdom. Once finished, every province of the Earth Kingdom outside the desert can feed larger armies and trades a little more, whoever owns it, invaders included. Costs 15 gold a year to maintain afterwards.;;;;;;;;;;;;;x
+atx_work_law;Work: A Single Law for the Kingdom;;;;;;;;;;;;;x
+atx_work_law_desc;Every state and town of the Earth Kingdom keeps its own laws. Replace them with one code written in Ba Sing Se. Once finished, tribute rises by half and the crown gains authority, but every state that pays will hate the crown's laws for as long as they stand. Needs the States or Monarchism unity law and a paid bureaucracy.;;;;;;;;;;;;;x
+atx_work_wall;Work: Raise the Outer Wall;;;;;;;;;;;;;x
+atx_work_wall_desc;Raise a great outer wall around Ba Sing Se with conscripted labour from the provinces. Once finished, the capital becomes nearly impregnable, but the conscription costs the crown authority and goodwill.;;;;;;;;;;;;;x
+atx_needs_bureaucracy_tt;The bureaucracy is being paid (budget programme);;;;;;;;;;;;;x
+atx_work_messengers_tt;Once finished: realms count as §Gcloser§! to Ba Sing Se (near up to 650 instead of 450, far only beyond 1100 instead of 850), so more realms owe more. Upkeep §R20§! gold a year. Resentment §R+20§!.;;;;;;;;;;;;;x
+atx_work_roads_tt;Once finished: every Earth Kingdom province outside the Si Wong Desert gains supply limit +2 and tax +5%, whoever owns it. Upkeep §R15§! gold a year. Resentment §R+10§!.;;;;;;;;;;;;;x
+atx_work_law_tt;Once finished: tribute +50%, Royal Authority +5. Every tribute payer has §R-10§! opinion of the crown while the law stands. Resentment §R+25§!.;;;;;;;;;;;;;x
 atlaexp.6.d_messengers;Riders in the green and gold of Ba Sing Se now pass through our lands every day, and every relay station has a royal clerk in it. The crown hears of everything we do within days, and expects more of us for it.;;;;;;;;;;;;;x
 atlaexp.6.d_roads;The crown's engineers have paved roads and raised granaries through our lands. Trade comes more easily. So, our generals note, would an army.;;;;;;;;;;;;;x
 atlaexp.6.d_law;A herald from Ba Sing Se has read out a single code of law for the whole Earth Kingdom. The customs and courts our ancestors kept for generations are to give way to the clerks of the capital.;;;;;;;;;;;;;x
@@ -103,3 +76,106 @@ atx_royal_road_desc;A paved road and granaries built by the crown of Ba Sing Se.
 atx_outer_wall;The Outer Wall;;;;;;;;;;;;;x
 atx_outer_wall_desc;Ba Sing Se's great outer wall.;;;;;;;;;;;;;x
 opinion_atx_crown_laws;Ba Sing Se's Laws;;;;;;;;;;;;;x
+atx_prog_bureaucracy_start;Budget: Pay the Bureaucracy;;;;;;;;;;;;;x
+atx_prog_bureaucracy_start_desc;Pay the clerks of the Grand Secretariat properly. While funded: tax +10%, building cost -10%, and the treasury loses only 3% a year to graft instead of 10%. Costs 12 gold a year from the treasury.;;;;;;;;;;;;;x
+atx_prog_bureaucracy_stop;Budget: Stop Paying the Bureaucracy;;;;;;;;;;;;;x
+atx_prog_bureaucracy_stop_desc;Save the treasury 12 gold a year. Graft returns.;;;;;;;;;;;;;x
+atx_prog_army_start;Budget: Fund the Council of Five;;;;;;;;;;;;;x
+atx_prog_army_start_desc;Give the generals of the Council of Five the means to keep a standing force. While funded: retinue +300, levies +10%, morale +5%. Costs 15 gold a year.;;;;;;;;;;;;;x
+atx_prog_army_stop;Budget: Stop Funding the Council of Five;;;;;;;;;;;;;x
+atx_prog_army_stop_desc;Save the treasury 15 gold a year.;;;;;;;;;;;;;x
+atx_prog_daili_start;Budget: Fund the Dai Li;;;;;;;;;;;;;x
+atx_prog_daili_start_desc;Give the Dai Li the means to watch the court and the city. While funded: plot power +15%, plot defence +30%, plot discovery +20%, and saboteurs are caught more often. But the Dai Li grow more influential every year they are funded. Costs 10 gold a year.;;;;;;;;;;;;;x
+atx_prog_daili_stop;Budget: Stop Funding the Dai Li;;;;;;;;;;;;;x
+atx_prog_daili_stop_desc;Save the treasury 10 gold a year. The Dai Li's influence will slowly fade.;;;;;;;;;;;;;x
+atx_prog_borders_start;Budget: Garrison the Borders;;;;;;;;;;;;;x
+atx_prog_borders_start_desc;Keep larger garrisons in every province on the edge of our realm. While funded: garrison +30%, fort level +1, levy reinforcement +20% there. Costs 15 gold a year.;;;;;;;;;;;;;x
+atx_prog_borders_stop;Budget: Withdraw the Border Garrisons;;;;;;;;;;;;;x
+atx_prog_borders_stop_desc;Save the treasury 15 gold a year.;;;;;;;;;;;;;x
+atx_prog_yearly_12_tt;The programme costs §R12§! gold from the treasury every year until stopped. If the treasury cannot pay, it lapses.;;;;;;;;;;;;;x
+atx_prog_yearly_15_tt;The programme costs §R15§! gold from the treasury every year until stopped. If the treasury cannot pay, it lapses.;;;;;;;;;;;;;x
+atx_prog_yearly_10_tt;The programme costs §R10§! gold from the treasury every year until stopped. If the treasury cannot pay, it lapses.;;;;;;;;;;;;;x
+atx_work_granaries;Work: The Royal Granaries;;;;;;;;;;;;;x
+atx_work_granaries_desc;Expand the Agrarian Zone's granaries. Once finished: tax +10% in the Ba Sing Se region, and grain sent to starving provinces costs the treasury half as much.;;;;;;;;;;;;;x
+atx_work_daili;Work: Investigate the Dai Li;;;;;;;;;;;;;x
+atx_work_daili_desc;Appoint trusted officials to look into the Dai Li's affairs, quietly. Once finished, the Dai Li's influence drops by 30. Can be repeated.;;;;;;;;;;;;;x
+atx_purge_daili;Purge the Dai Li;;;;;;;;;;;;;x
+atx_purge_daili_desc;The Dai Li answer to themselves now. Remove their leaders and disband their networks. Their influence falls to nothing, their funding ends, and the crown loses authority for the upheaval.;;;;;;;;;;;;;x
+atx_work_wall_tt;Once finished: Ba Sing Se region fort level +2, garrison +50%, prestige +100. Royal Authority §R-5§!. Resentment §R+15§!.;;;;;;;;;;;;;x
+atx_work_granaries_tt;Once finished: tax +10% in the Ba Sing Se region, famine relief costs 30 instead of 60.;;;;;;;;;;;;;x
+atx_work_daili_tt;Once finished: Dai Li influence §G-30§!.;;;;;;;;;;;;;x
+atx_needs_states_law_tt;The Earth Kingdom has the §YStates§! or §YMonarchism§! unity law;;;;;;;;;;;;;x
+atx_daili_20_tt;Dai Li influence is at least §Y20§! (now §Y[global_atx_daili.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_50_tt;The treasury holds at least §Y50§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_200_tt;The treasury holds at least §Y200§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_30_tt;§R30§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_50_tt;§R50§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_70_tt;§R70§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_200_tt;§R200§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_sabotage_works;Sabotage the Crown's Works;;;;;;;;;;;;;x
+atx_sabotage_works_desc;Ba Sing Se builds to bind us tighter. A few paid hands, a fire in a storehouse, a bridge that gives way: the work can be set back a year. If the Dai Li catch our agents, the Earth King will know who sent them. Costs 25 gold.;;;;;;;;;;;;;x
+atx_sabotage_recent_tt;We have not sabotaged the crown's works in the last five years;;;;;;;;;;;;;x
+atx_sabotage_success_tt;If it works, one of the crown's works loses a year of progress;;;;;;;;;;;;;x
+atx_sabotage_exposed_tt;If our agents are caught, we lose §R30§! prestige and the Earth King will know it was us;;;;;;;;;;;;;x
+atx_sabotage_nothing_tt;Or nothing may come of it;;;;;;;;;;;;;x
+atlaexp.10.a;Good.;;;;;;;;;;;;;x
+atlaexp.11.a;We need more gold.;;;;;;;;;;;;;x
+atlaexp.15.a;A great day for Ba Sing Se.;;;;;;;;;;;;;x
+atlaexp.16.a;So be it.;;;;;;;;;;;;;x
+atlaexp.11.d_stall;The treasury could not pay for this year's work, and one of the crown's works stands idle. If it stalls three years running, it will be abandoned and everything spent on it lost. The treasury holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.11.d_abandon;Three years without pay: the workers have gone home and one of the crown's works has been abandoned. Everything spent on it is lost.;;;;;;;;;;;;;x
+atlaexp.12.d_famine;An envoy from [From.GetTitledFirstName] has made the long journey to Ba Sing Se. The harvest has failed in [From.GetHerHis] lands and the people are starving. [From.GetSheHeCap] asks the crown for grain.;;;;;;;;;;;;;x
+atlaexp.12.d_bandits;An envoy from [From.GetTitledFirstName] has made the long journey to Ba Sing Se. Daofei roam [From.GetHerHis] lands, burning villages and robbing the roads. [From.GetSheHeCap] asks the crown for soldiers.;;;;;;;;;;;;;x
+atlaexp.12.d_raiders;An envoy from [From.GetTitledFirstName] has made the long journey to Ba Sing Se. Raiders strike [From.GetHerHis] coasts and borders faster than [From.GetSheHe] can answer. [From.GetSheHeCap] asks the crown for soldiers.;;;;;;;;;;;;;x
+atlaexp.12.a;Send grain.;;;;;;;;;;;;;x
+atlaexp.12.b;Send soldiers.;;;;;;;;;;;;;x
+atlaexp.12.c;Ba Sing Se has its own troubles.;;;;;;;;;;;;;x
+atlaexp.14.d_helped;Ba Sing Se answered. Help from the crown has reached us, and our people will remember who sent it.;;;;;;;;;;;;;x
+atlaexp.14.d_denied;Ba Sing Se has refused us. The crown takes our tribute and gives nothing back.;;;;;;;;;;;;;x
+atlaexp.14.d_intercepted;Our envoy never came back from Ba Sing Se, and no answer has come. Some say the Dai Li keep bad news from the king. Whatever the reason, the crown has left us to fend for ourselves.;;;;;;;;;;;;;x
+atlaexp.14.a;Long live the Earth King.;;;;;;;;;;;;;x
+atlaexp.14.b;We will remember this. No more tribute.;;;;;;;;;;;;;x
+atlaexp.14.c;So be it.;;;;;;;;;;;;;x
+atlaexp.16.d_bureaucracy;The treasury could not pay the clerks this year. The bureaucracy programme has lapsed, and graft will return.;;;;;;;;;;;;;x
+atlaexp.16.d_army;The treasury could not pay the generals this year. The Council of Five's standing force has been disbanded.;;;;;;;;;;;;;x
+atlaexp.16.d_daili;The treasury could not pay the Dai Li this year. Their funding has lapsed.;;;;;;;;;;;;;x
+atlaexp.16.d_borders;The treasury could not pay the border garrisons this year. They have been withdrawn.;;;;;;;;;;;;;x
+atlaexp.17.d;The Dai Li have become a power of their own. Reports reach us only after they have read them, appointments go to their friends, and courtiers lower their voices when an agent passes. Ba Sing Se is quieter than ever, and we are no longer sure who rules it.;;;;;;;;;;;;;x
+atlaexp.17.a;This cannot go on.;;;;;;;;;;;;;x
+atlaexp.18.d;Fire in a storehouse, a collapsed scaffold, stolen tools: someone has sabotaged one of the crown's works, and it has lost a year of progress. Nobody knows who paid for it.;;;;;;;;;;;;;x
+atlaexp.18.a;Find them.;;;;;;;;;;;;;x
+atlaexp.19.d;Our agents caught saboteurs at one of the crown's works before they could do any harm. Under questioning they named their master: [From.GetTitledFirstName].;;;;;;;;;;;;;x
+atlaexp.19.a;[From.GetFirstName] will regret this.;;;;;;;;;;;;;x
+atx_granaries;Royal Granaries;;;;;;;;;;;;;x
+atx_granaries_desc;The crown's granaries in the Agrarian Zone.;;;;;;;;;;;;;x
+atx_crown_soldiers;Soldiers of Ba Sing Se;;;;;;;;;;;;;x
+atx_crown_soldiers_desc;Soldiers sent by the Earth King keep the peace here.;;;;;;;;;;;;;x
+atx_daili_ascendant;The Dai Li Ascendant;;;;;;;;;;;;;x
+atx_daili_ascendant_desc;The Dai Li control what reaches the throne.;;;;;;;;;;;;;x
+opinion_atx_crown_aid;Help from Ba Sing Se;;;;;;;;;;;;;x
+opinion_atx_crown_refused_aid;Refused Our Plea;;;;;;;;;;;;;x
+opinion_atx_saboteur;Saboteur;;;;;;;;;;;;;x
+atx_work_messengers_stages_tt;The work is built in §Y4§! yearly stages of §R200§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_messengers;Work on the Royal Messenger Network has moved forward another stage, paid with §Y200§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_messengers;The last relay station has opened. Riders of the Royal Messenger Network now carry the crown's word from Ba Sing Se to the far states in days.;;;;;;;;;;;;;x
+atx_work_roads_stages_tt;The work is built in §Y4§! yearly stages of §R125§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_roads;Work on the Royal Roads has moved forward another stage, paid with §Y125§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_roads;The Royal Roads are finished: paved roads and granaries now run across the Earth Kingdom.;;;;;;;;;;;;;x
+atx_work_law_stages_tt;The work is built in §Y3§! yearly stages of §R200§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_law;Work on the single code of law has moved forward another stage, paid with §Y200§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_law;The single code of law is finished and has been proclaimed in every state of the Earth Kingdom.;;;;;;;;;;;;;x
+atx_work_wall_stages_tt;The work is built in §Y4§! yearly stages of §R100§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_wall;Work on the Outer Wall has moved forward another stage, paid with §Y100§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_wall;The Outer Wall of Ba Sing Se stands complete. The capital has never been safer, and the provinces have never been angrier.;;;;;;;;;;;;;x
+atx_work_granaries_stages_tt;The work is built in §Y2§! yearly stages of §R100§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_granaries;Work on the Royal Granaries has moved forward another stage, paid with §Y100§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_granaries;The Royal Granaries are full. Ba Sing Se will not go hungry, and famine relief will cost the crown far less.;;;;;;;;;;;;;x
+atx_work_daili_stages_tt;The work is built in §Y2§! yearly stages of §R75§! gold each, paid from the treasury. A stage that cannot be paid stalls the work. Three stalls in a row abandon it.;;;;;;;;;;;;;x
+atlaexp.10.d_daili;Work on the investigation of the Dai Li has moved forward another stage, paid with §Y75§! gold from the treasury. The treasury now holds §Y[global_atx_treasury.GetValue]§! gold.;;;;;;;;;;;;;x
+atlaexp.15.d_daili;The investigation is finished. Several Dai Li officers have been quietly retired, and the rest have learned that the crown is watching.;;;;;;;;;;;;;x
+atx_treasury_10_tt;The treasury holds at least §Y10§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_10_tt;§R10§! gold is taken from the treasury of Ba Sing Se (the first year);;;;;;;;;;;;;x
+atx_treasury_12_tt;The treasury holds at least §Y12§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_12_tt;§R12§! gold is taken from the treasury of Ba Sing Se (the first year);;;;;;;;;;;;;x
+atx_treasury_15_tt;The treasury holds at least §Y15§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_15_tt;§R15§! gold is taken from the treasury of Ba Sing Se (the first year);;;;;;;;;;;;;x

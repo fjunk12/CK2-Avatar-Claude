@@ -1,5 +1,6 @@
 # ATLA Expanded - Ba Sing Se tribute system: triggers
-# Tiers depend on the Earth King's Royal Authority (global_royalAuthority, -100..100) and on how far the
+# Tiers depend on the crown's effective authority (global_atx_eff_ra: Royal Authority shifted by the Earth Kingdom
+# unity law, see atx_compute_effective_authority_effect) and on how far the
 # payer's capital is from the Royal Palace (province 109): "The further away a governing administration
 # is from Ba Sing Se, the more autonomy it enjoyed." (Avatar Wiki, Earth Kingdom)
 # check_variable value = N means "at least N".
@@ -65,16 +66,16 @@ atx_tier_recognised_trigger = {
 	OR = {
 		AND = {
 			atx_near_trigger = yes
-			check_variable = { which = global_royalAuthority value = 1 }
+			check_variable = { which = global_atx_eff_ra value = 1 }
 		}
 		AND = {
 			atx_near_trigger = no
 			atx_far_trigger = no
-			check_variable = { which = global_royalAuthority value = 21 }
+			check_variable = { which = global_atx_eff_ra value = 21 }
 		}
 		AND = {
 			atx_far_trigger = yes
-			check_variable = { which = global_royalAuthority value = 51 }
+			check_variable = { which = global_atx_eff_ra value = 51 }
 		}
 	}
 }
@@ -83,32 +84,33 @@ atx_tier_tribute_trigger = {
 	OR = {
 		AND = {
 			atx_near_trigger = yes
-			check_variable = { which = global_royalAuthority value = 21 }
+			check_variable = { which = global_atx_eff_ra value = 21 }
 		}
 		AND = {
 			atx_near_trigger = no
 			atx_far_trigger = no
-			check_variable = { which = global_royalAuthority value = 51 }
+			check_variable = { which = global_atx_eff_ra value = 51 }
 		}
 		AND = {
 			atx_far_trigger = yes
-			check_variable = { which = global_royalAuthority value = 81 }
+			check_variable = { which = global_atx_eff_ra value = 81 }
 		}
 	}
 }
 
-# Obedience: never for distant realms, never under Kyoshi's constitution
+# Obedience: never for distant realms, never under Kyoshi's constitution, never under Territories or Disunion
 atx_tier_obedience_trigger = {
 	NOT = { has_global_flag = kyoshi_parliamental_monarch }
+	has_global_flag = atx_law_allows_obedience # States or Monarchism (or a crown without unity laws)
 	atx_far_trigger = no
 	OR = {
 		AND = {
 			atx_near_trigger = yes
-			check_variable = { which = global_royalAuthority value = 61 }
+			check_variable = { which = global_atx_eff_ra value = 61 }
 		}
 		AND = {
 			atx_near_trigger = no
-			check_variable = { which = global_royalAuthority value = 81 }
+			check_variable = { which = global_atx_eff_ra value = 81 }
 		}
 	}
 }
@@ -124,4 +126,34 @@ atx_ruler_of_ba_sing_se_trigger = {
 		}
 	}
 	atx_valid_earth_king_trigger = yes
+}
+
+# A crown project ("work") is under construction
+atx_any_work_running_trigger = {
+	OR = {
+		check_variable = { which = global_atx_w_messengers_stage value = 1 }
+		check_variable = { which = global_atx_w_roads_stage value = 1 }
+		check_variable = { which = global_atx_w_law_stage value = 1 }
+		check_variable = { which = global_atx_w_wall_stage value = 1 }
+		check_variable = { which = global_atx_w_granaries_stage value = 1 }
+		check_variable = { which = global_atx_w_daili_stage value = 1 }
+	}
+}
+
+# Earth rulers who might sabotage the crown's works: tribute payers and Way of Chin realms of the Earth Kingdom
+atx_potential_saboteur_trigger = {
+	is_landed = yes
+	independent = yes
+	higher_tier_than = BARON
+	NOR = {
+		has_landed_title = e_earth_kingdom
+		has_landed_title = k_earth_kingdom
+	}
+	OR = {
+		atx_tribute_payer_base_trigger = yes
+		AND = {
+			religion = way_of_chin
+			capital_scope = { region = world_greater_earth_kingdom }
+		}
+	}
 }

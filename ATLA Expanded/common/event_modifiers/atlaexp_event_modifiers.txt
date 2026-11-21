@@ -41,3 +41,19 @@ atx_outer_wall = {
 	fort_level = 2
 	garrison_size = 0.5
 }
+
+# v0.4
+atx_granaries = {
+	icon = 24
+	local_tax_modifier = 0.1
+}
+atx_crown_soldiers = {
+	icon = 24
+	local_revolt_risk = -0.05
+	garrison_size = 0.3
+}
+atx_daili_ascendant = {
+	icon = 1
+	vassal_opinion = -10
+	defensive_plot_power_modifier = 0.2
+}

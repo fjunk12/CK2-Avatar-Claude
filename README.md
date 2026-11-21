@@ -27,57 +27,60 @@ New content for the Fire Nation and Earth Kingdom regions (including the Si Wong
 Install like ATLA Fixes: copy `ATLA Expanded.mod` and the `ATLA Expanded` folder into the mod folder and enable it
 with the main mod. It does not need ATLA Fixes and does not override any file of the main mod. Not yet tested in game.
 
-### v0.1: Ba Sing Se's tribute
-- Independent Earth realms owe Ba Sing Se according to the Earth King's Royal Authority and their distance from the
-  Royal Palace (province 109): under 450 map pixels is near, 450-850 middle, over 850 far.
+### Ba Sing Se (v0.4)
 
-| Royal Authority | Near | Middle | Far |
+**Tribute.** Independent Earth realms owe Ba Sing Se according to the crown's *effective authority* and their distance
+from the Royal Palace (province 109): under 450 map pixels is near, 450-850 middle, over 850 far.
+
+| Effective authority | Near | Middle | Far |
 |---|---|---|---|
 | Recognised (dukes 2, kings 4, emperors 8 gold a year) | 1+ | 21+ | 51+ |
 | Tribute (dukes 4, kings 8, emperors 16) | 21+ | 51+ | 81+ |
 | Obedience (tribute, counts 2, called to defend against foreign attackers) | 61+ | 81+ | never |
 
-- No obedience while Kyoshi's constitution is in force (the main mod's `kyoshi_parliamental_monarch` flag).
-- Exempt: Way of Chin realms, Si Wong tribes (sandbender culture or Si Wong faith, or a capital in the desert),
-  barbarians, tributaries and anyone at war with the Earth King. The collector must be an Earth Kingdom ruler of an
-  Earth faith holding the Earth Kingdom (a foreign or Chin conqueror of Ba Sing Se collects nothing).
-- All tribute goes into the **treasury of Ba Sing Se** (a global variable), never to the Earth King personally.
-- Regional kings: if a payer's capital lies in the de jure kingdom of another independent Earth ruler of king tier or
-  higher, that ruler collects it for the crown and gains prestige.
-- Decisions for payers: "Ba Sing Se and Us" (shows the current obligation), "Withhold Tribute" (each year where tribute
-  is expected: Royal Authority -1, the Earth King's opinion -20, some prestige for the defier), "Resume Tribute".
-- Refusing a call to arms: prestige -50, Royal Authority -3, the Earth King's opinion -40.
+- Effective authority = Royal Authority shifted by the main mod's Earth Kingdom unity law (Earth imperialism):
+  Disunion = nobody owes anything; Territories (the default) = no change, no obedience; States = +15, obedience possible;
+  Monarchism = +30, but resentment fades more slowly. (The main mod requires 100 Royal Authority to change that law,
+  so it shifts the tiers instead of capping them.) No obedience under Kyoshi's constitution either.
+- All tribute goes into the **treasury of Ba Sing Se**, never to the Earth King personally. Regional kings collect it for
+  the crown and gain prestige. Exempt: Way of Chin realms, the Si Wong tribes, barbarians, tributaries (the main mod's own
+  "pledge to the Earth King" tributaries), and anyone at war with the Earth King.
+- Payers can review, withhold or resume tribute. Withholding costs the crown authority where tribute is expected.
 
-### v0.2: the treasury of Ba Sing Se
-The ruler of Ba Sing Se spends the treasury through decisions. Projects last ten years and carry over to the next ruler.
+**The treasury.** Graft takes 10% a year (3% while the bureaucracy is paid, 5% more while the Dai Li are strong).
+A foreign or Way of Chin holder of Ba Sing Se loots it.
 
-| Decision | Cost | Effect |
+| Budget programme (on/off) | Yearly cost | While funded |
 |---|---|---|
-| Strengthen the Borders | 100 | Every border province of the realm: garrison +30%, fort level +1, levy reinforcement +20%, for 10 years |
-| Reform the Bureaucracy | 100 | Tax +10%, building cost -10%, and graft on the treasury drops from 10% to 3% a year |
-| Fund the Council of Five | 120 | Retinue +300, levies +10%, morale +5% |
-| Fund the Dai Li | 80 | Plot power +15%, plot defence +30%, plot discovery +20% |
-| Send Relief to the Provinces | 60 | Every tribute-owing ruler +15 opinion of the crown for 5 years, Royal Authority +3 (every 5 years) |
-| Proclaim the Mandate | 150 | Royal Authority +10 (every 10 years) |
-| Draw on the Treasury | 100 | 50 gold to your own purse, Royal Authority -5 (every 2 years) |
-| The Treasury of Ba Sing Se | - | Shows the balance |
+| Pay the Bureaucracy | 12 | Tax +10%, building cost -10%, graft 3% |
+| Fund the Council of Five | 15 | Retinue +300, levies +10%, morale +5% |
+| Fund the Dai Li | 10 | Plot power/defence/discovery up, saboteurs caught more often, but Dai Li influence +4 a year |
+| Garrison the Borders | 15 | Border provinces: garrison +30%, fort level +1, levy reinforcement +20% |
 
-- Graft: the treasury loses 10% a year (3% with a reformed bureaucracy).
-- If a foreign power or a Way of Chin ruler holds Ba Sing Se, they loot the whole treasury into their own purse.
+Unpaid programmes lapse.
 
-### v0.3: great works and the resentment of the states
-Region-wide, permanent projects paid from the treasury. Each one pushes the states away from Ba Sing Se.
+| Work (built in yearly stages) | Start | Stages | Once finished | Drawback |
+|---|---|---|---|---|
+| Royal Messenger Network (Royal Authority 30+, not Disunion) | 200 | 4 x 200 | Distance bands widen (near 650, far 1100) | Upkeep 20/yr, resentment +20 |
+| Royal Roads | 100 | 4 x 125 | Earth provinces outside the desert: supply +2, tax +5% | Helps invaders too, upkeep 15/yr, resentment +10 |
+| A Single Law for the Kingdom (States or Monarchism law, paid bureaucracy) | 200 | 3 x 200 | Tribute +50%, Royal Authority +5 | Payers -10 opinion, resentment +25 |
+| Raise the Outer Wall | 100 | 4 x 100 | Ba Sing Se region: fort level +2, garrison +50%, prestige +100 | Royal Authority -5, resentment +15 |
+| Royal Granaries | 100 | 2 x 100 | Ba Sing Se region tax +10%, famine relief at half cost | - |
+| Investigate the Dai Li (Dai Li influence 20+, repeatable) | 50 | 2 x 75 | Dai Li influence -30 | - |
 
-| Great work | Cost | Benefit | Drawback |
-|---|---|---|---|
-| Royal Messenger Network (needs Royal Authority 30+) | 1000 | Distance bands widen: near up to 650, far beyond 1100, so more realms owe more | Upkeep 20 a year or it collapses; resentment +20 |
-| Royal Roads | 600 | Every Earth Kingdom province outside the desert: supply limit +2, tax +5% | Helps invading armies too; upkeep 15 a year or the roads decay; resentment +10 |
-| A Single Law for the Kingdom (needs a reformed bureaucracy) | 800 | Tribute +50%, Royal Authority +5 | Every tribute payer -10 opinion of the crown while it stands; resentment +25 |
-| Raise the Outer Wall | 500 | Ba Sing Se region: fort level +2, garrison +50%, prestige +100 | Conscripted labour: Royal Authority -5, resentment +15 |
-
-- When a great work is finished, every tribute-owing ruler chooses to accept it or resist (stop paying).
-- **Resentment** (0-100, shown in the treasury overview) fades by 5 a year. Above 25, each paying state has a yearly
-  chance (4%, doubled at 50 and again at 75, more for proud or ambitious rulers, much less if they like the crown) to stop
-  paying. The AI simply stops; a player is asked. Sending relief lowers resentment by 10, proclaiming the Mandate raises it by 5.
-- Saving 1000 gold takes about 7-10 years at high authority, and is only possible with a reformed bureaucracy at low
-  income (graft caps the treasury at ten times the yearly income).
+- Each year one stage is paid. If the treasury cannot pay, the work stalls; three stalls in a row abandon it.
+- Several works can run at once if the treasury allows.
+- **Sabotage:** tribute payers and Way of Chin realms of the Earth Kingdom can pay 25 gold to sabotage a running work
+  (once every 5 years). It may set a random work back a year, do nothing, or be caught (more likely while the Dai Li are
+  funded or strong), in which case the Earth King learns who did it, gains 2 authority and hates the saboteur.
+- **Help requests:** far realms (middle or far band) that recognise the crown sometimes ask for help (famine, daofei,
+  raiders; at most two requests a year). Helping costs 30-70 gold (Royal Authority +1, resentment -3, their gratitude);
+  refusing costs 2 Royal Authority and adds 3 resentment, and the realm may stop paying. When Dai Li influence is 75+,
+  requests never reach the king.
+- **Resentment** (0-100) rises with great works and refusals, fades 5 a year (3 under Monarchism). Above 25 some states
+  stop paying each year. Relief (60) lowers it by 10.
+- **Dai Li influence** (0-100) grows while they are funded (+4) or the crown is weak (+2), fades otherwise (-2).
+  At 50+ they skim the treasury; at 75+ they intercept requests and may take over the court (Royal Authority -5).
+  Purge the Dai Li (100, needs 50+) resets it, at a cost of 5 authority.
+- One-off actions: Send Relief (60, every 5 years), Proclaim the Mandate (150, Royal Authority +10, every 10 years),
+  Draw on the Treasury (100 -> 50 to your purse, Royal Authority -5, every 2 years).

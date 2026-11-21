@@ -138,25 +138,6 @@ atx_loot_treasury_effect = {
 	set_variable = { which = global_atx_treasury value = 0 }
 }
 
-# Keeps a 10-year crown project's modifier on whoever holds Ba Sing Se, so projects survive a change of ruler
-atx_refresh_projects_effect = {
-	if = {
-		limit = { has_global_flag = atx_proj_bureaucracy NOT = { had_global_flag = { flag = atx_proj_bureaucracy days = 3650 } } }
-		remove_character_modifier = atx_crown_bureaucracy
-		add_character_modifier = { name = atx_crown_bureaucracy days = 380 }
-	}
-	if = {
-		limit = { has_global_flag = atx_proj_army NOT = { had_global_flag = { flag = atx_proj_army days = 3650 } } }
-		remove_character_modifier = atx_crown_army
-		add_character_modifier = { name = atx_crown_army days = 380 }
-	}
-	if = {
-		limit = { has_global_flag = atx_proj_dai_li NOT = { had_global_flag = { flag = atx_proj_dai_li days = 3650 } } }
-		remove_character_modifier = atx_crown_dai_li
-		add_character_modifier = { name = atx_crown_dai_li days = 380 }
-	}
-}
-
 # Resentment of the states towards Ba Sing Se (global_atx_resentment, kept between 0 and 100)
 atx_clamp_resentment_effect = {
 	if = {
@@ -181,7 +162,7 @@ atx_start_grumbling_effect = {
 	}
 }
 
-# Great works with yearly upkeep: paid from the treasury or the work collapses (run on the ruler of Ba Sing Se)
+# Upkeep of finished great works, paid from the treasury or the work collapses (run on the ruler of Ba Sing Se)
 atx_great_works_upkeep_effect = {
 	if = {
 		limit = { has_global_flag = atx_work_messengers }
@@ -209,4 +190,536 @@ atx_great_works_upkeep_effect = {
 			character_event = { id = atlaexp.9 }
 		}
 	}
+}
+
+# Saves the ruler of Ba Sing Se as event_target:atx_earth_king (from any scope)
+atx_save_earth_king_effect = {
+	if = {
+		limit = { e_earth_kingdom = { has_holder = yes } }
+		e_earth_kingdom = { holder_scope = { save_event_target_as = atx_earth_king } }
+	}
+	else_if = {
+		limit = { k_earth_kingdom = { has_holder = yes } }
+		k_earth_kingdom = { holder_scope = { save_event_target_as = atx_earth_king } }
+	}
+}
+
+# Earth imperialism: the main mod's Earth Kingdom unity law shifts what the states owe (run on the ruler of Ba Sing Se).
+# Changing that law needs 100 Royal Authority in the main mod, so it shifts the tiers instead of capping them.
+#   Disunion: nobody owes anything.  Territories (default): no obedience.
+#   States: as if authority were 15 higher, obedience possible.  Monarchism: 30 higher, but resentment grows every year.
+atx_compute_effective_authority_effect = {
+	set_variable = { which = global_atx_eff_ra which = global_royalAuthority }
+	clr_global_flag = atx_law_allows_obedience
+	clr_global_flag = atx_law_states_plus
+	clr_global_flag = atx_law_monarchism
+	if = {
+		limit = { has_law = ek_unity_0 }
+		set_variable = { which = global_atx_eff_ra value = -1000 }
+	}
+	else_if = {
+		limit = { has_law = ek_unity_3 }
+		change_variable = { which = global_atx_eff_ra value = 30 }
+		set_global_flag = atx_law_allows_obedience
+		set_global_flag = atx_law_states_plus
+		set_global_flag = atx_law_monarchism
+	}
+	else_if = {
+		limit = { has_law = ek_unity_2 }
+		change_variable = { which = global_atx_eff_ra value = 15 }
+		set_global_flag = atx_law_allows_obedience
+		set_global_flag = atx_law_states_plus
+	}
+	else_if = {
+		limit = { NOT = { has_law = ek_unity_1 } } # a crown without unity laws (another government)
+		set_global_flag = atx_law_allows_obedience
+		set_global_flag = atx_law_states_plus
+	}
+}
+
+# Budget programmes: ongoing yearly costs while switched on. Unpaid -> the programme lapses (run on the ruler of Ba Sing Se)
+atx_programmes_effect = {
+	if = {
+		limit = { has_global_flag = atx_prog_bureaucracy }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 12 } }
+			change_variable = { which = global_atx_treasury value = -12 }
+			remove_character_modifier = atx_crown_bureaucracy
+			add_character_modifier = { name = atx_crown_bureaucracy days = 380 }
+		}
+		else = {
+			clr_global_flag = atx_prog_bureaucracy
+			remove_character_modifier = atx_crown_bureaucracy
+			set_character_flag = atx_lapse_bureaucracy
+			character_event = { id = atlaexp.16 }
+		}
+	}
+	if = {
+		limit = { has_global_flag = atx_prog_army }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 15 } }
+			change_variable = { which = global_atx_treasury value = -15 }
+			remove_character_modifier = atx_crown_army
+			add_character_modifier = { name = atx_crown_army days = 380 }
+		}
+		else = {
+			clr_global_flag = atx_prog_army
+			remove_character_modifier = atx_crown_army
+			set_character_flag = atx_lapse_army
+			character_event = { id = atlaexp.16 }
+		}
+	}
+	if = {
+		limit = { has_global_flag = atx_prog_daili }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 10 } }
+			change_variable = { which = global_atx_treasury value = -10 }
+			remove_character_modifier = atx_crown_dai_li
+			add_character_modifier = { name = atx_crown_dai_li days = 380 }
+		}
+		else = {
+			clr_global_flag = atx_prog_daili
+			remove_character_modifier = atx_crown_dai_li
+			set_character_flag = atx_lapse_daili
+			character_event = { id = atlaexp.16 }
+		}
+	}
+	if = {
+		limit = { has_global_flag = atx_prog_borders }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 15 } }
+			change_variable = { which = global_atx_treasury value = -15 }
+			atx_apply_border_garrisons_effect = yes
+		}
+		else = {
+			clr_global_flag = atx_prog_borders
+			set_character_flag = atx_lapse_borders
+			character_event = { id = atlaexp.16 }
+		}
+	}
+}
+
+atx_apply_border_garrisons_effect = {
+	any_province = {
+		limit = { has_province_modifier = atx_strengthened_border }
+		remove_province_modifier = atx_strengthened_border
+	}
+	any_realm_province = {
+		limit = {
+			any_neighbor_province = {
+				has_owner = yes
+				owner = { NOT = { same_realm = ROOT } }
+			}
+		}
+		add_province_modifier = { name = atx_strengthened_border days = 380 }
+	}
+}
+
+# Dai Li influence (global_atx_daili, 0-100): grows while the crown funds them or is weak, fades otherwise
+atx_daili_influence_effect = {
+	if = {
+		limit = { has_global_flag = atx_prog_daili }
+		change_variable = { which = global_atx_daili value = 4 }
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = global_royalAuthority value = 20 } } }
+		change_variable = { which = global_atx_daili value = 2 }
+	}
+	if = {
+		limit = {
+			NOT = { has_global_flag = atx_prog_daili }
+			check_variable = { which = global_royalAuthority value = 20 }
+		}
+		change_variable = { which = global_atx_daili value = -2 }
+	}
+	if = {
+		limit = { NOT = { check_variable = { which = global_atx_daili value = 0 } } }
+		set_variable = { which = global_atx_daili value = 0 }
+	}
+	if = {
+		limit = { check_variable = { which = global_atx_daili value = 100 } }
+		set_variable = { which = global_atx_daili value = 100 }
+	}
+	# Overreach, like Long Feng: the Dai Li hold the court in their hands
+	if = {
+		limit = {
+			check_variable = { which = global_atx_daili value = 75 }
+			NOT = { has_character_modifier = atx_daili_ascendant }
+		}
+		random = {
+			chance = 20
+			character_event = { id = atlaexp.17 }
+		}
+	}
+}
+
+# Sabotage sets a random running work back one year (or, at the first stage, costs it a year of stalling)
+atx_sabotage_setback_effect = {
+	random_list = {
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_messengers_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_messengers_stage value = 2 } }
+				change_variable = { which = global_atx_w_messengers_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_messengers_stall value = 1 } }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_roads_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_roads_stage value = 2 } }
+				change_variable = { which = global_atx_w_roads_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_roads_stall value = 1 } }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_law_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_law_stage value = 2 } }
+				change_variable = { which = global_atx_w_law_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_law_stall value = 1 } }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_wall_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_wall_stage value = 2 } }
+				change_variable = { which = global_atx_w_wall_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_wall_stall value = 1 } }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_granaries_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_granaries_stage value = 2 } }
+				change_variable = { which = global_atx_w_granaries_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_granaries_stall value = 1 } }
+		}
+		10 = {
+			modifier = { factor = 0 NOT = { check_variable = { which = global_atx_w_daili_stage value = 1 } } }
+			if = {
+				limit = { check_variable = { which = global_atx_w_daili_stage value = 2 } }
+				change_variable = { which = global_atx_w_daili_stage value = -1 }
+			}
+			else = { change_variable = { which = global_atx_w_daili_stall value = 1 } }
+		}
+	}
+}
+
+# Crown works: started by decision (down payment), then one stage a year paid from the treasury.
+# A stage that cannot be paid stalls; three stalls in a row abandon the work.
+atx_progress_messengers_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_messengers_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 200 } }
+			change_variable = { which = global_atx_treasury value = -200 }
+			change_variable = { which = global_atx_w_messengers_stage value = 1 }
+			set_variable = { which = global_atx_w_messengers_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_messengers_stage value = 5 } }
+				set_variable = { which = global_atx_w_messengers_stage value = 0 }
+				atx_complete_messengers_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_messengers
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_messengers_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_messengers_stall value = 3 } }
+				set_variable = { which = global_atx_w_messengers_stage value = 0 }
+				set_variable = { which = global_atx_w_messengers_stall value = 0 }
+				set_character_flag = atx_abandon_messengers
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_messengers
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_progress_roads_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_roads_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 125 } }
+			change_variable = { which = global_atx_treasury value = -125 }
+			change_variable = { which = global_atx_w_roads_stage value = 1 }
+			set_variable = { which = global_atx_w_roads_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_roads_stage value = 5 } }
+				set_variable = { which = global_atx_w_roads_stage value = 0 }
+				atx_complete_roads_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_roads
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_roads_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_roads_stall value = 3 } }
+				set_variable = { which = global_atx_w_roads_stage value = 0 }
+				set_variable = { which = global_atx_w_roads_stall value = 0 }
+				set_character_flag = atx_abandon_roads
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_roads
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_progress_law_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_law_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 200 } }
+			change_variable = { which = global_atx_treasury value = -200 }
+			change_variable = { which = global_atx_w_law_stage value = 1 }
+			set_variable = { which = global_atx_w_law_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_law_stage value = 4 } }
+				set_variable = { which = global_atx_w_law_stage value = 0 }
+				atx_complete_law_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_law
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_law_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_law_stall value = 3 } }
+				set_variable = { which = global_atx_w_law_stage value = 0 }
+				set_variable = { which = global_atx_w_law_stall value = 0 }
+				set_character_flag = atx_abandon_law
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_law
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_progress_wall_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_wall_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 100 } }
+			change_variable = { which = global_atx_treasury value = -100 }
+			change_variable = { which = global_atx_w_wall_stage value = 1 }
+			set_variable = { which = global_atx_w_wall_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_wall_stage value = 5 } }
+				set_variable = { which = global_atx_w_wall_stage value = 0 }
+				atx_complete_wall_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_wall
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_wall_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_wall_stall value = 3 } }
+				set_variable = { which = global_atx_w_wall_stage value = 0 }
+				set_variable = { which = global_atx_w_wall_stall value = 0 }
+				set_character_flag = atx_abandon_wall
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_wall
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_progress_granaries_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_granaries_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 100 } }
+			change_variable = { which = global_atx_treasury value = -100 }
+			change_variable = { which = global_atx_w_granaries_stage value = 1 }
+			set_variable = { which = global_atx_w_granaries_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_granaries_stage value = 3 } }
+				set_variable = { which = global_atx_w_granaries_stage value = 0 }
+				atx_complete_granaries_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_granaries
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_granaries_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_granaries_stall value = 3 } }
+				set_variable = { which = global_atx_w_granaries_stage value = 0 }
+				set_variable = { which = global_atx_w_granaries_stall value = 0 }
+				set_character_flag = atx_abandon_granaries
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_granaries
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_progress_daili_effect = {
+	if = {
+		limit = { check_variable = { which = global_atx_w_daili_stage value = 1 } }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 75 } }
+			change_variable = { which = global_atx_treasury value = -75 }
+			change_variable = { which = global_atx_w_daili_stage value = 1 }
+			set_variable = { which = global_atx_w_daili_stall value = 0 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_daili_stage value = 3 } }
+				set_variable = { which = global_atx_w_daili_stage value = 0 }
+				atx_complete_daili_effect = yes
+			}
+			else = {
+				set_character_flag = atx_report_daili
+				character_event = { id = atlaexp.10 }
+			}
+		}
+		else = {
+			change_variable = { which = global_atx_w_daili_stall value = 1 }
+			if = {
+				limit = { check_variable = { which = global_atx_w_daili_stall value = 3 } }
+				set_variable = { which = global_atx_w_daili_stage value = 0 }
+				set_variable = { which = global_atx_w_daili_stall value = 0 }
+				set_character_flag = atx_abandon_daili
+				character_event = { id = atlaexp.11 }
+			}
+			else = {
+				set_character_flag = atx_stall_daili
+				character_event = { id = atlaexp.11 }
+			}
+		}
+	}
+}
+atx_complete_messengers_effect = {
+	set_global_flag = atx_work_messengers
+	change_variable = { which = global_atx_resentment value = 20 }
+	atx_clamp_resentment_effect = yes
+	set_character_flag = atx_done_messengers
+	character_event = { id = atlaexp.15 }
+	any_independent_ruler = {
+		limit = { atx_tribute_payer_base_trigger = yes }
+		set_character_flag = atx_news_messengers
+		character_event = { id = atlaexp.6 }
+	}
+}
+atx_complete_roads_effect = {
+	set_global_flag = atx_work_roads
+	any_province = {
+		limit = {
+			has_owner = yes
+			region = world_greater_earth_kingdom
+			NOT = { region = world_si_wong }
+		}
+		add_province_modifier = { name = atx_royal_road duration = -1 }
+	}
+	change_variable = { which = global_atx_resentment value = 10 }
+	atx_clamp_resentment_effect = yes
+	set_character_flag = atx_done_roads
+	character_event = { id = atlaexp.15 }
+	any_independent_ruler = {
+		limit = { atx_tribute_payer_base_trigger = yes }
+		set_character_flag = atx_news_roads
+		character_event = { id = atlaexp.6 }
+	}
+}
+atx_complete_law_effect = {
+	set_global_flag = atx_work_law
+	change_variable = { which = global_royalAuthority value = 5 }
+	change_variable = { which = global_atx_resentment value = 25 }
+	atx_clamp_resentment_effect = yes
+	set_character_flag = atx_done_law
+	character_event = { id = atlaexp.15 }
+	any_independent_ruler = {
+		limit = { atx_tribute_payer_base_trigger = yes }
+		set_character_flag = atx_news_law
+		character_event = { id = atlaexp.6 }
+	}
+}
+atx_complete_wall_effect = {
+	set_global_flag = atx_work_wall
+	any_province = {
+		limit = { region = world_ba_sing_se }
+		add_province_modifier = { name = atx_outer_wall duration = -1 }
+	}
+	prestige = 100
+	change_variable = { which = global_royalAuthority value = -5 }
+	change_variable = { which = global_atx_resentment value = 15 }
+	atx_clamp_resentment_effect = yes
+	set_character_flag = atx_done_wall
+	character_event = { id = atlaexp.15 }
+	any_independent_ruler = {
+		limit = { atx_tribute_payer_base_trigger = yes }
+		set_character_flag = atx_news_wall
+		character_event = { id = atlaexp.6 }
+	}
+}
+atx_complete_granaries_effect = {
+	set_global_flag = atx_work_granaries
+	any_province = {
+		limit = { region = world_ba_sing_se }
+		add_province_modifier = { name = atx_granaries duration = -1 }
+	}
+	set_character_flag = atx_done_granaries
+	character_event = { id = atlaexp.15 }
+}
+atx_complete_daili_effect = {
+	change_variable = { which = global_atx_daili value = -30 }
+	if = {
+		limit = { NOT = { check_variable = { which = global_atx_daili value = 0 } } }
+		set_variable = { which = global_atx_daili value = 0 }
+	}
+	set_character_flag = atx_done_daili
+	character_event = { id = atlaexp.15 }
+}
+atx_progress_all_works_effect = {
+	atx_progress_messengers_effect = yes
+	atx_progress_roads_effect = yes
+	atx_progress_law_effect = yes
+	atx_progress_wall_effect = yes
+	atx_progress_granaries_effect = yes
+	atx_progress_daili_effect = yes
+}
+
+# Help sent to a far realm (ROOT = the ruler of Ba Sing Se, FROM = the realm that asked)
+atx_help_given_effect = {
+	change_variable = { which = global_royalAuthority value = 1 }
+	change_variable = { which = global_atx_resentment value = -3 }
+	atx_clamp_resentment_effect = yes
+	FROM = {
+		opinion = { who = ROOT modifier = opinion_atx_crown_aid years = 10 }
+		set_character_flag = atx_req_helped
+		letter_event = { id = atlaexp.14 days = 10 }
+	}
+}
+
+atx_clear_request_flags_effect = {
+	clr_character_flag = atx_req_famine
+	clr_character_flag = atx_req_bandits
+	clr_character_flag = atx_req_raiders
+	clr_character_flag = atx_req_helped
+	clr_character_flag = atx_req_denied
+	clr_character_flag = atx_req_intercepted
 }

@@ -67,4 +67,66 @@ decisions = {
 			modifier = { factor = 0.5 trait = proud }
 		}
 	}
+
+	# Sabotage the crown's works (tribute payers and Way of Chin realms of the Earth Kingdom)
+	atx_sabotage_works = {
+		ai_check_interval = 36
+		potential = {
+			atx_potential_saboteur_trigger = yes
+			atx_any_work_running_trigger = yes
+		}
+		allow = {
+			wealth = 25
+			prisoner = no
+			custom_tooltip = {
+				text = atx_sabotage_recent_tt
+				OR = {
+					NOT = { has_character_flag = atx_sabotaged }
+					had_character_flag = { flag = atx_sabotaged days = 1825 }
+				}
+			}
+		}
+		effect = {
+			wealth = -25
+			clr_character_flag = atx_sabotaged
+			set_character_flag = atx_sabotaged
+			atx_save_earth_king_effect = yes
+			random_list = {
+				50 = { # The works are set back
+					modifier = { factor = 1.5 intrigue = 12 }
+					modifier = { factor = 1.5 intrigue = 18 }
+					custom_tooltip = {
+						text = atx_sabotage_success_tt
+						atx_sabotage_setback_effect = yes
+						event_target:atx_earth_king = { character_event = { id = atlaexp.18 } }
+					}
+				}
+				30 = { # Foiled and exposed (the Dai Li are watching)
+					modifier = { factor = 2 has_global_flag = atx_prog_daili }
+					modifier = { factor = 1.5 check_variable = { which = global_atx_daili value = 50 } }
+					modifier = { factor = 0.7 intrigue = 12 }
+					custom_tooltip = {
+						text = atx_sabotage_exposed_tt
+						prestige = -30
+						event_target:atx_earth_king = { character_event = { id = atlaexp.19 } }
+					}
+				}
+				20 = { # Nothing comes of it
+					custom_tooltip = { text = atx_sabotage_nothing_tt }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.05
+			modifier = { factor = 2 check_variable = { which = global_atx_resentment value = 25 } }
+			modifier = { factor = 2 check_variable = { which = global_atx_resentment value = 50 } }
+			modifier = { factor = 3 has_character_flag = atx_withholding }
+			modifier = { factor = 4 religion = way_of_chin }
+			modifier = { factor = 2 intrigue = 12 }
+			modifier = { factor = 2 trait = ambitious }
+			modifier = { factor = 0.2 trait = honest }
+			modifier = { factor = 0.3 trait = just }
+			modifier = { factor = 0.2 trait = content }
+		}
+	}
 }
