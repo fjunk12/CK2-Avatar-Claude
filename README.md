@@ -64,3 +64,20 @@ The ruler of Ba Sing Se spends the treasury through decisions. Projects last ten
 
 - Graft: the treasury loses 10% a year (3% with a reformed bureaucracy).
 - If a foreign power or a Way of Chin ruler holds Ba Sing Se, they loot the whole treasury into their own purse.
+
+### v0.3: great works and the resentment of the states
+Region-wide, permanent projects paid from the treasury. Each one pushes the states away from Ba Sing Se.
+
+| Great work | Cost | Benefit | Drawback |
+|---|---|---|---|
+| Royal Messenger Network (needs Royal Authority 30+) | 1000 | Distance bands widen: near up to 650, far beyond 1100, so more realms owe more | Upkeep 20 a year or it collapses; resentment +20 |
+| Royal Roads | 600 | Every Earth Kingdom province outside the desert: supply limit +2, tax +5% | Helps invading armies too; upkeep 15 a year or the roads decay; resentment +10 |
+| A Single Law for the Kingdom (needs a reformed bureaucracy) | 800 | Tribute +50%, Royal Authority +5 | Every tribute payer -10 opinion of the crown while it stands; resentment +25 |
+| Raise the Outer Wall | 500 | Ba Sing Se region: fort level +2, garrison +50%, prestige +100 | Conscripted labour: Royal Authority -5, resentment +15 |
+
+- When a great work is finished, every tribute-owing ruler chooses to accept it or resist (stop paying).
+- **Resentment** (0-100, shown in the treasury overview) fades by 5 a year. Above 25, each paying state has a yearly
+  chance (4%, doubled at 50 and again at 75, more for proud or ambitious rulers, much less if they like the crown) to stop
+  paying. The AI simply stops; a player is asked. Sending relief lowers resentment by 10, proclaiming the Mandate raises it by 5.
+- Saving 1000 gold takes about 7-10 years at high authority, and is only possible with a reformed bureaucracy at low
+  income (graft caps the treasury at ten times the yearly income).

@@ -31,6 +31,11 @@ atx_find_regional_lord_effect = {
 atx_pay_2_effect = {
 	wealth = -2
 	change_variable = { which = global_atx_treasury value = 2 }
+	if = { # A Single Law for the Kingdom: half as much again
+		limit = { has_global_flag = atx_work_law wealth = 1 }
+		wealth = -1
+		change_variable = { which = global_atx_treasury value = 1 }
+	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
 		event_target:atx_regional = { prestige = 2 }
@@ -39,6 +44,11 @@ atx_pay_2_effect = {
 atx_pay_4_effect = {
 	wealth = -4
 	change_variable = { which = global_atx_treasury value = 4 }
+	if = { # A Single Law for the Kingdom: half as much again
+		limit = { has_global_flag = atx_work_law wealth = 2 }
+		wealth = -2
+		change_variable = { which = global_atx_treasury value = 2 }
+	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
 		event_target:atx_regional = { prestige = 4 }
@@ -47,6 +57,11 @@ atx_pay_4_effect = {
 atx_pay_8_effect = {
 	wealth = -8
 	change_variable = { which = global_atx_treasury value = 8 }
+	if = { # A Single Law for the Kingdom: half as much again
+		limit = { has_global_flag = atx_work_law wealth = 4 }
+		wealth = -4
+		change_variable = { which = global_atx_treasury value = 4 }
+	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
 		event_target:atx_regional = { prestige = 8 }
@@ -55,6 +70,11 @@ atx_pay_8_effect = {
 atx_pay_16_effect = {
 	wealth = -16
 	change_variable = { which = global_atx_treasury value = 16 }
+	if = { # A Single Law for the Kingdom: half as much again
+		limit = { has_global_flag = atx_work_law wealth = 8 }
+		wealth = -8
+		change_variable = { which = global_atx_treasury value = 8 }
+	}
 	if = {
 		limit = { has_character_flag = atx_has_regional }
 		event_target:atx_regional = { prestige = 16 }
@@ -134,5 +154,59 @@ atx_refresh_projects_effect = {
 		limit = { has_global_flag = atx_proj_dai_li NOT = { had_global_flag = { flag = atx_proj_dai_li days = 3650 } } }
 		remove_character_modifier = atx_crown_dai_li
 		add_character_modifier = { name = atx_crown_dai_li days = 380 }
+	}
+}
+
+# Resentment of the states towards Ba Sing Se (global_atx_resentment, kept between 0 and 100)
+atx_clamp_resentment_effect = {
+	if = {
+		limit = { NOT = { check_variable = { which = global_atx_resentment value = 0 } } }
+		set_variable = { which = global_atx_resentment value = 0 }
+	}
+	if = {
+		limit = { check_variable = { which = global_atx_resentment value = 100 } }
+		set_variable = { which = global_atx_resentment value = 100 }
+	}
+}
+
+# A payer joins the grumbling: the AI simply starts withholding, a player is asked
+atx_start_grumbling_effect = {
+	if = {
+		limit = { ai = yes }
+		set_character_flag = atx_withholding
+		add_character_modifier = { name = atx_defying_ba_sing_se duration = -1 }
+	}
+	else = {
+		letter_event = { id = atlaexp.7 }
+	}
+}
+
+# Great works with yearly upkeep: paid from the treasury or the work collapses (run on the ruler of Ba Sing Se)
+atx_great_works_upkeep_effect = {
+	if = {
+		limit = { has_global_flag = atx_work_messengers }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 20 } }
+			change_variable = { which = global_atx_treasury value = -20 }
+		}
+		else = {
+			clr_global_flag = atx_work_messengers
+			character_event = { id = atlaexp.8 }
+		}
+	}
+	if = {
+		limit = { has_global_flag = atx_work_roads }
+		if = {
+			limit = { check_variable = { which = global_atx_treasury value = 15 } }
+			change_variable = { which = global_atx_treasury value = -15 }
+		}
+		else = {
+			clr_global_flag = atx_work_roads
+			any_province = {
+				limit = { has_province_modifier = atx_royal_road }
+				remove_province_modifier = atx_royal_road
+			}
+			character_event = { id = atlaexp.9 }
+		}
 	}
 }

@@ -29,3 +29,15 @@ atx_strengthened_border = {
 	fort_level = 1
 	levy_reinforce_rate = 0.2
 }
+
+# Great works (province modifiers)
+atx_royal_road = {
+	icon = 24
+	supply_limit = 2
+	local_tax_modifier = 0.05
+}
+atx_outer_wall = {
+	icon = 24
+	fort_level = 2
+	garrison_size = 0.5
+}

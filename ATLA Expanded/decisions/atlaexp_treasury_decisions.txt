@@ -1,5 +1,6 @@
 # ATLA Expanded - the Ba Sing Se treasury: decisions for the ruler of Ba Sing Se
 # All tribute goes into global_atx_treasury; the ruler spends it here. Projects last 10 years and pass to the next ruler.
+# Great works are permanent and region-wide, but anger the states (global_atx_resentment) and some cost upkeep.
 decisions = {
 	atx_view_treasury = { # Balance and running projects
 		ai = no
@@ -175,8 +176,13 @@ decisions = {
 				opinion = { who = ROOT modifier = opinion_atx_crown_relief years = 5 }
 			}
 			change_variable = { which = global_royalAuthority value = 3 }
+			change_variable = { which = global_atx_resentment value = -10 }
+			atx_clamp_resentment_effect = yes
 		}
-		ai_will_do = { factor = 0.5 }
+		ai_will_do = {
+			factor = 0.5
+			modifier = { factor = 4 check_variable = { which = global_atx_resentment value = 40 } }
+		}
 	}
 	atx_proclaim_mandate = { # Spend heavily to reassert the crown
 		is_high_prio = yes
@@ -203,6 +209,8 @@ decisions = {
 			clr_global_flag = atx_mandate_proclaimed
 			set_global_flag = atx_mandate_proclaimed
 			change_variable = { which = global_royalAuthority value = 10 }
+			change_variable = { which = global_atx_resentment value = 5 }
+			atx_clamp_resentment_effect = yes
 		}
 		ai_will_do = {
 			factor = 1
@@ -240,6 +248,169 @@ decisions = {
 			modifier = { factor = 10 trait = greedy }
 			modifier = { factor = 0 trait = charitable }
 			modifier = { factor = 0 trait = just }
+		}
+	}
+
+	# ---- Great works: region-wide, permanent, with drawbacks ----
+	atx_work_messengers = { # Great work: the Royal Messenger Network
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_1000_tt
+				check_variable = { which = global_atx_treasury value = 1000 }
+			}
+			custom_tooltip = {
+				text = atx_work_built_tt
+				NOT = { has_global_flag = atx_work_messengers }
+			}
+			check_variable = { which = global_royalAuthority value = 30 }
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_1000_tt
+				change_variable = { which = global_atx_treasury value = -1000 }
+			}
+			set_global_flag = atx_work_messengers
+			custom_tooltip = { text = atx_work_messengers_tt }
+			custom_tooltip = {
+				text = atx_resentment_20_tt
+				change_variable = { which = global_atx_resentment value = 20 }
+				atx_clamp_resentment_effect = yes
+			}
+			any_independent_ruler = {
+				limit = { atx_tribute_payer_base_trigger = yes }
+				set_character_flag = atx_news_messengers
+				character_event = { id = atlaexp.6 }
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	atx_work_roads = { # Great work: the Royal Roads
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_600_tt
+				check_variable = { which = global_atx_treasury value = 600 }
+			}
+			custom_tooltip = {
+				text = atx_work_built_tt
+				NOT = { has_global_flag = atx_work_roads }
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_600_tt
+				change_variable = { which = global_atx_treasury value = -600 }
+			}
+			set_global_flag = atx_work_roads
+			custom_tooltip = {
+				text = atx_work_roads_tt
+				any_province = {
+					limit = {
+						has_owner = yes
+						region = world_greater_earth_kingdom
+						NOT = { region = world_si_wong }
+					}
+					add_province_modifier = { name = atx_royal_road duration = -1 }
+				}
+			}
+			custom_tooltip = {
+				text = atx_resentment_10_tt
+				change_variable = { which = global_atx_resentment value = 10 }
+				atx_clamp_resentment_effect = yes
+			}
+			any_independent_ruler = {
+				limit = { atx_tribute_payer_base_trigger = yes }
+				set_character_flag = atx_news_roads
+				character_event = { id = atlaexp.6 }
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	atx_work_law = { # Great work: A Single Law for the Kingdom
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_800_tt
+				check_variable = { which = global_atx_treasury value = 800 }
+			}
+			custom_tooltip = {
+				text = atx_work_built_tt
+				NOT = { has_global_flag = atx_work_law }
+			}
+			custom_tooltip = {
+				text = atx_needs_bureaucracy_tt
+				has_global_flag = atx_proj_bureaucracy
+				NOT = { had_global_flag = { flag = atx_proj_bureaucracy days = 3650 } }
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_800_tt
+				change_variable = { which = global_atx_treasury value = -800 }
+			}
+			set_global_flag = atx_work_law
+			custom_tooltip = { text = atx_work_law_tt }
+			change_variable = { which = global_royalAuthority value = 5 }
+			custom_tooltip = {
+				text = atx_resentment_25_tt
+				change_variable = { which = global_atx_resentment value = 25 }
+				atx_clamp_resentment_effect = yes
+			}
+			any_independent_ruler = {
+				limit = { atx_tribute_payer_base_trigger = yes }
+				set_character_flag = atx_news_law
+				character_event = { id = atlaexp.6 }
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	atx_work_wall = { # Great work: Raise the Outer Wall (built with conscripted labour)
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = { atx_ruler_of_ba_sing_se_trigger = yes }
+		allow = {
+			custom_tooltip = {
+				text = atx_treasury_500_tt
+				check_variable = { which = global_atx_treasury value = 500 }
+			}
+			custom_tooltip = {
+				text = atx_work_built_tt
+				NOT = { has_global_flag = atx_work_wall }
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = atx_treasury_spend_500_tt
+				change_variable = { which = global_atx_treasury value = -500 }
+			}
+			set_global_flag = atx_work_wall
+			any_province = {
+				limit = { region = world_ba_sing_se }
+				add_province_modifier = { name = atx_outer_wall duration = -1 }
+			}
+			prestige = 100
+			change_variable = { which = global_royalAuthority value = -5 }
+			custom_tooltip = {
+				text = atx_resentment_15_tt
+				change_variable = { which = global_atx_resentment value = 15 }
+				atx_clamp_resentment_effect = yes
+			}
+			any_independent_ruler = {
+				limit = { atx_tribute_payer_base_trigger = yes }
+				set_character_flag = atx_news_wall
+				character_event = { id = atlaexp.6 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 3 war = yes }
 		}
 	}
 }

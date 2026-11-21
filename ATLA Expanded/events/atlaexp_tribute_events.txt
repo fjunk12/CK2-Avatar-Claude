@@ -4,6 +4,10 @@
 # atlaexp.3  "Ba Sing Se and us": shows a ruler their current obligation (from a decision)
 # atlaexp.4  a foreign or Way of Chin holder of Ba Sing Se loots the treasury (on_yearly_pulse, hidden)
 # atlaexp.5  the Royal Treasury: balance and projects (from a decision)
+# atlaexp.6  a great work is finished: every tribute-owing ruler reacts (AI and players)
+# atlaexp.7  resentment: a player ruler is invited to stop paying
+# atlaexp.8  the Royal Messenger Network collapses (upkeep not paid)
+# atlaexp.9  the Royal Roads fall into disrepair (upkeep not paid)
 namespace = atlaexp
 
 character_event = {
@@ -36,6 +40,10 @@ character_event = {
 			multiply_variable = { which = global_atx_treasury value = 0.9 }
 		}
 		atx_refresh_projects_effect = yes
+		atx_great_works_upkeep_effect = yes
+		# The states slowly forget their grievances
+		change_variable = { which = global_atx_resentment value = -5 }
+		atx_clamp_resentment_effect = yes
 		clr_character_flag = atx_under_foreign_attack
 		if = {
 			limit = {
@@ -69,6 +77,23 @@ character_event = {
 			else_if = {
 				limit = { atx_tier_tribute_trigger = yes }
 				atx_pay_tribute_effect = yes
+				if = {
+					limit = { has_global_flag = atx_work_law }
+					opinion = { who = ROOT modifier = opinion_atx_crown_laws months = 13 }
+				}
+				# Resentment: some states stop paying
+				if = {
+					limit = { check_variable = { which = global_atx_resentment value = 25 } }
+					random = {
+						chance = 4
+						modifier = { factor = 2 check_variable = { which = global_atx_resentment value = 50 } }
+						modifier = { factor = 2 check_variable = { which = global_atx_resentment value = 75 } }
+						modifier = { factor = 2 trait = proud }
+						modifier = { factor = 2 trait = ambitious }
+						modifier = { factor = 0.25 opinion = { who = ROOT value = 25 } }
+						atx_start_grumbling_effect = yes
+					}
+				}
 				if = {
 					limit = {
 						ROOT = { has_character_flag = atx_under_foreign_attack }
@@ -187,4 +212,92 @@ character_event = {
 	option = {
 		name = atlaexp.5.a
 	}
+}
+
+# A great work is finished. FROM = the ruler of Ba Sing Se. Each tribute-owing ruler chooses to accept or resist.
+character_event = {
+	id = atlaexp.6
+	desc = {
+		trigger = { has_character_flag = atx_news_messengers }
+		text = atlaexp.6.d_messengers
+	}
+	desc = {
+		trigger = { has_character_flag = atx_news_roads }
+		text = atlaexp.6.d_roads
+	}
+	desc = {
+		trigger = { has_character_flag = atx_news_law }
+		text = atlaexp.6.d_law
+	}
+	desc = {
+		trigger = { has_character_flag = atx_news_wall }
+		text = atlaexp.6.d_wall
+	}
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+
+	option = { # Accept
+		name = atlaexp.6.a
+		clr_character_flag = atx_news_messengers
+		clr_character_flag = atx_news_roads
+		clr_character_flag = atx_news_law
+		clr_character_flag = atx_news_wall
+		ai_chance = {
+			factor = 70
+			modifier = { factor = 2 opinion = { who = FROM value = 25 } }
+			modifier = { factor = 1.5 trait = content }
+		}
+	}
+	option = { # Resist
+		name = atlaexp.6.b
+		trigger = { NOT = { has_character_flag = atx_withholding } }
+		clr_character_flag = atx_news_messengers
+		clr_character_flag = atx_news_roads
+		clr_character_flag = atx_news_law
+		clr_character_flag = atx_news_wall
+		prestige = 10
+		set_character_flag = atx_withholding
+		add_character_modifier = { name = atx_defying_ba_sing_se duration = -1 }
+		ai_chance = {
+			factor = 30
+			modifier = { factor = 2 trait = proud }
+			modifier = { factor = 2 trait = ambitious }
+			modifier = { factor = 0.3 opinion = { who = FROM value = 25 } }
+		}
+	}
+}
+
+letter_event = {
+	id = atlaexp.7
+	desc = atlaexp.7.d
+	border = GFX_event_letter_frame_diplomacy
+	is_triggered_only = yes
+
+	trigger = { NOT = { has_character_flag = atx_withholding } }
+
+	option = { # Join them
+		name = atlaexp.7.a
+		set_character_flag = atx_withholding
+		add_character_modifier = { name = atx_defying_ba_sing_se duration = -1 }
+	}
+	option = { # Stay loyal
+		name = atlaexp.7.b
+		prestige = -5
+	}
+}
+
+character_event = {
+	id = atlaexp.8
+	desc = atlaexp.8.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = { name = atlaexp.8.a }
+}
+
+character_event = {
+	id = atlaexp.9
+	desc = atlaexp.9.d
+	picture = GFX_evt_ba_sing_se
+	is_triggered_only = yes
+	option = { name = atlaexp.9.a }
 }

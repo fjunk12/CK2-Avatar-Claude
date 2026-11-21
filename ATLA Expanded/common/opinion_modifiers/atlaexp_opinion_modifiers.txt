@@ -11,3 +11,6 @@ opinion_atx_refused_call = {
 opinion_atx_crown_relief = {
 	opinion = 15
 }
+opinion_atx_crown_laws = {
+	opinion = -10
+}

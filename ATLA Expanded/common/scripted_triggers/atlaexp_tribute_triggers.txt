@@ -35,11 +35,30 @@ atx_tribute_payer_base_trigger = {
 }
 
 # Distance bands (need event_target:atx_bss = province 109)
+# The Royal Messenger Network (great work) brings the realm closer: near 450 -> 650, far 850 -> 1100
 atx_near_trigger = {
-	capital_scope = { NOT = { distance = { where = event_target:atx_bss value > 450 } } }
+	OR = {
+		AND = {
+			NOT = { has_global_flag = atx_work_messengers }
+			capital_scope = { NOT = { distance = { where = event_target:atx_bss value > 450 } } }
+		}
+		AND = {
+			has_global_flag = atx_work_messengers
+			capital_scope = { NOT = { distance = { where = event_target:atx_bss value > 650 } } }
+		}
+	}
 }
 atx_far_trigger = {
-	capital_scope = { distance = { where = event_target:atx_bss value > 850 } }
+	OR = {
+		AND = {
+			NOT = { has_global_flag = atx_work_messengers }
+			capital_scope = { distance = { where = event_target:atx_bss value > 850 } }
+		}
+		AND = {
+			has_global_flag = atx_work_messengers
+			capital_scope = { distance = { where = event_target:atx_bss value > 1100 } }
+		}
+	}
 }
 
 atx_tier_recognised_trigger = {

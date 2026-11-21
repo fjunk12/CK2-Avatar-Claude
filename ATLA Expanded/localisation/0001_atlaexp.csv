@@ -49,7 +49,7 @@ atx_project_ten_years_tt;The project runs for ten years, and continues under the
 atx_relief_recent_tt;No relief has been sent in the last five years;;;;;;;;;;;;;x
 atx_mandate_recent_tt;The Mandate has not been proclaimed in the last ten years;;;;;;;;;;;;;x
 atx_drew_recent_tt;We have not drawn on the treasury in the last two years;;;;;;;;;;;;;x
-atlaexp.5.d;The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold.\n\nIt is filled by the tribute of the states and belongs to the crown, not to us. Each year a tenth of it disappears into the pockets of clerks and officials, or only a little if the bureaucracy has been reformed. If a foreign power or a Chin pretender ever takes Ba Sing Se, they will help themselves to all of it.\n\nThe crown can pay to strengthen its borders, reform the bureaucracy, fund the Council of Five or the Dai Li, send relief to the provinces, or proclaim the Mandate of Ba Sing Se.;;;;;;;;;;;;;x
+atlaexp.5.d;The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. The resentment of the states towards the crown stands at §Y[global_atx_resentment.GetValue]§! out of 100.\n\nThe treasury is filled by the tribute of the states and belongs to the crown, not to us. Each year a tenth of it disappears into the pockets of clerks and officials, or only a little if the bureaucracy has been reformed. If a foreign power or a Chin pretender ever takes Ba Sing Se, they will help themselves to all of it.\n\nSmall projects last ten years. Great works change the whole Earth Kingdom for good, but the states remember every reach of the crown: resentment rises, and above 25 some states start refusing tribute. Relief to the provinces calms them. Resentment fades by 5 a year.;;;;;;;;;;;;;x
 atlaexp.5.a;Very well.;;;;;;;;;;;;;x
 atx_crown_bureaucracy;Reformed Bureaucracy;;;;;;;;;;;;;x
 atx_crown_bureaucracy_desc;The crown pays its clerks properly. Paid from the treasury of Ba Sing Se.;;;;;;;;;;;;;x
@@ -60,3 +60,46 @@ atx_crown_dai_li_desc;The Dai Li watch the court and the city. Paid from the tre
 atx_strengthened_border;Strengthened Border;;;;;;;;;;;;;x
 atx_strengthened_border_desc;The crown has paid for a larger garrison and stronger walls here.;;;;;;;;;;;;;x
 opinion_atx_crown_relief;Relief from Ba Sing Se;;;;;;;;;;;;;x
+atx_work_messengers;Great Work: The Royal Messenger Network;;;;;;;;;;;;;x
+atx_work_messengers_desc;Post stations, relays of riders and messenger hawks along every road, day and night. Ba Sing Se's word reaches the far states in days instead of months, and the crown's reach grows with it. Costs 20 gold a year to keep running, and the states resent it.;;;;;;;;;;;;;x
+atx_work_roads;Great Work: The Royal Roads;;;;;;;;;;;;;x
+atx_work_roads_desc;Paved roads and granaries across the Earth Kingdom. Every province of the Earth Kingdom outside the desert can feed larger armies and trades a little more, whoever owns it, and that includes invaders. Costs 15 gold a year to maintain.;;;;;;;;;;;;;x
+atx_work_law;Great Work: A Single Law for the Kingdom;;;;;;;;;;;;;x
+atx_work_law_desc;Every state and town of the Earth Kingdom keeps its own laws. Replace them with one code written in Ba Sing Se. Tribute rises by half and the crown gains authority, but every state that pays it will hate the crown's laws for as long as they stand.;;;;;;;;;;;;;x
+atx_work_wall;Great Work: Raise the Outer Wall;;;;;;;;;;;;;x
+atx_work_wall_desc;Raise a great outer wall around Ba Sing Se with conscripted labour from the provinces. The capital becomes nearly impregnable, but the conscription costs the crown authority and goodwill.;;;;;;;;;;;;;x
+atx_treasury_500_tt;The treasury holds at least §Y500§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_600_tt;The treasury holds at least §Y600§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_800_tt;The treasury holds at least §Y800§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_1000_tt;The treasury holds at least §Y1000§! gold (now §Y[global_atx_treasury.GetValue]§!);;;;;;;;;;;;;x
+atx_treasury_spend_500_tt;§R500§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_600_tt;§R600§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_800_tt;§R800§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_treasury_spend_1000_tt;§R1000§! gold is taken from the treasury of Ba Sing Se;;;;;;;;;;;;;x
+atx_work_built_tt;This great work has not been built yet;;;;;;;;;;;;;x
+atx_needs_bureaucracy_tt;The bureaucracy has been reformed in the last ten years;;;;;;;;;;;;;x
+atx_work_messengers_tt;Realms count as §Gcloser§! to Ba Sing Se: near up to 650 instead of 450, far only beyond 1100 instead of 850. More realms owe more. Upkeep: §R20§! gold a year, or the network collapses.;;;;;;;;;;;;;x
+atx_work_roads_tt;Every province of the Earth Kingdom outside the Si Wong Desert gains supply limit +2 and tax +5%, whoever owns it. Upkeep: §R15§! gold a year, or the roads fall into disrepair.;;;;;;;;;;;;;x
+atx_work_law_tt;Tribute payments rise by half. Every ruler paying tribute has §R-10§! opinion of the crown while the law stands.;;;;;;;;;;;;;x
+atx_resentment_10_tt;The resentment of the states rises by §R10§!;;;;;;;;;;;;;x
+atx_resentment_15_tt;The resentment of the states rises by §R15§!;;;;;;;;;;;;;x
+atx_resentment_20_tt;The resentment of the states rises by §R20§!;;;;;;;;;;;;;x
+atx_resentment_25_tt;The resentment of the states rises by §R25§!;;;;;;;;;;;;;x
+atlaexp.6.d_messengers;Riders in the green and gold of Ba Sing Se now pass through our lands every day, and every relay station has a royal clerk in it. The crown hears of everything we do within days, and expects more of us for it.;;;;;;;;;;;;;x
+atlaexp.6.d_roads;The crown's engineers have paved roads and raised granaries through our lands. Trade comes more easily. So, our generals note, would an army.;;;;;;;;;;;;;x
+atlaexp.6.d_law;A herald from Ba Sing Se has read out a single code of law for the whole Earth Kingdom. The customs and courts our ancestors kept for generations are to give way to the clerks of the capital.;;;;;;;;;;;;;x
+atlaexp.6.d_wall;The crown has raised a great wall around Ba Sing Se, built by men taken from every province, ours included. Many did not come home.;;;;;;;;;;;;;x
+atlaexp.6.a;Ba Sing Se's word is law.;;;;;;;;;;;;;x
+atlaexp.6.b;We were here before the crown's clerks. We will pay no more.;;;;;;;;;;;;;x
+atlaexp.7.d;Envoys from neighbouring states have come to us in secret. Ba Sing Se reaches too far, they say, and they have stopped sending tribute. They ask us to do the same.;;;;;;;;;;;;;x
+atlaexp.7.a;They are right. We stop paying.;;;;;;;;;;;;;x
+atlaexp.7.b;We keep faith with Ba Sing Se.;;;;;;;;;;;;;x
+atlaexp.8.d;The treasury could no longer pay the riders and relay stations. The Royal Messenger Network has collapsed, and the far states are far again.;;;;;;;;;;;;;x
+atlaexp.8.a;A great loss.;;;;;;;;;;;;;x
+atlaexp.9.d;The treasury could no longer pay for repairs. The Royal Roads have fallen into disrepair.;;;;;;;;;;;;;x
+atlaexp.9.a;A great loss.;;;;;;;;;;;;;x
+atx_royal_road;Royal Road;;;;;;;;;;;;;x
+atx_royal_road_desc;A paved road and granaries built by the crown of Ba Sing Se.;;;;;;;;;;;;;x
+atx_outer_wall;The Outer Wall;;;;;;;;;;;;;x
+atx_outer_wall_desc;Ba Sing Se's great outer wall.;;;;;;;;;;;;;x
+opinion_atx_crown_laws;Ba Sing Se's Laws;;;;;;;;;;;;;x
