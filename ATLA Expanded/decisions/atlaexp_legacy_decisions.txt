@@ -1,0 +1,237 @@
+# ATLA Expanded - Avatar legacies: what the Avatar (and the world) can do about them
+# The Avatar's missions are self-targeted decisions (like the base mod's avatar_withdraw), so an AI Avatar,
+# landed or not, takes them too. A mission takes six months to a year and can fail (atlaexp.41).
+targetted_decisions = {
+
+	atx_avatar_calm_spirits = {
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		diplomacy_icon = GFX_trait_avatar
+		potential = {
+			has_global_flag = atx_leg_spirits
+			atx_avatar_can_act_trigger = yes
+			NOT = { has_character_flag = atx_on_mission }
+		}
+		allow = {
+			custom_tooltip = {
+				text = atx_mission_cooldown_tt
+				OR = {
+					NOT = { has_character_flag = atx_mission_cooldown }
+					had_character_flag = { flag = atx_mission_cooldown days = 730 }
+				}
+			}
+			OR = {
+				learning = 10
+				trait = fully_realised_avatar
+			}
+			piety = 50
+		}
+		effect = {
+			piety = -50
+			set_character_flag = atx_mission_spirits
+			atx_start_mission_effect = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 2 trait = fully_realised_avatar }
+			modifier = { factor = 1.5 learning = 14 }
+		}
+	}
+
+	atx_avatar_hunt_daofei = {
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		diplomacy_icon = GFX_trait_avatar
+		potential = {
+			has_global_flag = atx_leg_lawless
+			atx_avatar_can_act_trigger = yes
+			NOT = { has_character_flag = atx_on_mission }
+		}
+		allow = {
+			custom_tooltip = {
+				text = atx_mission_cooldown_tt
+				OR = {
+					NOT = { has_character_flag = atx_mission_cooldown }
+					had_character_flag = { flag = atx_mission_cooldown days = 730 }
+				}
+			}
+			OR = {
+				martial = 10
+				trait = fully_realised_avatar
+			}
+		}
+		effect = {
+			set_character_flag = atx_mission_lawless
+			atx_start_mission_effect = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 2 trait = fully_realised_avatar }
+			modifier = { factor = 1.5 martial = 14 }
+		}
+	}
+
+	atx_avatar_rein_daili = {
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		diplomacy_icon = GFX_trait_avatar
+		potential = {
+			has_global_flag = atx_leg_instrument
+			atx_avatar_can_act_trigger = yes
+			NOT = { has_character_flag = atx_on_mission }
+		}
+		allow = {
+			custom_tooltip = {
+				text = atx_mission_cooldown_tt
+				OR = {
+					NOT = { has_character_flag = atx_mission_cooldown }
+					had_character_flag = { flag = atx_mission_cooldown days = 730 }
+				}
+			}
+			OR = {
+				diplomacy = 10
+				intrigue = 10
+				trait = fully_realised_avatar
+			}
+		}
+		effect = {
+			set_character_flag = atx_mission_instrument
+			atx_start_mission_effect = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 2 trait = fully_realised_avatar }
+			modifier = { factor = 1.5 intrigue = 14 }
+		}
+	}
+
+	atx_avatar_heal_divide = {
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 12
+		diplomacy_icon = GFX_trait_avatar
+		potential = {
+			has_global_flag = atx_leg_ironpeace
+			atx_avatar_can_act_trigger = yes
+			NOT = { has_character_flag = atx_on_mission }
+		}
+		allow = {
+			custom_tooltip = {
+				text = atx_mission_cooldown_tt
+				OR = {
+					NOT = { has_character_flag = atx_mission_cooldown }
+					had_character_flag = { flag = atx_mission_cooldown days = 730 }
+				}
+			}
+			OR = {
+				diplomacy = 12
+				trait = fully_realised_avatar
+			}
+		}
+		effect = {
+			set_character_flag = atx_mission_ironpeace
+			atx_start_mission_effect = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 2 trait = fully_realised_avatar }
+			modifier = { factor = 1.5 diplomacy = 16 }
+		}
+	}
+
+	# The Avatar confronts the champion of Unchecked Ambition. ROOT = the champion, FROM = the Avatar.
+	# (An AI Avatar does this from the world pulse, atlaexp.31.)
+	atx_avatar_confront_champion = {
+		ai = no
+		filter = all
+		ai_target_filter = none
+		diplomacy_icon = GFX_trait_avatar
+		from_potential = {
+			atx_avatar_can_act_trigger = yes
+		}
+		potential = {
+			atx_is_champion_trigger = yes
+		}
+		allow = {
+			FROM = {
+				custom_tooltip = {
+					text = atx_confront_cooldown_tt
+					OR = {
+						NOT = { has_character_flag = atx_confronted }
+						had_character_flag = { flag = atx_confronted days = 1825 }
+					}
+				}
+			}
+		}
+		effect = {
+			FROM = {
+				clr_character_flag = atx_confronted
+				set_character_flag = atx_confronted
+			}
+			character_event = { id = atlaexp.37 days = 7 }
+		}
+		ai_will_do = { factor = 0 }
+	}
+}
+
+decisions = {
+	# The burdens in force (anyone may look)
+	atx_view_legacies = {
+		ai = no
+		potential = { atx_any_legacy_trigger = yes }
+		allow = { always = yes }
+		effect = { character_event = { id = atlaexp.36 } }
+		ai_will_do = { factor = 0 }
+	}
+
+	# The Earth champion holds Ba Sing Se: proclaim the Earth Empire
+	atx_proclaim_earth_empire = {
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = {
+			has_character_flag = atx_champion_earth
+			independent = yes
+			NOT = { is_title_active = e_earth_empire }
+			NOR = {
+				has_landed_title = e_earth_empire
+				has_landed_title = e_earth_kingdom
+			}
+		}
+		allow = {
+			has_landed_title = c_royal_earth_palace
+			OR = {
+				completely_controls_region = world_north_east_earth_kingdom
+				realm_size = 150
+			}
+			prestige = 500
+		}
+		effect = {
+			prestige = -500
+			primary_title = { save_event_target_as = atx_old_primary }
+			e_earth_empire = {
+				activate_title = { title = THIS status = yes } # e_earth_empire has allow = always no, so it is granted here
+				grant_title = ROOT
+				hidden_tooltip = {
+					copy_title_laws = event_target:atx_old_primary
+					make_primary_title = yes
+				}
+			}
+			if = {
+				limit = { has_landed_title = k_earth_kingdom }
+				k_earth_kingdom = { de_jure_liege = e_earth_empire }
+			}
+			set_global_flag = atx_earth_empire_proclaimed
+			any_player = {
+				limit = { NOT = { character = ROOT } }
+				character_event = { id = atlaexp.40 days = 3 }
+			}
+			# Ambition has had its way: the burden ends, the Empire remains
+			clr_global_flag = atx_leg_ambition
+			atx_end_champion_effect = yes
+		}
+		ai_will_do = { factor = 1 }
+	}
+}

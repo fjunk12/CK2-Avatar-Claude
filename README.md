@@ -87,3 +87,47 @@ Unpaid programmes lapse.
   Purge the Dai Li (100, needs 50+) resets it, at a cost of 5 authority.
 - One-off actions: Send Relief (60, every 5 years), Proclaim the Mandate (150, Royal Authority +10, every 10 years),
   Draw on the Treasury (100 -> 50 to your purse, Royal Authority -5, every 2 years).
+
+### The Avatar's legacy (v0.6)
+
+Every Avatar solves one problem and leaves another. When an Avatar dies, they leave one **burden** on the world.
+Every player is told which one. The new Avatar hears of it at 16, and **The Avatar's Legacy** decision lists the burdens in force.
+A burden fades on its own after 50 years. A new death with the same burden restarts its clock.
+
+| Burden | Who leaves it (weights) | Effect on the world | The Avatar's answer |
+|---|---|---|---|
+| Restless Spirits | Rulers, low learning (less likely if mystic or zealous) | Each year 4 more provinces: tax -20%, revolt risk +2% for 5 years | Calm the Restless Spirits (learning 10, 50 piety) |
+| Daofei Country | Died before 40, or withdrawn | Each year 4 more Earth Kingdom provinces: tax -15%, revolt risk +3% for 5 years | Hunt the Daofei (martial 10) |
+| A Dangerous Instrument | Kyoshi always; rulers with stewardship 12, the old | Dai Li influence +40 | Rein in the Dai Li (diplomacy or intrigue 10), influence -40 |
+| Unchecked Ambition | Roku always; kind, content, charitable | A champion rises (below) | Confront the Champion |
+| An Iron Peace | Wroth, zealous, cruel | Resentment of Ba Sing Se +30 | Heal the Divide (diplomacy 12), resentment -30 |
+
+- A fully realised Avatar meets every skill requirement.
+- **Missions** are self-targeted decisions (as with the main mod's Avatar decisions), so an AI Avatar, landed or not, takes them too.
+- A mission takes 6-12 months and succeeds about half the time, more with high skill, with the matching trait, or when fully realised.
+- Success lifts the burden for everyone (+150 prestige). Failure costs 50 prestige and brings "The Avatar Doubted" for 2 years.
+- Either way the Avatar rests for 2 years.
+
+**Unchecked Ambition.** For up to 30 years after the burden appears, the world looks each year for a champion:
+1. The Fire Lord (holder of the Fire Nation) is independent and ambitious, so they strike the Earth Kingdom's coasts.
+2. There is no Fire Lord, but an ambitious island king or duke exists, so they unite the islands by force. Once they hold the Fire Nation title and have no unification war left, they turn on the Earth coast.
+3. Neither applies, but Ba Sing Se is weak (Disunion, effective authority under 20, or no Earth King), so an ambitious Earth king or duke becomes an Earth imperialist.
+
+"Ambitious" means the ambitious trait, or proud or wroth with martial 10, or greedy with martial 12, or martial 16.
+
+The champion gets three casus belli for wars over counties. Each takes the target county and its de jure vassals:
+- Strike the Earth Coast: coastal Earth counties.
+- Unite the Fire Islands: Fire Isles counties.
+- Earth Imperialism: Earth counties bordering their realm.
+
+They also get **Unchecked Ambition** for 20 years (martial +2, morale +10%). An AI champion declares its first war at once.
+
+The wars end when the champion stands down or dies, because the casus belli then become invalid.
+
+An Earth champion who holds the Royal Palace and either controls the Ba Sing Se region or has 150 holdings can **Found the Earth Empire** (500 prestige). That ends the burden: ambition got its way.
+
+**The Avatar intervenes.**
+- A player Avatar uses **Confront the Champion of Ambition** on the champion. An AI Avatar does it from the yearly pulse, with a 35% chance a year. Either way, once every 5 years.
+- The champion chooses:
+  - **Stand down**: the burden ends, the Avatar gains 200 prestige, and the champion is humbled. The AI does this 40% of the time, doubled if the Avatar is fully realised, likes them, or was already defied once. It is halved for each of ambitious, wroth and proud.
+  - **Defy**: the champion gets -15 general opinion for 10 years, and the Avatar decides whether to fight beside every defender in the champion's wars (+15% morale, +10% levies for 3 years). An unlanded Avatar moves to a defender's court.

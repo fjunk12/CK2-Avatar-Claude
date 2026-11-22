@@ -1,0 +1,78 @@
+# ATLA Expanded - Avatar legacies: triggers
+# Every Avatar solves one problem and leaves another. Global flags atx_leg_<legacy> mark the burdens in force.
+
+atx_any_legacy_trigger = {
+	OR = {
+		has_global_flag = atx_leg_spirits
+		has_global_flag = atx_leg_lawless
+		has_global_flag = atx_leg_instrument
+		has_global_flag = atx_leg_ambition
+		has_global_flag = atx_leg_ironpeace
+	}
+}
+
+# A ruler bold enough to take up Unchecked Ambition
+atx_ambitious_ruler_trigger = {
+	is_adult = yes
+	prisoner = no
+	NOT = { trait = incapable }
+	NOT = { has_character_flag = atx_declined_ambition }
+	OR = {
+		trait = ambitious
+		AND = { trait = proud martial = 10 }
+		AND = { trait = wroth martial = 10 }
+		AND = { trait = greedy martial = 12 }
+		martial = 16
+	}
+}
+
+# A Fire Nation lord who could unite the islands by force (the Fire Nation title has no holder)
+atx_fire_unifier_candidate_trigger = {
+	is_landed = yes
+	independent = yes
+	higher_tier_than = COUNT
+	culture_group = fire_nation_cultures
+	capital_scope = { region = world_fire_isles }
+	atx_ambitious_ruler_trigger = yes
+}
+
+# An Earth ruler who could become an Earth imperialist while Ba Sing Se is weak
+atx_earth_uniter_candidate_trigger = {
+	is_landed = yes
+	independent = yes
+	higher_tier_than = COUNT
+	culture_group = earth_kingdom_cultures
+	NOT = { culture = sandbender_culture }
+	capital_scope = { region = world_greater_earth_kingdom }
+	NOR = {
+		has_landed_title = e_earth_kingdom
+		has_landed_title = k_earth_kingdom
+	}
+	atx_ambitious_ruler_trigger = yes
+}
+
+# Ba Sing Se is weak: Disunion, low effective authority, or nobody holds it
+atx_ba_sing_se_weak_trigger = {
+	OR = {
+		has_global_flag = atx_law_disunion
+		NOT = { check_variable = { which = global_atx_eff_ra value = 20 } }
+		NOT = { k_earth_kingdom = { has_holder = yes } }
+	}
+}
+
+atx_is_champion_trigger = {
+	OR = {
+		has_character_flag = atx_champion_fire_strike
+		has_character_flag = atx_champion_fire_unify
+		has_character_flag = atx_champion_earth
+	}
+}
+
+# The Avatar can act (adult, free, not withdrawn)
+atx_avatar_can_act_trigger = {
+	trait = avatar
+	is_adult = yes
+	prisoner = no
+	NOT = { trait = incapable }
+	NOT = { has_character_flag = withdrawn_avatar }
+}

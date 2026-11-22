@@ -1,0 +1,242 @@
+# ATLA Expanded - Avatar legacies: effects
+
+# Sets a legacy (restarting its 50-year clock) and tells every player. Run in the dying Avatar's scope.
+atx_set_legacy_spirits_effect = {
+	clr_global_flag = atx_leg_spirits
+	set_global_flag = atx_leg_spirits
+	any_player = { set_character_flag = atx_newleg_spirits character_event = { id = atlaexp.34 days = 7 } }
+}
+atx_set_legacy_lawless_effect = {
+	clr_global_flag = atx_leg_lawless
+	set_global_flag = atx_leg_lawless
+	any_player = { set_character_flag = atx_newleg_lawless character_event = { id = atlaexp.34 days = 7 } }
+}
+atx_set_legacy_instrument_effect = {
+	clr_global_flag = atx_leg_instrument
+	set_global_flag = atx_leg_instrument
+	change_variable = { which = global_atx_daili value = 40 }
+	if = {
+		limit = { check_variable = { which = global_atx_daili value = 100 } }
+		set_variable = { which = global_atx_daili value = 100 }
+	}
+	any_player = { set_character_flag = atx_newleg_instrument character_event = { id = atlaexp.34 days = 7 } }
+}
+atx_set_legacy_ambition_effect = {
+	clr_global_flag = atx_leg_ambition
+	set_global_flag = atx_leg_ambition
+	any_player = { set_character_flag = atx_newleg_ambition character_event = { id = atlaexp.34 days = 7 } }
+}
+atx_set_legacy_ironpeace_effect = {
+	clr_global_flag = atx_leg_ironpeace
+	set_global_flag = atx_leg_ironpeace
+	change_variable = { which = global_atx_resentment value = 30 }
+	atx_clamp_resentment_effect = yes
+	any_player = { set_character_flag = atx_newleg_ironpeace character_event = { id = atlaexp.34 days = 7 } }
+}
+
+# Unchecked Ambition looks for a champion (run once a year from the world pulse)
+atx_find_champion_effect = {
+	if = {
+		limit = {
+			e_fire_nation = {
+				has_holder = yes
+				holder_scope = {
+					independent = yes
+					atx_ambitious_ruler_trigger = yes
+				}
+			}
+		}
+		e_fire_nation = { holder_scope = { atx_make_champion_fire_strike_effect = yes } }
+	}
+	else_if = {
+		limit = {
+			NOT = { e_fire_nation = { has_holder = yes } }
+			any_independent_ruler = { atx_fire_unifier_candidate_trigger = yes }
+		}
+		random_independent_ruler = {
+			limit = { atx_fire_unifier_candidate_trigger = yes }
+			preferred_limit = { tier = KING }
+			atx_make_champion_fire_unify_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			atx_ba_sing_se_weak_trigger = yes
+			any_independent_ruler = { atx_earth_uniter_candidate_trigger = yes }
+		}
+		random_independent_ruler = {
+			limit = { atx_earth_uniter_candidate_trigger = yes }
+			preferred_limit = { tier = EMPEROR }
+			preferred_limit = { tier = KING }
+			atx_make_champion_earth_effect = yes
+		}
+	}
+}
+
+atx_make_champion_common_effect = {
+	save_persistent_event_target = { name = atx_champion scope = THIS }
+	set_global_flag = atx_champion_active
+	character_event = { id = atlaexp.32 }
+	any_player = {
+		limit = { NOT = { character = PREV } }
+		character_event = { id = atlaexp.39 days = 14 }
+	}
+}
+atx_make_champion_fire_strike_effect = {
+	set_character_flag = atx_champion_fire_strike
+	atx_make_champion_common_effect = yes
+}
+atx_make_champion_fire_unify_effect = {
+	set_character_flag = atx_champion_fire_unify
+	atx_make_champion_common_effect = yes
+}
+atx_make_champion_earth_effect = {
+	set_character_flag = atx_champion_earth
+	atx_make_champion_common_effect = yes
+}
+
+# The champion stops being one (stood down, declined, died): their special wars become invalid
+atx_end_champion_effect = {
+	clr_character_flag = atx_champion_fire_strike
+	clr_character_flag = atx_champion_fire_unify
+	clr_character_flag = atx_champion_earth
+	remove_character_modifier = atx_ambition_unchecked
+	clr_global_flag = atx_champion_active
+	clear_persistent_event_target = atx_champion
+}
+
+# An AI champion opens their first war at once (a player declares their own from the diplomacy screen)
+atx_champion_declare_effect = {
+	if = {
+		limit = { has_character_flag = atx_champion_earth }
+		random_independent_ruler = {
+			limit = {
+				NOT = { character = ROOT }
+				culture_group = earth_kingdom_cultures
+				NOT = { war_with = ROOT }
+				any_realm_province = {
+					any_neighbor_province = {
+						has_owner = yes
+						owner = { character = ROOT }
+					}
+				}
+			}
+			random_realm_province = {
+				limit = {
+					any_neighbor_province = {
+						has_owner = yes
+						owner = { character = ROOT }
+					}
+				}
+				county = { save_event_target_as = atx_war_title }
+			}
+			ROOT = { war = { target = PREV casus_belli = atx_cb_earth_unification thirdparty_title = event_target:atx_war_title } }
+		}
+	}
+	else_if = {
+		limit = { has_character_flag = atx_champion_fire_unify }
+		random_independent_ruler = {
+			limit = {
+				NOT = { character = ROOT }
+				culture_group = fire_nation_cultures
+				NOT = { war_with = ROOT }
+				any_realm_province = { region = world_fire_isles }
+			}
+			random_realm_province = {
+				limit = { region = world_fire_isles }
+				county = { save_event_target_as = atx_war_title }
+			}
+			ROOT = { war = { target = PREV casus_belli = atx_cb_fire_unification thirdparty_title = event_target:atx_war_title } }
+		}
+	}
+	else_if = {
+		limit = { has_character_flag = atx_champion_fire_strike }
+		random_independent_ruler = {
+			limit = {
+				NOT = { character = ROOT }
+				culture_group = earth_kingdom_cultures
+				NOT = { war_with = ROOT }
+				any_realm_province = {
+					port = yes
+					region = world_greater_earth_kingdom
+				}
+			}
+			preferred_limit = { NOT = { higher_tier_than = DUKE } }
+			random_realm_province = {
+				limit = {
+					port = yes
+					region = world_greater_earth_kingdom
+				}
+				county = { save_event_target_as = atx_war_title }
+			}
+			ROOT = { war = { target = PREV casus_belli = atx_cb_fire_strike thirdparty_title = event_target:atx_war_title } }
+		}
+	}
+}
+
+# A burden is lifted (by the Avatar or by time). Tells every player. Run in the Avatar's scope when the Avatar did it.
+atx_resolve_spirits_effect = {
+	clr_global_flag = atx_leg_spirits
+	any_province = {
+		limit = { has_province_modifier = atx_restless_spirits }
+		remove_province_modifier = atx_restless_spirits
+	}
+	any_player = { set_character_flag = atx_solved_spirits character_event = { id = atlaexp.35 days = 3 } }
+}
+atx_resolve_lawless_effect = {
+	clr_global_flag = atx_leg_lawless
+	any_province = {
+		limit = { has_province_modifier = atx_daofei_country }
+		remove_province_modifier = atx_daofei_country
+	}
+	any_player = { set_character_flag = atx_solved_lawless character_event = { id = atlaexp.35 days = 3 } }
+}
+atx_resolve_instrument_effect = {
+	clr_global_flag = atx_leg_instrument
+	change_variable = { which = global_atx_daili value = -40 }
+	if = {
+		limit = { NOT = { check_variable = { which = global_atx_daili value = 0 } } }
+		set_variable = { which = global_atx_daili value = 0 }
+	}
+	any_player = { set_character_flag = atx_solved_instrument character_event = { id = atlaexp.35 days = 3 } }
+}
+atx_resolve_ironpeace_effect = {
+	clr_global_flag = atx_leg_ironpeace
+	change_variable = { which = global_atx_resentment value = -30 }
+	atx_clamp_resentment_effect = yes
+	any_player = { set_character_flag = atx_solved_ironpeace character_event = { id = atlaexp.35 days = 3 } }
+}
+atx_resolve_ambition_effect = {
+	clr_global_flag = atx_leg_ambition
+	if = {
+		limit = { has_global_flag = atx_champion_active }
+		persistent_event_target:atx_champion = { atx_end_champion_effect = yes }
+	}
+	clr_global_flag = atx_champion_active
+	any_player = { set_character_flag = atx_solved_ambition character_event = { id = atlaexp.35 days = 3 } }
+}
+
+# The Avatar sets out on a mission against a burden (flag atx_mission_<legacy> already set). Outcome in atlaexp.41.
+atx_start_mission_effect = {
+	set_character_flag = atx_on_mission
+	add_character_modifier = { name = atx_avatar_on_mission days = 365 }
+	character_event = { id = atlaexp.41 days = 180 random = 180 }
+	any_player = {
+		limit = { NOT = { character = PREV } }
+		character_event = { id = atlaexp.42 days = 7 }
+	}
+}
+
+# Clears the mission flags (run in the Avatar's scope)
+atx_end_mission_effect = {
+	clr_character_flag = atx_on_mission
+	clr_character_flag = atx_mission_won
+	clr_character_flag = atx_mission_lost
+	clr_character_flag = atx_mission_spirits
+	clr_character_flag = atx_mission_lawless
+	clr_character_flag = atx_mission_instrument
+	clr_character_flag = atx_mission_ironpeace
+	remove_character_modifier = atx_avatar_on_mission
+	clr_character_flag = atx_mission_cooldown
+	set_character_flag = atx_mission_cooldown
+}

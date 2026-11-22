@@ -1,0 +1,623 @@
+# ATLA Expanded - Avatar legacies: every Avatar solves one problem and leaves another
+# atlaexp.30  an Avatar dies: roll the burden they leave (on_death, hidden)
+# atlaexp.31  world pulse: burdens act on the world, fade after 50 years, Unchecked Ambition seeks a champion (on_yearly_pulse, hidden)
+# atlaexp.32  a ruler is chosen as the champion of Unchecked Ambition
+# atlaexp.33  the new Avatar learns of the burdens they inherit (players)
+# atlaexp.34  news: an Avatar has died and left a burden
+# atlaexp.35  news: a burden has been lifted
+# atlaexp.36  "The Avatar's Legacy": the burdens in force (decision)
+# atlaexp.37  the Avatar confronts the champion (champion decides)
+# atlaexp.38  the champion defies the Avatar (Avatar decides)
+# atlaexp.39  news: a champion of ambition rises
+# atlaexp.40  news: the Earth Empire is proclaimed
+namespace = atlaexp
+
+character_event = {
+	id = atlaexp.30
+	hide_window = yes
+	is_triggered_only = yes # on_death
+
+	has_character_flag = is_avatar
+
+	immediate = {
+		log = "ATLA Expanded: the Avatar [Root.GetFullName] died, rolling their legacy"
+		if = {
+			limit = { has_character_flag = is_kyoshi } # canon: the Dai Li she created turn on the crown
+			atx_set_legacy_instrument_effect = yes
+		}
+		else_if = {
+			limit = { has_character_flag = is_roku } # canon: he spared Sozin
+			atx_set_legacy_ambition_effect = yes
+		}
+		else = {
+			random_list = {
+				20 = { # Neglected the spirits for the affairs of men (Yangchen)
+					modifier = { factor = 2 NOT = { learning = 10 } }
+					modifier = { factor = 2 is_ruler = yes }
+					modifier = { factor = 0.3 trait = mystic }
+					modifier = { factor = 0.5 trait = zealous }
+					atx_set_legacy_spirits_effect = yes
+				}
+				20 = { # Died young or abandoned their duties (Kuruk)
+					modifier = { factor = 3 NOT = { age = 40 } }
+					modifier = { factor = 3 has_character_flag = withdrawn_avatar }
+					modifier = { factor = 0.5 age = 70 }
+					atx_set_legacy_lawless_effect = yes
+				}
+				15 = { # Built institutions that outlived their purpose (Kyoshi)
+					modifier = { factor = 3 is_ruler = yes stewardship = 12 }
+					modifier = { factor = 2 age = 70 }
+					modifier = { factor = 0.3 NOT = { age = 40 } }
+					atx_set_legacy_instrument_effect = yes
+				}
+				20 = { # Merciful where they should have been firm (Roku)
+					modifier = { factor = 2 trait = kind }
+					modifier = { factor = 1.5 trait = content }
+					modifier = { factor = 1.5 trait = charitable }
+					modifier = { factor = 0.3 trait = wroth }
+					atx_set_legacy_ambition_effect = yes
+				}
+				15 = { # Imposed peace by force
+					modifier = { factor = 3 trait = wroth }
+					modifier = { factor = 2 trait = zealous }
+					modifier = { factor = 2 trait = cruel }
+					modifier = { factor = 0.3 trait = kind }
+					atx_set_legacy_ironpeace_effect = yes
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = atlaexp.31
+	hide_window = yes
+	is_triggered_only = yes # on_yearly_pulse
+
+	only_rulers = yes
+
+	trigger = {
+		atx_any_legacy_trigger = yes
+		OR = {
+			NOT = { has_global_flag = atx_leg_tick }
+			had_global_flag = { flag = atx_leg_tick days = 330 }
+		}
+	}
+
+	immediate = {
+		clr_global_flag = atx_leg_tick
+		set_global_flag = atx_leg_tick # one character runs this each year
+
+		# Burdens fade after 50 years even if nobody lifts them
+		if = {
+			limit = { had_global_flag = { flag = atx_leg_spirits days = 18250 } }
+			clr_global_flag = atx_leg_spirits
+		}
+		if = {
+			limit = { had_global_flag = { flag = atx_leg_lawless days = 18250 } }
+			clr_global_flag = atx_leg_lawless
+		}
+		if = {
+			limit = { had_global_flag = { flag = atx_leg_instrument days = 18250 } }
+			clr_global_flag = atx_leg_instrument
+		}
+		if = {
+			limit = { had_global_flag = { flag = atx_leg_ironpeace days = 18250 } }
+			clr_global_flag = atx_leg_ironpeace
+		}
+		if = {
+			limit = {
+				had_global_flag = { flag = atx_leg_ambition days = 18250 }
+				NOT = { has_global_flag = atx_champion_active }
+			}
+			clr_global_flag = atx_leg_ambition
+		}
+
+		# Restless spirits strike four places a year
+		if = {
+			limit = { has_global_flag = atx_leg_spirits }
+			random_province = {
+				limit = { has_owner = yes NOT = { has_province_modifier = atx_restless_spirits } }
+				add_province_modifier = { name = atx_restless_spirits years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes NOT = { has_province_modifier = atx_restless_spirits } }
+				add_province_modifier = { name = atx_restless_spirits years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes NOT = { has_province_modifier = atx_restless_spirits } }
+				add_province_modifier = { name = atx_restless_spirits years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes NOT = { has_province_modifier = atx_restless_spirits } }
+				add_province_modifier = { name = atx_restless_spirits years = 5 }
+			}
+		}
+
+		# Daofei spread through four Earth Kingdom provinces a year
+		if = {
+			limit = { has_global_flag = atx_leg_lawless }
+			random_province = {
+				limit = { has_owner = yes region = world_greater_earth_kingdom NOT = { has_province_modifier = atx_daofei_country } }
+				add_province_modifier = { name = atx_daofei_country years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes region = world_greater_earth_kingdom NOT = { has_province_modifier = atx_daofei_country } }
+				add_province_modifier = { name = atx_daofei_country years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes region = world_greater_earth_kingdom NOT = { has_province_modifier = atx_daofei_country } }
+				add_province_modifier = { name = atx_daofei_country years = 5 }
+			}
+			random_province = {
+				limit = { has_owner = yes region = world_greater_earth_kingdom NOT = { has_province_modifier = atx_daofei_country } }
+				add_province_modifier = { name = atx_daofei_country years = 5 }
+			}
+		}
+
+		# Unchecked Ambition: a dead or departed champion frees the role; look for one for up to 30 years
+		if = {
+			limit = {
+				has_global_flag = atx_champion_active
+				NOT = { persistent_event_target:atx_champion = { is_alive = yes atx_is_champion_trigger = yes } }
+			}
+			clr_global_flag = atx_champion_active
+			clear_persistent_event_target = atx_champion
+		}
+		# A champion who has united the islands turns on the Earth Kingdom
+		if = {
+			limit = {
+				persistent_event_target:atx_champion = {
+					has_character_flag = atx_champion_fire_unify
+					has_landed_title = e_fire_nation
+					NOT = {
+						any_war = {
+							using_cb = atx_cb_fire_unification
+							attacker = { has_character_flag = atx_champion_fire_unify }
+						}
+					}
+				}
+			}
+			persistent_event_target:atx_champion = {
+				clr_character_flag = atx_champion_fire_unify
+				set_character_flag = atx_champion_fire_strike
+				character_event = { id = atlaexp.32 }
+				any_player = {
+					limit = { NOT = { character = PREV } }
+					character_event = { id = atlaexp.39 days = 14 }
+				}
+			}
+		}
+		# An AI Avatar confronts the champion (a player Avatar uses the targeted decision)
+		if = {
+			limit = {
+				has_global_flag = atx_champion_active
+				persistent_event_target:the_avatar = {
+					ai = yes
+					atx_avatar_can_act_trigger = yes
+					OR = {
+						NOT = { has_character_flag = atx_confronted }
+						had_character_flag = { flag = atx_confronted days = 1825 }
+					}
+				}
+			}
+			random = {
+				chance = 35
+				persistent_event_target:the_avatar = {
+					clr_character_flag = atx_confronted
+					set_character_flag = atx_confronted
+				}
+				persistent_event_target:atx_champion = { character_event = { id = atlaexp.37 days = 7 } }
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = atx_leg_ambition
+				NOT = { has_global_flag = atx_champion_active }
+				NOT = { had_global_flag = { flag = atx_leg_ambition days = 10950 } }
+			}
+			atx_find_champion_effect = yes
+		}
+
+		# The new Avatar learns what they inherit (players only; once per Avatar)
+		if = {
+			limit = {
+				persistent_event_target:the_avatar = {
+					is_alive = yes
+					age = 16
+					NOT = { has_character_flag = atx_burden_told }
+				}
+			}
+			persistent_event_target:the_avatar = {
+				set_character_flag = atx_burden_told
+				if = {
+					limit = { ai = no }
+					character_event = { id = atlaexp.33 }
+				}
+			}
+		}
+	}
+}
+
+# A ruler is chosen as the champion of Unchecked Ambition
+character_event = {
+	id = atlaexp.32
+	desc = {
+		trigger = { has_character_flag = atx_champion_fire_strike }
+		text = atlaexp.32.d_fire_strike
+	}
+	desc = {
+		trigger = { has_character_flag = atx_champion_fire_unify }
+		text = atlaexp.32.d_fire_unify
+	}
+	desc = {
+		trigger = { has_character_flag = atx_champion_earth }
+		text = atlaexp.32.d_earth
+	}
+	picture = GFX_evt_council
+	is_triggered_only = yes
+
+	option = { # Seize the moment
+		name = atlaexp.32.a
+		add_character_modifier = { name = atx_ambition_unchecked years = 20 }
+		custom_tooltip = { text = atlaexp.32.a_tt }
+		if = {
+			limit = { ai = yes }
+			atx_champion_declare_effect = yes
+		}
+		ai_chance = { factor = 100 }
+	}
+	option = { # Let it pass
+		name = atlaexp.32.b
+		prestige = -100
+		set_character_flag = atx_declined_ambition
+		atx_end_champion_effect = yes
+		ai_chance = { factor = 0 }
+	}
+}
+
+# The new Avatar learns what they inherit
+character_event = {
+	id = atlaexp.33
+	desc = atlaexp.33.d
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.33.a
+		if = {
+			limit = { has_global_flag = atx_leg_spirits }
+			custom_tooltip = { text = atx_leg_spirits_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_lawless }
+			custom_tooltip = { text = atx_leg_lawless_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_instrument }
+			custom_tooltip = { text = atx_leg_instrument_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_ambition }
+			custom_tooltip = { text = atx_leg_ambition_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_ironpeace }
+			custom_tooltip = { text = atx_leg_ironpeace_tt }
+		}
+	}
+}
+
+# News: an Avatar has died and left a burden (flag atx_newleg_<legacy> on the player)
+character_event = {
+	id = atlaexp.34
+	desc = { trigger = { has_character_flag = atx_newleg_spirits } text = atlaexp.34.d_spirits }
+	desc = { trigger = { has_character_flag = atx_newleg_lawless } text = atlaexp.34.d_lawless }
+	desc = { trigger = { has_character_flag = atx_newleg_instrument } text = atlaexp.34.d_instrument }
+	desc = { trigger = { has_character_flag = atx_newleg_ambition } text = atlaexp.34.d_ambition }
+	desc = { trigger = { has_character_flag = atx_newleg_ironpeace } text = atlaexp.34.d_ironpeace }
+	picture = GFX_evt_avatar_defeat
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.34.a
+		clr_character_flag = atx_newleg_spirits
+		clr_character_flag = atx_newleg_lawless
+		clr_character_flag = atx_newleg_instrument
+		clr_character_flag = atx_newleg_ambition
+		clr_character_flag = atx_newleg_ironpeace
+	}
+}
+
+# News: a burden has been lifted (flag atx_solved_<legacy> on the player)
+character_event = {
+	id = atlaexp.35
+	desc = { trigger = { has_character_flag = atx_solved_spirits } text = atlaexp.35.d_spirits }
+	desc = { trigger = { has_character_flag = atx_solved_lawless } text = atlaexp.35.d_lawless }
+	desc = { trigger = { has_character_flag = atx_solved_instrument } text = atlaexp.35.d_instrument }
+	desc = { trigger = { has_character_flag = atx_solved_ambition } text = atlaexp.35.d_ambition }
+	desc = { trigger = { has_character_flag = atx_solved_ironpeace } text = atlaexp.35.d_ironpeace }
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.35.a
+		clr_character_flag = atx_solved_spirits
+		clr_character_flag = atx_solved_lawless
+		clr_character_flag = atx_solved_instrument
+		clr_character_flag = atx_solved_ambition
+		clr_character_flag = atx_solved_ironpeace
+	}
+}
+
+# The burdens in force
+character_event = {
+	id = atlaexp.36
+	desc = atlaexp.36.d
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.36.a
+		if = {
+			limit = { has_global_flag = atx_leg_spirits }
+			custom_tooltip = { text = atx_leg_spirits_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_lawless }
+			custom_tooltip = { text = atx_leg_lawless_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_instrument }
+			custom_tooltip = { text = atx_leg_instrument_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_ambition }
+			custom_tooltip = { text = atx_leg_ambition_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_leg_ironpeace }
+			custom_tooltip = { text = atx_leg_ironpeace_tt }
+		}
+		if = {
+			limit = { has_global_flag = atx_champion_active }
+			custom_tooltip = { text = atx_champion_named_tt }
+		}
+	}
+}
+
+# The Avatar confronts the champion. ROOT = the champion.
+character_event = {
+	id = atlaexp.37
+	desc = atlaexp.37.d
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = { # Stand down
+		name = atlaexp.37.a
+		prestige = -100
+		add_character_modifier = { name = atx_humbled_by_avatar years = 10 }
+		persistent_event_target:the_avatar = { prestige = 200 }
+		persistent_event_target:the_avatar = { atx_resolve_ambition_effect = yes }
+		ai_chance = {
+			factor = 40
+			modifier = { factor = 2 persistent_event_target:the_avatar = { trait = fully_realised_avatar } }
+			modifier = { factor = 2 opinion = { who = persistent_event_target:the_avatar value = 25 } }
+			modifier = { factor = 1.5 trait = craven }
+			modifier = { factor = 2 has_character_modifier = atx_defied_avatar } # a second confrontation is harder to refuse
+			modifier = { factor = 0.5 trait = ambitious }
+			modifier = { factor = 0.5 trait = wroth }
+			modifier = { factor = 0.5 trait = proud }
+		}
+	}
+	option = { # Defy the Avatar
+		name = atlaexp.37.b
+		add_character_modifier = { name = atx_defied_avatar years = 10 }
+		persistent_event_target:the_avatar = { character_event = { id = atlaexp.38 days = 3 } }
+		ai_chance = { factor = 60 }
+	}
+}
+
+# The champion defies the Avatar. ROOT = the Avatar.
+character_event = {
+	id = atlaexp.38
+	desc = atlaexp.38.d
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	option = { # Fight beside those they attack
+		name = atlaexp.38.a
+		prestige = 100
+		persistent_event_target:atx_champion = {
+			any_war = {
+				limit = {
+					attacker = { character = persistent_event_target:atx_champion }
+					OR = {
+						using_cb = atx_cb_fire_strike
+						using_cb = atx_cb_fire_unification
+						using_cb = atx_cb_earth_unification
+					}
+				}
+				defender = {
+					add_character_modifier = { name = atx_avatar_fights_beside_us years = 3 }
+				}
+			}
+		}
+		if = {
+			limit = { is_ruler = no }
+			persistent_event_target:atx_champion = {
+				random_war = {
+					limit = { attacker = { character = persistent_event_target:atx_champion } }
+					defender = { save_event_target_as = atx_avatar_host }
+				}
+			}
+			if = {
+				limit = { event_target:atx_avatar_host = { is_alive = yes } }
+				move_character = event_target:atx_avatar_host
+			}
+		}
+		ai_chance = { factor = 80 }
+	}
+	option = { # Not yet
+		name = atlaexp.38.b
+		ai_chance = { factor = 20 }
+	}
+}
+
+# News: a champion of ambition rises (ROOT = a player who is not the champion)
+character_event = {
+	id = atlaexp.39
+	desc = {
+		trigger = { persistent_event_target:atx_champion = { has_character_flag = atx_champion_fire_strike } }
+		text = atlaexp.39.d_fire_strike
+	}
+	desc = {
+		trigger = { persistent_event_target:atx_champion = { has_character_flag = atx_champion_fire_unify } }
+		text = atlaexp.39.d_fire_unify
+	}
+	desc = {
+		trigger = { persistent_event_target:atx_champion = { has_character_flag = atx_champion_earth } }
+		text = atlaexp.39.d_earth
+	}
+	picture = GFX_evt_council
+	is_triggered_only = yes
+
+	trigger = { has_global_flag = atx_champion_active }
+
+	option = {
+		name = atlaexp.39.a
+	}
+}
+
+# News: the Earth Empire is proclaimed (FROM = the new emperor)
+character_event = {
+	id = atlaexp.40
+	desc = atlaexp.40.d
+	picture = GFX_evt_council
+	is_triggered_only = yes
+
+	option = {
+		name = atlaexp.40.a
+	}
+}
+
+# The Avatar's mission ends (ROOT = the Avatar; flag atx_mission_<legacy> says which)
+character_event = {
+	id = atlaexp.41
+	desc = {
+		trigger = { has_character_flag = atx_mission_won has_character_flag = atx_mission_spirits }
+		text = atlaexp.41.d_won_spirits
+	}
+	desc = {
+		trigger = { has_character_flag = atx_mission_won has_character_flag = atx_mission_lawless }
+		text = atlaexp.41.d_won_lawless
+	}
+	desc = {
+		trigger = { has_character_flag = atx_mission_won has_character_flag = atx_mission_instrument }
+		text = atlaexp.41.d_won_instrument
+	}
+	desc = {
+		trigger = { has_character_flag = atx_mission_won has_character_flag = atx_mission_ironpeace }
+		text = atlaexp.41.d_won_ironpeace
+	}
+	desc = {
+		trigger = { has_character_flag = atx_mission_lost }
+		text = atlaexp.41.d_lost
+	}
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	immediate = {
+		# The burden may have faded, or been lifted by someone else, while the Avatar travelled
+		if = {
+			limit = {
+				OR = {
+					AND = { has_character_flag = atx_mission_spirits NOT = { has_global_flag = atx_leg_spirits } }
+					AND = { has_character_flag = atx_mission_lawless NOT = { has_global_flag = atx_leg_lawless } }
+					AND = { has_character_flag = atx_mission_instrument NOT = { has_global_flag = atx_leg_instrument } }
+					AND = { has_character_flag = atx_mission_ironpeace NOT = { has_global_flag = atx_leg_ironpeace } }
+				}
+			}
+			set_character_flag = atx_mission_won
+		}
+		else = {
+			random_list = {
+				50 = {
+					modifier = { factor = 2 trait = fully_realised_avatar }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_spirits learning = 14 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_spirits learning = 18 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_spirits trait = mystic }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_lawless martial = 14 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_lawless martial = 18 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_instrument intrigue = 14 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_instrument diplomacy = 16 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_ironpeace diplomacy = 14 }
+					modifier = { factor = 1.5 has_character_flag = atx_mission_ironpeace diplomacy = 18 }
+					modifier = { factor = 1.5 trait = kind has_character_flag = atx_mission_ironpeace }
+					set_character_flag = atx_mission_won
+				}
+				50 = {
+					modifier = { factor = 1.5 NOT = { age = 20 } }
+					modifier = { factor = 1.5 trait = craven }
+					set_character_flag = atx_mission_lost
+				}
+			}
+		}
+	}
+
+	option = {
+		name = atlaexp.41.a
+		trigger = { has_character_flag = atx_mission_won }
+		prestige = 150
+		if = {
+			limit = { has_character_flag = atx_mission_spirits has_global_flag = atx_leg_spirits }
+			piety = 100
+			atx_resolve_spirits_effect = yes
+		}
+		if = {
+			limit = { has_character_flag = atx_mission_lawless has_global_flag = atx_leg_lawless }
+			atx_resolve_lawless_effect = yes
+		}
+		if = {
+			limit = { has_character_flag = atx_mission_instrument has_global_flag = atx_leg_instrument }
+			atx_resolve_instrument_effect = yes
+		}
+		if = {
+			limit = { has_character_flag = atx_mission_ironpeace has_global_flag = atx_leg_ironpeace }
+			atx_resolve_ironpeace_effect = yes
+		}
+		atx_end_mission_effect = yes
+	}
+	option = {
+		name = atlaexp.41.b
+		trigger = { has_character_flag = atx_mission_lost }
+		prestige = -50
+		add_character_modifier = { name = atx_avatar_doubted years = 2 }
+		atx_end_mission_effect = yes
+	}
+}
+
+# News: the Avatar sets out on a mission (FROM = the Avatar)
+character_event = {
+	id = atlaexp.42
+	desc = { trigger = { FROM = { has_character_flag = atx_mission_spirits } } text = atlaexp.42.d_spirits }
+	desc = { trigger = { FROM = { has_character_flag = atx_mission_lawless } } text = atlaexp.42.d_lawless }
+	desc = { trigger = { FROM = { has_character_flag = atx_mission_instrument } } text = atlaexp.42.d_instrument }
+	desc = { trigger = { FROM = { has_character_flag = atx_mission_ironpeace } } text = atlaexp.42.d_ironpeace }
+	picture = GFX_evt_avatar_conflict
+	border = GFX_event_normal_frame_avatar
+	is_triggered_only = yes
+
+	trigger = { FROM = { has_character_flag = atx_on_mission } }
+
+	option = {
+		name = atlaexp.42.a
+	}
+}

@@ -186,3 +186,96 @@ atlaexp.5.d_disunion;The Earth Kingdom is in §RDisunion§!: the states count the 
 atlaexp.5.d_territories;The Earth Kingdom is organised as §YTerritories§!: the states owe according to the crown's authority, and none owe obedience. The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. Last year Ba Sing Se itself paid in §Y[global_atx_last_crown.GetValue]§! gold. The resentment of the states stands at §Y[global_atx_resentment.GetValue]§! of 100, and the influence of the Dai Li at §Y[global_atx_daili.GetValue]§! of 100. Last year §Y[global_atx_last_payers.GetValue]§! of the §Y[global_atx_last_owing.GetValue]§! realms that owe the crown something paid §Y[global_atx_last_income.GetValue]§! gold.\n\nTribute fills the treasury. It belongs to the crown, not to us. Each year graft takes a tenth of it (3% if the bureaucracy is paid, 5% more if the Dai Li are strong), and budget programmes, works in progress and the upkeep of finished great works are paid out of it. Far realms will ask for help, and every answer costs either gold or authority.\n\nWorks are built in yearly stages and stall when the treasury runs dry. Earth rulers who resent the crown may sabotage them. Above 25 resentment some states stop paying. Relief calms them. Great works and the Mandate anger them.;;;;;;;;;;;;;x
 atlaexp.5.d_states;The Earth Kingdom is organised as §GStates§!: the states count the crown's authority as 15 higher, and the nearest owe obedience when authority is high. The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. Last year Ba Sing Se itself paid in §Y[global_atx_last_crown.GetValue]§! gold. The resentment of the states stands at §Y[global_atx_resentment.GetValue]§! of 100, and the influence of the Dai Li at §Y[global_atx_daili.GetValue]§! of 100. Last year §Y[global_atx_last_payers.GetValue]§! of the §Y[global_atx_last_owing.GetValue]§! realms that owe the crown something paid §Y[global_atx_last_income.GetValue]§! gold.\n\nTribute fills the treasury. It belongs to the crown, not to us. Each year graft takes a tenth of it (3% if the bureaucracy is paid, 5% more if the Dai Li are strong), and budget programmes, works in progress and the upkeep of finished great works are paid out of it. Far realms will ask for help, and every answer costs either gold or authority.\n\nWorks are built in yearly stages and stall when the treasury runs dry. Earth rulers who resent the crown may sabotage them. Above 25 resentment some states stop paying. Relief calms them. Great works and the Mandate anger them.;;;;;;;;;;;;;x
 atlaexp.5.d_monarchism;The Earth Kingdom is under §GMonarchism§!: the states count the crown's authority as 30 higher, but their resentment fades more slowly. The treasury of Ba Sing Se holds §Y[global_atx_treasury.GetValue]§! gold. Last year Ba Sing Se itself paid in §Y[global_atx_last_crown.GetValue]§! gold. The resentment of the states stands at §Y[global_atx_resentment.GetValue]§! of 100, and the influence of the Dai Li at §Y[global_atx_daili.GetValue]§! of 100. Last year §Y[global_atx_last_payers.GetValue]§! of the §Y[global_atx_last_owing.GetValue]§! realms that owe the crown something paid §Y[global_atx_last_income.GetValue]§! gold.\n\nTribute fills the treasury. It belongs to the crown, not to us. Each year graft takes a tenth of it (3% if the bureaucracy is paid, 5% more if the Dai Li are strong), and budget programmes, works in progress and the upkeep of finished great works are paid out of it. Far realms will ask for help, and every answer costs either gold or authority.\n\nWorks are built in yearly stages and stall when the treasury runs dry. Earth rulers who resent the crown may sabotage them. Above 25 resentment some states stop paying. Relief calms them. Great works and the Mandate anger them.;;;;;;;;;;;;;x
+atlaexp.32.d_fire_strike;The islands answer to us, and the world beyond them is soft. The last Avatar was merciful where they should have been firm, and that mercy left a door open. Our generals have studied the Earth Kingdom's coasts for years. Its harbours are poorly walled and its lords quarrel with Ba Sing Se and with each other.\n\nOne strike, then another. Who would stop us?;;;;;;;;;;;;;x
+atlaexp.32.d_fire_unify;There is no Fire Lord, only a scatter of island lords who each call themselves the heir to one. The last Avatar was merciful where they should have been firm, and in the silence they left, ambition has room to grow.\n\nThe islands could be one nation again, under one ruler. Under us.;;;;;;;;;;;;;x
+atlaexp.32.d_earth;Ba Sing Se has lost its grip. Its king's word carries no further than the Outer Wall, and the realms of the Earth Kingdom go their own way. The last Avatar was merciful where they should have been firm, and nobody has stopped anyone in a long time.\n\nThe Earth Kingdom needs a ruler who can hold it together, by force if need be. It needs an Empire.;;;;;;;;;;;;;x
+atlaexp.32.a;Seize the moment.;;;;;;;;;;;;;x
+atlaexp.32.a_tt;We become the champion of Unchecked Ambition. We may wage special wars of conquest until we are stopped, by defeat, by death or by the Avatar.;;;;;;;;;;;;;x
+atlaexp.32.b;Let it pass.;;;;;;;;;;;;;x
+atlaexp.33.d;Every Avatar solves one problem and leaves another behind. The elders who found you have told you what your past life could not finish. The world is waiting to see whether you will.;;;;;;;;;;;;;x
+atlaexp.33.a;Then I will see to it.;;;;;;;;;;;;;x
+atx_leg_spirits_tt;Restless Spirits: the last Avatar neglected the spirits. Each year, spirits trouble four more provinces. The Avatar can calm them.;;;;;;;;;;;;;x
+atx_leg_lawless_tt;Daofei Country: the Avatar died young or abandoned their duties. Each year, bandits take hold of four more Earth Kingdom provinces. The Avatar can hunt them down.;;;;;;;;;;;;;x
+atx_leg_instrument_tt;A Dangerous Instrument: the last Avatar built institutions that outlived their purpose. The Dai Li grew stronger. The Avatar can rein them in.;;;;;;;;;;;;;x
+atx_leg_ambition_tt;Unchecked Ambition: the last Avatar was merciful where they should have been firm. An ambitious ruler may rise to conquer. The Avatar can confront them.;;;;;;;;;;;;;x
+atx_leg_ironpeace_tt;An Iron Peace: the last Avatar imposed peace by force. Earth realms resent Ba Sing Se more. The Avatar can heal the divide.;;;;;;;;;;;;;x
+atx_champion_named_tt;A champion of Unchecked Ambition is waging their wars.;;;;;;;;;;;;;x
+atlaexp.34.d_spirits;The Avatar [From.GetFirstName] is dead. They spent their life on the quarrels of nations and seldom crossed into the Spirit World. Now the spirits are angry, and nobody is left who knows how to speak to them.;;;;;;;;;;;;;x
+atlaexp.34.d_lawless;The Avatar [From.GetFirstName] is dead. Their time was too short, or they turned away from it. In the years they could not cover, daofei have taken the roads and the hills of the Earth Kingdom.;;;;;;;;;;;;;x
+atlaexp.34.d_instrument;The Avatar [From.GetFirstName] is dead. They built well, but what they built does not die with them. The Dai Li, sworn to protect the culture of Ba Sing Se, now answer to fewer people every year.;;;;;;;;;;;;;x
+atlaexp.34.d_ambition;The Avatar [From.GetFirstName] is dead. They spared those they should have stopped. Ambitious rulers have noticed that the Avatar forgives, and they wonder how far forgiveness goes.;;;;;;;;;;;;;x
+atlaexp.34.d_ironpeace;The Avatar [From.GetFirstName] is dead. They kept the peace by breaking those who broke it. The peace held, but the Earth realms remember who bent their knees for them.;;;;;;;;;;;;;x
+atlaexp.34.a;Every Avatar leaves something behind.;;;;;;;;;;;;;x
+atlaexp.35.d_spirits;The spirits are calm again. The Avatar walked between the worlds and listened, and the haunted places have gone quiet.;;;;;;;;;;;;;x
+atlaexp.35.d_lawless;The daofei are broken. The Avatar has hunted the bandit lords out of the hills, and the roads of the Earth Kingdom are safe to travel again.;;;;;;;;;;;;;x
+atlaexp.35.d_instrument;The Dai Li have been reined in. The Avatar has seen to it that the agents of Lake Laogai answer to the crown again, and not the other way round.;;;;;;;;;;;;;x
+atlaexp.35.d_ambition;The champion of ambition has stood down. Whether by the Avatar's words or by the Avatar's strength, their wars of conquest are over.;;;;;;;;;;;;;x
+atlaexp.35.d_ironpeace;The old wounds are closing. The Avatar has spoken with the lords who were broken to keep the peace, and the Earth realms resent Ba Sing Se a little less.;;;;;;;;;;;;;x
+atlaexp.35.a;The world is a little lighter.;;;;;;;;;;;;;x
+atlaexp.36.d;Every Avatar solves one problem and leaves another. These are the burdens the world carries now. Each fades on its own in about fifty years, unless the Avatar lifts it first.;;;;;;;;;;;;;x
+atlaexp.36.a;I see.;;;;;;;;;;;;;x
+atlaexp.37.d;The Avatar has come to [Root.GetTitledName]. They do not come with an army. They come alone, and they ask for the wars to end.\n\nOur generals say the Avatar is one person. Our advisors remind us what one Avatar has done before.;;;;;;;;;;;;;x
+atlaexp.37.a;We will stand down.;;;;;;;;;;;;;x
+atlaexp.37.b;The Avatar does not rule here.;;;;;;;;;;;;;x
+atlaexp.38.d;[From.GetTitledName] has refused to end their wars. They heard you out and then sent you away.\n\nYou could stand beside the people they attack. The Avatar does not take sides lightly, but there are times when the Avatar has to.;;;;;;;;;;;;;x
+atlaexp.38.a;I will fight beside those they attack.;;;;;;;;;;;;;x
+atlaexp.38.b;Not yet. I will wait and watch.;;;;;;;;;;;;;x
+atlaexp.39.d_fire_strike;Word has come from the Fire Islands. The Fire Lord has turned their eyes to the Earth Kingdom's coasts, and the fleets are gathering. Some say the Avatar should have stopped this long ago.;;;;;;;;;;;;;x
+atlaexp.39.d_fire_unify;Word has come from the Fire Islands. One of the island lords has declared that the Fire Nation will be one again, and they mean to unite it by fire.;;;;;;;;;;;;;x
+atlaexp.39.d_earth;With Ba Sing Se too weak to hold the Earth Kingdom together, an Earth ruler has taken up the cause of Earth imperialism. They mean to unite the realms by force, and some whisper of an Earth Empire.;;;;;;;;;;;;;x
+atlaexp.39.a;Where is the Avatar?;;;;;;;;;;;;;x
+atlaexp.40.d;[From.GetTitledName] has proclaimed the Earth Empire from the Royal Palace of Ba Sing Se. The old Earth Kingdom is a memory, and a single ruler means to hold all of it.;;;;;;;;;;;;;x
+atlaexp.40.a;An Empire, then.;;;;;;;;;;;;;x
+atlaexp.41.d_won_spirits;You crossed into the Spirit World and stayed until the angry spirits would speak with you. It took patience. In the end they listened, and the haunted places of the world have gone quiet.;;;;;;;;;;;;;x
+atlaexp.41.d_won_lawless;You spent months in the hills of the Earth Kingdom, tracking bandit lords to their camps and breaking them one by one. The roads are safe again.;;;;;;;;;;;;;x
+atlaexp.41.d_won_instrument;You went into Lake Laogai and came out again. The Dai Li now know the Avatar is watching, and they answer to the crown once more.;;;;;;;;;;;;;x
+atlaexp.41.d_won_ironpeace;You went from court to court and listened to every lord who was broken to keep the peace. Words cannot undo what was done, but they can stop it from festering.;;;;;;;;;;;;;x
+atlaexp.41.d_lost;You did all you could, and it was not enough. Not this time. People are saying the Avatar is not what they used to be. You will have to try again.;;;;;;;;;;;;;x
+atlaexp.41.a;It is done.;;;;;;;;;;;;;x
+atlaexp.41.b;Next time.;;;;;;;;;;;;;x
+atlaexp.42.d_spirits;The Avatar [From.GetFirstName] has set out for the Spirit World to calm the restless spirits.;;;;;;;;;;;;;x
+atlaexp.42.d_lawless;The Avatar [From.GetFirstName] has set out to hunt the daofei who plague the Earth Kingdom.;;;;;;;;;;;;;x
+atlaexp.42.d_instrument;The Avatar [From.GetFirstName] has gone to Ba Sing Se to rein in the Dai Li.;;;;;;;;;;;;;x
+atlaexp.42.d_ironpeace;The Avatar [From.GetFirstName] is travelling from court to court to heal the old divide between Ba Sing Se and the Earth realms.;;;;;;;;;;;;;x
+atlaexp.42.a;Good luck to them.;;;;;;;;;;;;;x
+atx_avatar_calm_spirits;Calm the Restless Spirits;;;;;;;;;;;;;x
+atx_avatar_calm_spirits_desc;Cross into the Spirit World and make peace with the spirits the last Avatar neglected. The mission takes six months to a year and can fail.;;;;;;;;;;;;;x
+atx_avatar_hunt_daofei;Hunt the Daofei;;;;;;;;;;;;;x
+atx_avatar_hunt_daofei_desc;Go into the hills of the Earth Kingdom and break the bandit lords. The mission takes six months to a year and can fail.;;;;;;;;;;;;;x
+atx_avatar_rein_daili;Rein in the Dai Li;;;;;;;;;;;;;x
+atx_avatar_rein_daili_desc;Go to Ba Sing Se and remind the Dai Li whom they serve. The mission takes six months to a year and can fail.;;;;;;;;;;;;;x
+atx_avatar_heal_divide;Heal the Divide;;;;;;;;;;;;;x
+atx_avatar_heal_divide_desc;Travel from court to court and make amends for the peace the last Avatar imposed. The mission takes six months to a year and can fail.;;;;;;;;;;;;;x
+atx_avatar_confront_champion;Confront the Champion of Ambition;;;;;;;;;;;;;x
+atx_avatar_confront_champion_desc;Go to this ruler and demand that their wars of conquest end. They may refuse.;;;;;;;;;;;;;x
+atx_mission_cooldown_tt;The Avatar must rest for two years after a mission.;;;;;;;;;;;;;x
+atx_confront_cooldown_tt;The Avatar confronted a champion less than five years ago.;;;;;;;;;;;;;x
+atx_view_legacies;The Avatar's Legacy;;;;;;;;;;;;;x
+atx_view_legacies_desc;See which burdens past Avatars have left on the world.;;;;;;;;;;;;;x
+atx_proclaim_earth_empire;Found the Earth Empire;;;;;;;;;;;;;x
+atx_proclaim_earth_empire_desc;Ba Sing Se is ours. Proclaim the Earth Empire and rule all the Earth Kingdom as its Great Uniter.;;;;;;;;;;;;;x
+atx_ambition_unchecked;Unchecked Ambition;;;;;;;;;;;;;x
+atx_ambition_unchecked_desc;This ruler has taken up the cause of conquest that the last Avatar left unchecked.;;;;;;;;;;;;;x
+atx_defied_avatar;Defied the Avatar;;;;;;;;;;;;;x
+atx_defied_avatar_desc;This ruler sent the Avatar away. Many people have not forgotten.;;;;;;;;;;;;;x
+atx_humbled_by_avatar;Humbled by the Avatar;;;;;;;;;;;;;x
+atx_humbled_by_avatar_desc;This ruler gave up their conquests when the Avatar asked.;;;;;;;;;;;;;x
+atx_avatar_fights_beside_us;The Avatar Fights Beside Us;;;;;;;;;;;;;x
+atx_avatar_fights_beside_us_desc;The Avatar has taken our side against an aggressor. Our soldiers fight harder for it.;;;;;;;;;;;;;x
+atx_avatar_on_mission;On the Avatar's Mission;;;;;;;;;;;;;x
+atx_avatar_on_mission_desc;The Avatar is away, trying to lift a burden left by a past life.;;;;;;;;;;;;;x
+atx_avatar_doubted;The Avatar Doubted;;;;;;;;;;;;;x
+atx_avatar_doubted_desc;The Avatar's last mission failed, and people have noticed.;;;;;;;;;;;;;x
+atx_restless_spirits;Restless Spirits;;;;;;;;;;;;;x
+atx_restless_spirits_desc;Angry spirits haunt this place. People are afraid to work the fields.;;;;;;;;;;;;;x
+atx_daofei_country;Daofei Country;;;;;;;;;;;;;x
+atx_daofei_country_desc;Bandits rule the roads and the hills here.;;;;;;;;;;;;;x
+CB_ATX_CB_FIRE_STRIKE;Strike the Earth Coast - [Title.GetBaseName];;;;;;;;;;;;;x
+WAR_ATX_CB_FIRE_STRIKE;Fire Nation Strike - [Title.GetBaseName];;;;;;;;;;;;;x
+atx_cb_fire_strike_desc;Unchecked Ambition: the Fire Nation is united and its ruler looks to the Earth Kingdom's coasts.;;;;;;;;;;;;;x
+CB_ATX_CB_FIRE_UNIFICATION;Unite the Fire Islands - [Title.GetBaseName];;;;;;;;;;;;;x
+WAR_ATX_CB_FIRE_UNIFICATION;Fire Islands Unification - [Title.GetBaseName];;;;;;;;;;;;;x
+atx_cb_fire_unification_desc;Unchecked Ambition: the Fire Nation has no Fire Lord, and this ruler means to unite the islands by force.;;;;;;;;;;;;;x
+CB_ATX_CB_EARTH_UNIFICATION;Earth Imperialism - [Title.GetBaseName];;;;;;;;;;;;;x
+WAR_ATX_CB_EARTH_UNIFICATION;Earth Imperialist War - [Title.GetBaseName];;;;;;;;;;;;;x
+atx_cb_earth_unification_desc;Unchecked Ambition: Ba Sing Se is weak, and this ruler means to unite the Earth Kingdom by force.;;;;;;;;;;;;;x

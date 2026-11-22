@@ -57,3 +57,42 @@ atx_daili_ascendant = {
 	vassal_opinion = -10
 	defensive_plot_power_modifier = 0.2
 }
+
+# v0.6 Avatar legacies
+atx_ambition_unchecked = {
+	icon = 7
+	martial = 2
+	land_morale = 0.1
+	monthly_character_prestige = 0.5
+}
+atx_defied_avatar = {
+	icon = 1
+	general_opinion = -15
+}
+atx_humbled_by_avatar = {
+	icon = 1
+	monthly_character_prestige = -0.5
+}
+atx_avatar_fights_beside_us = {
+	icon = 7
+	land_morale = 0.15
+	levy_size = 0.1
+}
+atx_avatar_on_mission = {
+	icon = 24
+	monthly_character_piety = 0.5
+}
+atx_avatar_doubted = {
+	icon = 1
+	general_opinion = -5
+}
+atx_restless_spirits = {
+	icon = 1
+	local_tax_modifier = -0.2
+	local_revolt_risk = 0.02
+}
+atx_daofei_country = {
+	icon = 1
+	local_tax_modifier = -0.15
+	local_revolt_risk = 0.03
+}
